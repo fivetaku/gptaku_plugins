@@ -26,3 +26,6 @@ jobs:
 
       - name: Validate command frontmatter
         run: python3 tools/validate_commands.py
+
+      - name: Validate skill contracts
+        run: python3 tools/validate_skill_contracts.py
