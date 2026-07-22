@@ -31,11 +31,22 @@ REQUIRED = {
         "수렴 규칙",
         "execution_proof",
         "observed_at",
+        # v2.8 Workflow 팬아웃 계약
+        "실행 모드 선택",
+        "workflow_fanout",
+    ],
+    "plugins/insane-research/skills/insane-research-main/references/workflow_fanout.md": [
+        "AGENT_RETURN_SCHEMA",
+        "검색 예산 회계",
+        "merge_agent_returns.py",
+        "배치 모드로 보충",
     ],
     "plugins/insane-research/skills/insane-research-main/references/tool_strategy.md": [
         "insane-search 엔진 위임",
         "검색 크래프트",
         "to_untrusted_text",
+        "세션당 200회 캡",
+        "lossy",
     ],
     "plugins/insane-research/skills/insane-research-main/references/agent_prompts.md": [
         "스폰 메시지 표준 3요소",
