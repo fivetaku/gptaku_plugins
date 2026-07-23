@@ -47,6 +47,9 @@ REQUIRED = {
         "to_untrusted_text",
         "세션당 200회 캡",
         "lossy",
+        # v2.8.1 비동기 위임
+        "비동기 위임",
+        "수거 전 반환 금지",
     ],
     "plugins/insane-research/skills/insane-research-main/references/agent_prompts.md": [
         "스폰 메시지 표준 3요소",
