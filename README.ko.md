@@ -6,10 +6,10 @@
 
 **원하는 걸 구구절절 설명하지 마세요 — Claude Code에게 직접 시키세요.**
 
-차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 15개의 플러그인.
+차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 14개의 플러그인.
 
 <p>
-  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-15-6E56CF" alt="15 plugins"></a>
+  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-14-6E56CF" alt="14 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -125,14 +125,6 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
-  <td>골이 진짜 끝나기 전에 조용히 멈춰버릴 때</td>
-  <td><code>insane-loop</code></td>
-</tr>
-<tr>
-  <td>폴더마다 규칙·훅·도구 세팅을 매번 손으로 하는 상황</td>
-  <td><code>insane-harness</code></td>
-</tr>
-<tr>
   <td>대규모 개발 작업을 여러 워커로 나누어 동시 실행하고 싶을 때</td>
   <td><code>pumasi</code> 또는 <code>kkirikkiri</code></td>
 </tr>
@@ -169,10 +161,6 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
 대부분의 플러그인은 활성화된 Claude Code 세션만 있으면 작동하며, **추가 API 키가 필요 없습니다.** 외부 서비스 연동이 필요한 일부 예외는 아래와 같습니다:
 
 <table width="100%">
-<tr>
-  <td width="25%"><strong>Claude Code 전용</strong><br><em>(인증 불필요)</em></td>
-  <td><code>insane-search</code>, <code>insane-design</code>, <code>insane-research</code>, <code>docs-guide</code>, <code>git-teacher</code>, <code>show-me-the-prd</code>, <code>goaljaby</code>, <code>insane-loop</code>, <code>kkirikkiri</code>, <code>skillers-suda</code>, <code>vibe-sunsang</code>, <code>dd</code>, <code>insane-harness</code></td>
-</tr>
 <tr>
   <td width="25%"><strong>Google Workspace OAuth</strong></td>
   <td><code>nopal</code> (구글 계정 및 <code>gws</code> CLI를 통한 최초 1회 로그인 인증 필요)</td>
@@ -232,10 +220,6 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
   <td>PRD에서 <code>/goal</code> 실행 계약으로 연결 — 검토용 분석 요약 보고서 제공.</td>
 </tr>
 <tr>
-  <td width="25%"><strong><a href="./plugins/insane-loop">insane-loop</a></strong></td>
-  <td>아이디어 → 완성: 문서로 정의된 완성(DoD)까지 <code>/goal</code> 안에서 검증→리뷰→개선 루프.</td>
-</tr>
-<tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/pumasi">pumasi</a></strong></td>
   <td>PM 역할의 Claude Code + Codex CLI 병렬 워커들을 통한 대규모 분산 코딩.</td>
 </tr>
@@ -263,10 +247,6 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
 
 ### ⚙️ 워크스페이스 연동
 <table width="100%">
-<tr>
-  <td width="25%"><strong><a href="https://github.com/fivetaku/insane-harness">insane-harness</a></strong></td>
-  <td>세션 로그로 워크스페이스를 진단하고, 승인 게이트를 거쳐 함께 진화하는 하네스를 적용.</td>
-</tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/nopal">nopal</a></strong></td>
   <td>Google Workspace 9대 서비스 오케스트레이션.</td>

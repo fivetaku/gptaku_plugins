@@ -6,11 +6,11 @@
 
 **Deja de explicar lo que quieres — que Claude Code lo haga.**
 
-15 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
+14 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
 revisan tu código y convierten ideas en bruto en PRDs — todo dentro de Claude Code.
 
 <p>
-  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-15-6E56CF" alt="15 plugins"></a>
+  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-14-6E56CF" alt="14 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -126,14 +126,6 @@ Un pipeline de 7 fases: delimita la pregunta, despliega agentes de investigació
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
-  <td>Un objetivo que se detiene en silencio antes de estar realmente terminado</td>
-  <td><code>insane-loop</code></td>
-</tr>
-<tr>
-  <td>Un workspace cuyas reglas, hooks y herramientas montas a mano cada vez</td>
-  <td><code>insane-harness</code></td>
-</tr>
-<tr>
   <td>Un desarrollo grande que conviene repartir entre varios workers</td>
   <td><code>pumasi</code> o <code>kkirikkiri</code></td>
 </tr>
@@ -170,10 +162,6 @@ Un pipeline de 7 fases: delimita la pregunta, despliega agentes de investigació
 La mayoría de los plugins solo necesitan una sesión de Claude Code en marcha — **sin clave de API adicional.** Las pocas excepciones que se conectan a servicios externos lo dicen de entrada:
 
 <table width="100%">
-<tr>
-  <td width="25%"><strong>Solo Claude Code</strong><br><em>(Sin credenciales)</em></td>
-  <td><code>insane-search</code>, <code>insane-design</code>, <code>insane-research</code>, <code>docs-guide</code>, <code>git-teacher</code>, <code>show-me-the-prd</code>, <code>goaljaby</code>, <code>insane-loop</code>, <code>kkirikkiri</code>, <code>skillers-suda</code>, <code>vibe-sunsang</code>, <code>dd</code>, <code>insane-harness</code></td>
-</tr>
 <tr>
   <td width="25%"><strong>OAuth de Google Workspace</strong></td>
   <td><code>nopal</code> (requiere una cuenta de Google y una validación de inicio de sesión única a través del CLI <code>gws</code>)</td>
@@ -233,10 +221,6 @@ Todos los plugins son de código abierto. El README de cada submódulo detalla s
   <td>PRD → contrato de ejecución de workflow <code>/goal</code> revisado.</td>
 </tr>
 <tr>
-  <td width="25%"><strong><a href="./plugins/insane-loop">insane-loop</a></strong></td>
-  <td>Idea → hecho: itera verificar→revisar→mejorar dentro de <code>/goal</code> hasta cumplir el DoD documentado.</td>
-</tr>
-<tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/pumasi">pumasi</a></strong></td>
   <td>Claude Code como PM + Codex CLI como equipo de desarrollo en paralelo.</td>
 </tr>
@@ -264,10 +248,6 @@ Todos los plugins son de código abierto. El README de cada submódulo detalla s
 
 ### ⚙️ Espacio de trabajo
 <table width="100%">
-<tr>
-  <td width="25%"><strong><a href="https://github.com/fivetaku/insane-harness">insane-harness</a></strong></td>
-  <td>Diagnostica un workspace desde los registros de sesión y aplica un harness con aprobación que crece con él.</td>
-</tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/nopal">nopal</a></strong></td>
   <td>Orquestación de Google Workspace — 9 servicios.</td>
