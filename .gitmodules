@@ -43,3 +43,6 @@
 [submodule "plugins/insane-review"]
 	path = plugins/insane-review
 	url = https://github.com/fivetaku/insane-review.git
+[submodule "plugins/gaseo"]
+	path = plugins/gaseo
+	url = https://github.com/fivetaku/gaseo.git

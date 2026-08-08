@@ -6,10 +6,10 @@
 
 **원하는 걸 구구절절 설명하지 마세요 — Claude Code에게 직접 시키세요.**
 
-차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 14개의 플러그인.
+차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 15개의 플러그인.
 
 <p>
-  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-14-6E56CF" alt="14 plugins"></a>
+  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-15-6E56CF" alt="15 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -254,6 +254,10 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/dd">dd</a></strong></td>
   <td>클립보드 텍스트 및 이미지를 대화창 없이 직접 주입 (<code>/dd</code>, <code>/ㅇㅇ</code>).</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/gaseo">gaseo</a></strong></td>
+  <td>지금 대화 중인 Claude Code 세션을 Paseo로 보낸다 (<code>/gaseo</code>).</td>
 </tr>
 </table>
 

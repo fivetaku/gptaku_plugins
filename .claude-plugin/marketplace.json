@@ -63,7 +63,7 @@
     },
     {
       "name": "pumasi",
-      "description": "Parallel coding orchestration — Claude as PM, Codex CLI instances as parallel developers with 7-phase workflow.",
+      "description": "Parallel coding orchestration + Codex image generation — /pumasi for parallel code, /pumasi:image for AI image generation",
       "source": "./plugins/pumasi",
       "category": "development",
       "tags": [
@@ -77,7 +77,7 @@
     },
     {
       "name": "show-me-the-prd",
-      "description": "Interview-driven PRD generator for vibe coders — from one sentence to 4 design documents (PRD, data model, phases, project spec).",
+      "description": "Draft-first PRD generator — probe the real problem, draft 4 design documents immediately, confirm assumptions in one batch",
       "source": "./plugins/show-me-the-prd",
       "category": "productivity",
       "tags": [
@@ -91,7 +91,7 @@
     },
     {
       "name": "kkirikkiri",
-      "description": "Natural language team builder for Claude Code Agent Teams — create purpose-driven AI teams with a single sentence. Research, development, analysis, content teams with quality verification loops.",
+      "description": "Natural language team builder for Claude Code — one sentence becomes an AI team (Agent Teams) or a deterministic agent pipeline (Workflows). User picks the execution substrate; models are tiered (Opus lead/judge, Sonnet workers, cross-model review via Codex/agy)",
       "source": "./plugins/kkirikkiri",
       "category": "productivity",
       "tags": [
@@ -106,7 +106,7 @@
     },
     {
       "name": "skillers-suda",
-      "description": "4 persona interview-driven skill builder for vibe coders — transform vague ideas into working multi-step workflow skills with prompt/script/API/MCP/RAG step types.",
+      "description": "4 persona Agent Team skill builder — spawn real agents to analyze and debate, then build working skills with auto eval/benchmark, description optimization via run_loop, and .skill packaging",
       "source": "./plugins/skillers-suda",
       "category": "development",
       "tags": [
@@ -121,7 +121,7 @@
     },
     {
       "name": "nopal",
-      "description": "Google Workspace orchestration — orchestrate 9 services (Gmail, Calendar, Drive, Sheets, Docs, Slides, Chat, Tasks, Meet) with natural language via gws CLI. No Opal needed.",
+      "description": "Google Workspace 9개 서비스를 자연어로 오케스트레이션하는 Claude Code 플러그인 — No Opal needed",
       "source": "./plugins/nopal",
       "category": "productivity",
       "tags": [
@@ -137,7 +137,7 @@
     },
     {
       "name": "insane-search",
-      "description": "Platform-specific access strategies for AI agents — auto-bypasses blocked sites (X/Twitter, Reddit, Stack Overflow, Naver) without API keys.",
+      "description": "Platform-specific access strategies for AI agents — adaptively accesses blocked sites (X/Twitter, Reddit, Stack Overflow, Naver, Coupang, LinkedIn) without API keys. Phase 0→3 adaptive scheduler with curl_cffi TLS impersonation and auto dependency install.",
       "source": "./plugins/insane-search",
       "category": "productivity",
       "tags": [
@@ -154,7 +154,7 @@
     },
     {
       "name": "insane-design",
-      "description": "Design system analyze + apply + build — extract any URL's CSS, apply to your project, or scaffold from scratch with §18 DON'T grep contract.",
+      "description": "Design system extractor, applier, and builder — analyze any URL, apply to your project, or build from scratch with deterministic CSS + §18 DON'T grep contract",
       "source": "./plugins/insane-design",
       "category": "development",
       "tags": [
@@ -171,7 +171,7 @@
     },
     {
       "name": "insane-review",
-      "description": "Use GPT-5.5 Pro (web-only, no API) from inside Claude Code — repomix-pack only the relevant code, send to subscription ChatGPT Pro, and harvest the review/opinion. Standalone reviewer or agent-council web-only member.",
+      "description": "GPT Pro(웹 전용·API 없음 — 최신 플래그십 모델의 Pro 추론)를 Claude Code 안에서 활용 — repomix로 관련 코드만 정밀 패킹 → 구독 ChatGPT Pro에 투입 → 분석/의견 회수. agent-council 웹 전용 멤버로도 통합.",
       "source": "./plugins/insane-review",
       "category": "development",
       "tags": [
@@ -212,6 +212,20 @@
         "screenshot",
         "dd",
         "paste"
+      ]
+    },
+    {
+      "name": "gaseo",
+      "description": "Register a Claude Code session with Paseo so it shows up in the app and you can continue it there.",
+      "source": "./plugins/gaseo",
+      "category": "productivity",
+      "tags": [
+        "paseo",
+        "session",
+        "import",
+        "resume",
+        "handoff",
+        "mobile"
       ]
     }
   ]
