@@ -46,3 +46,6 @@
 [submodule "plugins/gaseo"]
 	path = plugins/gaseo
 	url = https://github.com/fivetaku/gaseo.git
+[submodule "plugins/insane-video"]
+	path = plugins/insane-video
+	url = https://github.com/fivetaku/insane-video.git
