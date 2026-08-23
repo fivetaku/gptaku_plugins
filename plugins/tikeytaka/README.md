@@ -2,6 +2,10 @@ English | [한국어](README.ko.md) | [日本語](README.ja.md) | [Español](REA
 
 # tikeytaka
 
+<p align="center">
+  <img src="assets/tikeytaka-hero-01.png" alt="tikeytaka" width="320">
+</p>
+
 Central API key vault plugin — consolidate keys scattered across `.env` files into one encrypted vault, register new keys without exposing them in chat, and propagate a single update to every project. While you tiki-taka with the AI, keys are looked up and wired in automatically.
 
 ## Quick Start

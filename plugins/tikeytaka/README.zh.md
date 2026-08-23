@@ -2,6 +2,10 @@
 
 # tikeytaka
 
+<p align="center">
+  <img src="assets/tikeytaka-hero-01.png" alt="tikeytaka" width="320">
+</p>
+
 API 密钥中央保险库插件 — 把散落在各个 `.env` 中的密钥整合进一个加密保险库，注册新密钥时不在聊天中暴露，一次更新即可传播到所有项目。当你与 AI「踢踏配合」时，密钥会被自动查询并接入。
 
 ## Quick Start

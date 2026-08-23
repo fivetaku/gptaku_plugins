@@ -2,6 +2,10 @@
 
 # tikeytaka
 
+<p align="center">
+  <img src="assets/tikeytaka-hero-01.png" alt="tikeytaka" width="320">
+</p>
+
 Plugin de bóveda central de claves API — consolida las claves dispersas en archivos `.env` en una única bóveda cifrada, registra claves nuevas sin exponerlas en el chat y propaga una sola actualización a todos los proyectos. Mientras haces tiki-taka con la IA, las claves se consultan y conectan automáticamente.
 
 ## Quick Start

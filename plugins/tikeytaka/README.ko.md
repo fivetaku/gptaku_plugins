@@ -2,6 +2,10 @@
 
 # tikeytaka (티키타카)
 
+<p align="center">
+  <img src="assets/tikeytaka-hero-01.png" alt="tikeytaka" width="320">
+</p>
+
 API 키 중앙 볼트 플러그인 — 흩어진 `.env`의 키를 암호화 볼트 하나로 모으고, 채팅에 키를 노출하지 않고 등록하며, 갱신 한 번으로 모든 프로젝트에 전파합니다. AI와 티키타카하는 동안 키는 자동으로 조회·연결됩니다.
 
 ## Quick Start

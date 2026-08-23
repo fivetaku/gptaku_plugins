@@ -2,6 +2,10 @@
 
 # tikeytaka
 
+<p align="center">
+  <img src="assets/tikeytaka-hero-01.png" alt="tikeytaka" width="320">
+</p>
+
 APIキー中央ボールトプラグイン — 散らばった `.env` のキーを1つの暗号化ボールトに集約し、チャットにキーを晒さず登録、1回の更新を全プロジェクトへ伝播します。AIとティキタカしている間、キーは自動で照会・接続されます。
 
 ## Quick Start
