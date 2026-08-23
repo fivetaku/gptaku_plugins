@@ -1,13 +1,2500 @@
 pumasi:
+  # ── 외주 워커 CLI 선택 (defaults.command 또는 task별 command 로 지정) ──
+  # codex (기본) : "codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check"
+  # grok         : "grok --no-auto-update --no-alt-screen --sandbox workspace --always-approve -p"
+  #                # xAI Grok Build. 샌드박스가 기본 off라 workspace로 조이고, 자동 업데이터를 끈다.
+  # gajae-code   : "gjc --print"                            # 멀티모델 코딩 CLI. 프롬프트가 --print 뒤 positional(MESSAGE)로 전달됨
+  # antigravity  : "agy --dangerously-skip-permissions -p"  # Gemini CLI 후계 (디자인/UI)
+  # ※ codex 외 CLI는 --output-schema 미지원 → report.json 없이 output.txt 기반 통합 (graceful)
+  # ※ task별로 다른 command 지정 가능 → 모듈마다 다른 CLI에 병렬 외주
   defaults:
-    command: "codex exec --dangerously-bypass-approvals-and-sandbox"
-    emoji: "🎨"
+    command: "codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check"
+    emoji: "🔍"
 
-  tasks: []
-  # tasks 예시:
-  # - name: some-task
-  #   instruction: |
-  #     작업 지시서...
-  #   gates:
-  #     - bash: "test -f some/file.md"
-  #       label: "파일 존재 확인"
+  tasks:
+    - name: verify-react
+      instruction: |
+        URL 검증 — React.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://react.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/react.txt 에 다음 형식으로 저장:
+        SERVICE: React
+        ORIGINAL: https://react.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/react.txt"
+          label: "verify report exists"
+    - name: verify-next-js
+      instruction: |
+        URL 검증 — Next.js.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://nextjs.org/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/next-js.txt 에 다음 형식으로 저장:
+        SERVICE: Next.js
+        ORIGINAL: https://nextjs.org/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/next-js.txt"
+          label: "verify report exists"
+    - name: verify-vue
+      instruction: |
+        URL 검증 — Vue.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://vuejs.org/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/vue.txt 에 다음 형식으로 저장:
+        SERVICE: Vue
+        ORIGINAL: https://vuejs.org/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/vue.txt"
+          label: "verify report exists"
+    - name: verify-svelte
+      instruction: |
+        URL 검증 — Svelte.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://svelte.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/svelte.txt 에 다음 형식으로 저장:
+        SERVICE: Svelte
+        ORIGINAL: https://svelte.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/svelte.txt"
+          label: "verify report exists"
+    - name: verify-angular
+      instruction: |
+        URL 검증 — Angular.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://angular.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/angular.txt 에 다음 형식으로 저장:
+        SERVICE: Angular
+        ORIGINAL: https://angular.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/angular.txt"
+          label: "verify report exists"
+    - name: verify-astro
+      instruction: |
+        URL 검증 — Astro.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.astro.build/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/astro.txt 에 다음 형식으로 저장:
+        SERVICE: Astro
+        ORIGINAL: https://docs.astro.build/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/astro.txt"
+          label: "verify report exists"
+    - name: verify-nuxt
+      instruction: |
+        URL 검증 — Nuxt.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://nuxt.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/nuxt.txt 에 다음 형식으로 저장:
+        SERVICE: Nuxt
+        ORIGINAL: https://nuxt.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/nuxt.txt"
+          label: "verify report exists"
+    - name: verify-chakra-ui
+      instruction: |
+        URL 검증 — Chakra UI.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://chakra-ui.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/chakra-ui.txt 에 다음 형식으로 저장:
+        SERVICE: Chakra UI
+        ORIGINAL: https://chakra-ui.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/chakra-ui.txt"
+          label: "verify report exists"
+    - name: verify-mantine
+      instruction: |
+        URL 검증 — Mantine.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://mantine.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/mantine.txt 에 다음 형식으로 저장:
+        SERVICE: Mantine
+        ORIGINAL: https://mantine.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/mantine.txt"
+          label: "verify report exists"
+    - name: verify-nx--monorepo
+      instruction: |
+        URL 검증 — Nx (monorepo).
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://nx.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/nx--monorepo.txt 에 다음 형식으로 저장:
+        SERVICE: Nx (monorepo)
+        ORIGINAL: https://nx.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/nx--monorepo.txt"
+          label: "verify report exists"
+    - name: verify-django
+      instruction: |
+        URL 검증 — Django.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.djangoproject.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/django.txt 에 다음 형식으로 저장:
+        SERVICE: Django
+        ORIGINAL: https://docs.djangoproject.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/django.txt"
+          label: "verify report exists"
+    - name: verify-hono
+      instruction: |
+        URL 검증 — Hono.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://hono.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/hono.txt 에 다음 형식으로 저장:
+        SERVICE: Hono
+        ORIGINAL: https://hono.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/hono.txt"
+          label: "verify report exists"
+    - name: verify-prisma
+      instruction: |
+        URL 검증 — Prisma.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://www.prisma.io/docs/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/prisma.txt 에 다음 형식으로 저장:
+        SERVICE: Prisma
+        ORIGINAL: https://www.prisma.io/docs/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/prisma.txt"
+          label: "verify report exists"
+    - name: verify-supabase
+      instruction: |
+        URL 검증 — Supabase.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://supabase.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/supabase.txt 에 다음 형식으로 저장:
+        SERVICE: Supabase
+        ORIGINAL: https://supabase.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/supabase.txt"
+          label: "verify report exists"
+    - name: verify-drizzle-orm
+      instruction: |
+        URL 검증 — Drizzle ORM.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://orm.drizzle.team/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/drizzle-orm.txt 에 다음 형식으로 저장:
+        SERVICE: Drizzle ORM
+        ORIGINAL: https://orm.drizzle.team/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/drizzle-orm.txt"
+          label: "verify report exists"
+    - name: verify-typeorm
+      instruction: |
+        URL 검증 — TypeORM.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://typeorm.io/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/typeorm.txt 에 다음 형식으로 저장:
+        SERVICE: TypeORM
+        ORIGINAL: https://typeorm.io/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/typeorm.txt"
+          label: "verify report exists"
+    - name: verify-mongodb
+      instruction: |
+        URL 검증 — MongoDB.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://www.mongodb.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/mongodb.txt 에 다음 형식으로 저장:
+        SERVICE: MongoDB
+        ORIGINAL: https://www.mongodb.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/mongodb.txt"
+          label: "verify report exists"
+    - name: verify-redis
+      instruction: |
+        URL 검증 — Redis.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://redis.io/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/redis.txt 에 다음 형식으로 저장:
+        SERVICE: Redis
+        ORIGINAL: https://redis.io/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/redis.txt"
+          label: "verify report exists"
+    - name: verify-qdrant--vector-db
+      instruction: |
+        URL 검증 — Qdrant (Vector DB).
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://qdrant.tech/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/qdrant--vector-db.txt 에 다음 형식으로 저장:
+        SERVICE: Qdrant (Vector DB)
+        ORIGINAL: https://qdrant.tech/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/qdrant--vector-db.txt"
+          label: "verify report exists"
+    - name: verify-chromadb
+      instruction: |
+        URL 검증 — ChromaDB.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.trychroma.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/chromadb.txt 에 다음 형식으로 저장:
+        SERVICE: ChromaDB
+        ORIGINAL: https://docs.trychroma.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/chromadb.txt"
+          label: "verify report exists"
+    - name: verify-pinecone
+      instruction: |
+        URL 검증 — Pinecone.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.pinecone.io/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/pinecone.txt 에 다음 형식으로 저장:
+        SERVICE: Pinecone
+        ORIGINAL: https://docs.pinecone.io/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/pinecone.txt"
+          label: "verify report exists"
+    - name: verify-weaviate
+      instruction: |
+        URL 검증 — Weaviate.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.weaviate.io/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/weaviate.txt 에 다음 형식으로 저장:
+        SERVICE: Weaviate
+        ORIGINAL: https://docs.weaviate.io/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/weaviate.txt"
+          label: "verify report exists"
+    - name: verify-milvus
+      instruction: |
+        URL 검증 — Milvus.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://milvus.io/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/milvus.txt 에 다음 형식으로 저장:
+        SERVICE: Milvus
+        ORIGINAL: https://milvus.io/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/milvus.txt"
+          label: "verify report exists"
+    - name: verify-neo4j
+      instruction: |
+        URL 검증 — Neo4j (⚠️ 마케팅 인덱스).
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://neo4j.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/neo4j.txt 에 다음 형식으로 저장:
+        SERVICE: Neo4j (⚠️ 마케팅 인덱스)
+        ORIGINAL: https://neo4j.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/neo4j.txt"
+          label: "verify report exists"
+    - name: verify-neon--serverless-postgres
+      instruction: |
+        URL 검증 — Neon (Serverless Postgres).
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://neon.tech/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/neon--serverless-postgres.txt 에 다음 형식으로 저장:
+        SERVICE: Neon (Serverless Postgres)
+        ORIGINAL: https://neon.tech/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/neon--serverless-postgres.txt"
+          label: "verify report exists"
+    - name: verify-turso--sqlite-compatible
+      instruction: |
+        URL 검증 — Turso (SQLite-compatible).
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://turso.tech/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/turso--sqlite-compatible.txt 에 다음 형식으로 저장:
+        SERVICE: Turso (SQLite-compatible)
+        ORIGINAL: https://turso.tech/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/turso--sqlite-compatible.txt"
+          label: "verify report exists"
+    - name: verify-nats
+      instruction: |
+        URL 검증 — NATS.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.nats.io/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/nats.txt 에 다음 형식으로 저장:
+        SERVICE: NATS
+        ORIGINAL: https://docs.nats.io/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/nats.txt"
+          label: "verify report exists"
+    - name: verify-stripe
+      instruction: |
+        URL 검증 — Stripe.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.stripe.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/stripe.txt 에 다음 형식으로 저장:
+        SERVICE: Stripe
+        ORIGINAL: https://docs.stripe.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/stripe.txt"
+          label: "verify report exists"
+    - name: verify-clerk
+      instruction: |
+        URL 검증 — Clerk.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://clerk.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/clerk.txt 에 다음 형식으로 저장:
+        SERVICE: Clerk
+        ORIGINAL: https://clerk.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/clerk.txt"
+          label: "verify report exists"
+    - name: verify-auth0
+      instruction: |
+        URL 검증 — Auth0.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://auth0.com/ai/docs/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/auth0.txt 에 다음 형식으로 저장:
+        SERVICE: Auth0
+        ORIGINAL: https://auth0.com/ai/docs/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/auth0.txt"
+          label: "verify report exists"
+    - name: verify-vercel
+      instruction: |
+        URL 검증 — Vercel.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://vercel.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/vercel.txt 에 다음 형식으로 저장:
+        SERVICE: Vercel
+        ORIGINAL: https://vercel.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/vercel.txt"
+          label: "verify report exists"
+    - name: verify-docker
+      instruction: |
+        URL 검증 — Docker.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.docker.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/docker.txt 에 다음 형식으로 저장:
+        SERVICE: Docker
+        ORIGINAL: https://docs.docker.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/docker.txt"
+          label: "verify report exists"
+    - name: verify-github-docs
+      instruction: |
+        URL 검증 — GitHub Docs.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.github.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/github-docs.txt 에 다음 형식으로 저장:
+        SERVICE: GitHub Docs
+        ORIGINAL: https://docs.github.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/github-docs.txt"
+          label: "verify report exists"
+    - name: verify-aws-docs
+      instruction: |
+        URL 검증 — AWS Docs.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.aws.amazon.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/aws-docs.txt 에 다음 형식으로 저장:
+        SERVICE: AWS Docs
+        ORIGINAL: https://docs.aws.amazon.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/aws-docs.txt"
+          label: "verify report exists"
+    - name: verify-cloudflare
+      instruction: |
+        URL 검증 — Cloudflare.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://developers.cloudflare.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/cloudflare.txt 에 다음 형식으로 저장:
+        SERVICE: Cloudflare
+        ORIGINAL: https://developers.cloudflare.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/cloudflare.txt"
+          label: "verify report exists"
+    - name: verify-netlify
+      instruction: |
+        URL 검증 — Netlify.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.netlify.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/netlify.txt 에 다음 형식으로 저장:
+        SERVICE: Netlify
+        ORIGINAL: https://docs.netlify.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/netlify.txt"
+          label: "verify report exists"
+    - name: verify-vite
+      instruction: |
+        URL 검증 — Vite.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://vite.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/vite.txt 에 다음 형식으로 저장:
+        SERVICE: Vite
+        ORIGINAL: https://vite.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/vite.txt"
+          label: "verify report exists"
+    - name: verify-vitest
+      instruction: |
+        URL 검증 — Vitest.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://vitest.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/vitest.txt 에 다음 형식으로 저장:
+        SERVICE: Vitest
+        ORIGINAL: https://vitest.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/vitest.txt"
+          label: "verify report exists"
+    - name: verify-turborepo
+      instruction: |
+        URL 검증 — Turborepo.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://turborepo.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/turborepo.txt 에 다음 형식으로 저장:
+        SERVICE: Turborepo
+        ORIGINAL: https://turborepo.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/turborepo.txt"
+          label: "verify report exists"
+    - name: verify-bun
+      instruction: |
+        URL 검증 — Bun.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://bun.sh/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/bun.txt 에 다음 형식으로 저장:
+        SERVICE: Bun
+        ORIGINAL: https://bun.sh/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/bun.txt"
+          label: "verify report exists"
+    - name: verify-deno
+      instruction: |
+        URL 검증 — Deno.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.deno.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/deno.txt 에 다음 형식으로 저장:
+        SERVICE: Deno
+        ORIGINAL: https://docs.deno.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/deno.txt"
+          label: "verify report exists"
+    - name: verify-prettier
+      instruction: |
+        URL 검증 — Prettier.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://prettier.io/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/prettier.txt 에 다음 형식으로 저장:
+        SERVICE: Prettier
+        ORIGINAL: https://prettier.io/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/prettier.txt"
+          label: "verify report exists"
+    - name: verify-oxc
+      instruction: |
+        URL 검증 — Oxc.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://oxc.rs/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/oxc.txt 에 다음 형식으로 저장:
+        SERVICE: Oxc
+        ORIGINAL: https://oxc.rs/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/oxc.txt"
+          label: "verify report exists"
+    - name: verify-zod
+      instruction: |
+        URL 검증 — Zod.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://zod.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/zod.txt 에 다음 형식으로 저장:
+        SERVICE: Zod
+        ORIGINAL: https://zod.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/zod.txt"
+          label: "verify report exists"
+    - name: verify-trpc
+      instruction: |
+        URL 검증 — tRPC.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://trpc.io/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/trpc.txt 에 다음 형식으로 저장:
+        SERVICE: tRPC
+        ORIGINAL: https://trpc.io/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/trpc.txt"
+          label: "verify report exists"
+    - name: verify-meilisearch
+      instruction: |
+        URL 검증 — Meilisearch.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://www.meilisearch.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/meilisearch.txt 에 다음 형식으로 저장:
+        SERVICE: Meilisearch
+        ORIGINAL: https://www.meilisearch.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/meilisearch.txt"
+          label: "verify report exists"
+    - name: verify-algolia
+      instruction: |
+        URL 검증 — Algolia.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://www.algolia.com/doc/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/algolia.txt 에 다음 형식으로 저장:
+        SERVICE: Algolia
+        ORIGINAL: https://www.algolia.com/doc/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/algolia.txt"
+          label: "verify report exists"
+    - name: verify-datadog
+      instruction: |
+        URL 검증 — Datadog.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.datadoghq.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/datadog.txt 에 다음 형식으로 저장:
+        SERVICE: Datadog
+        ORIGINAL: https://docs.datadoghq.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/datadog.txt"
+          label: "verify report exists"
+    - name: verify-strapi
+      instruction: |
+        URL 검증 — Strapi.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.strapi.io/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/strapi.txt 에 다음 형식으로 저장:
+        SERVICE: Strapi
+        ORIGINAL: https://docs.strapi.io/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/strapi.txt"
+          label: "verify report exists"
+    - name: verify-ghost
+      instruction: |
+        URL 검증 — Ghost.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.ghost.org/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/ghost.txt 에 다음 형식으로 저장:
+        SERVICE: Ghost
+        ORIGINAL: https://docs.ghost.org/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/ghost.txt"
+          label: "verify report exists"
+    - name: verify-sanity
+      instruction: |
+        URL 검증 — Sanity.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://www.sanity.io/docs/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/sanity.txt 에 다음 형식으로 저장:
+        SERVICE: Sanity
+        ORIGINAL: https://www.sanity.io/docs/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/sanity.txt"
+          label: "verify report exists"
+    - name: verify-langchain
+      instruction: |
+        URL 검증 — LangChain.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://python.langchain.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/langchain.txt 에 다음 형식으로 저장:
+        SERVICE: LangChain
+        ORIGINAL: https://python.langchain.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/langchain.txt"
+          label: "verify report exists"
+    - name: verify-crewai
+      instruction: |
+        URL 검증 — CrewAI.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.crewai.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/crewai.txt 에 다음 형식으로 저장:
+        SERVICE: CrewAI
+        ORIGINAL: https://docs.crewai.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/crewai.txt"
+          label: "verify report exists"
+    - name: verify-openai
+      instruction: |
+        URL 검증 — OpenAI.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://developers.openai.com/api/docs/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/openai.txt 에 다음 형식으로 저장:
+        SERVICE: OpenAI
+        ORIGINAL: https://developers.openai.com/api/docs/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/openai.txt"
+          label: "verify report exists"
+    - name: verify-anthropic--claude-api
+      instruction: |
+        URL 검증 — Anthropic (Claude API).
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://platform.claude.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/anthropic--claude-api.txt 에 다음 형식으로 저장:
+        SERVICE: Anthropic (Claude API)
+        ORIGINAL: https://platform.claude.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/anthropic--claude-api.txt"
+          label: "verify report exists"
+    - name: verify-google-gemini-api
+      instruction: |
+        URL 검증 — Google Gemini API.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://ai.google.dev/gemini-api/docs/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/google-gemini-api.txt 에 다음 형식으로 저장:
+        SERVICE: Google Gemini API
+        ORIGINAL: https://ai.google.dev/gemini-api/docs/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/google-gemini-api.txt"
+          label: "verify report exists"
+    - name: verify-mistral
+      instruction: |
+        URL 검증 — Mistral.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.mistral.ai/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/mistral.txt 에 다음 형식으로 저장:
+        SERVICE: Mistral
+        ORIGINAL: https://docs.mistral.ai/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/mistral.txt"
+          label: "verify report exists"
+    - name: verify-cohere
+      instruction: |
+        URL 검증 — Cohere.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.cohere.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/cohere.txt 에 다음 형식으로 저장:
+        SERVICE: Cohere
+        ORIGINAL: https://docs.cohere.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/cohere.txt"
+          label: "verify report exists"
+    - name: verify-perplexity
+      instruction: |
+        URL 검증 — Perplexity.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.perplexity.ai/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/perplexity.txt 에 다음 형식으로 저장:
+        SERVICE: Perplexity
+        ORIGINAL: https://docs.perplexity.ai/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/perplexity.txt"
+          label: "verify report exists"
+    - name: verify-windsurf--codeium
+      instruction: |
+        URL 검증 — Windsurf (Codeium).
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.windsurf.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/windsurf--codeium.txt 에 다음 형식으로 저장:
+        SERVICE: Windsurf (Codeium)
+        ORIGINAL: https://docs.windsurf.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/windsurf--codeium.txt"
+          label: "verify report exists"
+    - name: verify-tabnine
+      instruction: |
+        URL 검증 — Tabnine.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.tabnine.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/tabnine.txt 에 다음 형식으로 저장:
+        SERVICE: Tabnine
+        ORIGINAL: https://docs.tabnine.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/tabnine.txt"
+          label: "verify report exists"
+    - name: verify-litellm
+      instruction: |
+        URL 검증 — LiteLLM.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.litellm.ai/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/litellm.txt 에 다음 형식으로 저장:
+        SERVICE: LiteLLM
+        ORIGINAL: https://docs.litellm.ai/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/litellm.txt"
+          label: "verify report exists"
+    - name: verify-together-ai
+      instruction: |
+        URL 검증 — Together AI.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.together.ai/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/together-ai.txt 에 다음 형식으로 저장:
+        SERVICE: Together AI
+        ORIGINAL: https://docs.together.ai/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/together-ai.txt"
+          label: "verify report exists"
+    - name: verify-fireworks-ai
+      instruction: |
+        URL 검증 — Fireworks AI.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.fireworks.ai/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/fireworks-ai.txt 에 다음 형식으로 저장:
+        SERVICE: Fireworks AI
+        ORIGINAL: https://docs.fireworks.ai/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/fireworks-ai.txt"
+          label: "verify report exists"
+    - name: verify-replicate
+      instruction: |
+        URL 검증 — Replicate.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://replicate.com/docs/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/replicate.txt 에 다음 형식으로 저장:
+        SERVICE: Replicate
+        ORIGINAL: https://replicate.com/docs/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/replicate.txt"
+          label: "verify report exists"
+    - name: verify-databricks
+      instruction: |
+        URL 검증 — Databricks.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.databricks.com/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/databricks.txt 에 다음 형식으로 저장:
+        SERVICE: Databricks
+        ORIGINAL: https://docs.databricks.com/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/databricks.txt"
+          label: "verify report exists"
+    - name: verify-weights---biases
+      instruction: |
+        URL 검증 — Weights & Biases.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.wandb.ai/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/weights---biases.txt 에 다음 형식으로 저장:
+        SERVICE: Weights & Biases
+        ORIGINAL: https://docs.wandb.ai/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/weights---biases.txt"
+          label: "verify report exists"
+    - name: verify-kotlin
+      instruction: |
+        URL 검증 — Kotlin.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://kotlinlang.org/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/kotlin.txt 에 다음 형식으로 저장:
+        SERVICE: Kotlin
+        ORIGINAL: https://kotlinlang.org/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/kotlin.txt"
+          label: "verify report exists"
+    - name: verify-react-native
+      instruction: |
+        URL 검증 — React Native.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://reactnative.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/react-native.txt 에 다음 형식으로 저장:
+        SERVICE: React Native
+        ORIGINAL: https://reactnative.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/react-native.txt"
+          label: "verify report exists"
+    - name: verify-expo
+      instruction: |
+        URL 검증 — Expo.
+
+        curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}" "https://docs.expo.dev/llms.txt" 2>&1 명령으로 HTTP status + final URL 확인.
+
+        결과를 /tmp/llms-verify/expo.txt 에 다음 형식으로 저장:
+        SERVICE: Expo
+        ORIGINAL: https://docs.expo.dev/llms.txt
+        STATUS: <http_code>
+        FINAL: <url_effective>
+        NOTES: <한 줄 비고 (redirect/404/timeout 등)>
+
+        mkdir -p /tmp/llms-verify 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-verify/expo.txt"
+          label: "verify report exists"
+    - name: search-openai
+      instruction: |
+        llms.txt 탐색 — openai (model_providers).
+
+        목표: openai 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://developers.openai.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://developers.openai.com/llms.txt
+        2. https://developers.openai.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "openai llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/openai.txt 에 저장:
+        SERVICE: openai
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/openai.txt"
+          label: "search report exists"
+    - name: search-anthropic
+      instruction: |
+        llms.txt 탐색 — anthropic (model_providers).
+
+        목표: anthropic 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://platform.claude.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://platform.claude.com/llms.txt
+        2. https://platform.claude.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "anthropic llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/anthropic.txt 에 저장:
+        SERVICE: anthropic
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/anthropic.txt"
+          label: "search report exists"
+    - name: search-gemini
+      instruction: |
+        llms.txt 탐색 — gemini (model_providers).
+
+        목표: gemini 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://ai.google.dev/gemini-api/docs
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://ai.google.dev/gemini-api/docs/llms.txt
+        2. https://ai.google.dev/gemini-api/docs/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "gemini llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/gemini.txt 에 저장:
+        SERVICE: gemini
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/gemini.txt"
+          label: "search report exists"
+    - name: search-mistral
+      instruction: |
+        llms.txt 탐색 — mistral (model_providers).
+
+        목표: mistral 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.mistral.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.mistral.ai/llms.txt
+        2. https://docs.mistral.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "mistral llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/mistral.txt 에 저장:
+        SERVICE: mistral
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/mistral.txt"
+          label: "search report exists"
+    - name: search-cohere
+      instruction: |
+        llms.txt 탐색 — cohere (model_providers).
+
+        목표: cohere 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.cohere.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.cohere.com/llms.txt
+        2. https://docs.cohere.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "cohere llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/cohere.txt 에 저장:
+        SERVICE: cohere
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/cohere.txt"
+          label: "search report exists"
+    - name: search-perplexity
+      instruction: |
+        llms.txt 탐색 — perplexity (model_providers).
+
+        목표: perplexity 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.perplexity.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.perplexity.ai/llms.txt
+        2. https://docs.perplexity.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "perplexity llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/perplexity.txt 에 저장:
+        SERVICE: perplexity
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/perplexity.txt"
+          label: "search report exists"
+    - name: search-deepseek
+      instruction: |
+        llms.txt 탐색 — deepseek (model_providers).
+
+        목표: deepseek 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://api-docs.deepseek.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://api-docs.deepseek.com/llms.txt
+        2. https://api-docs.deepseek.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "deepseek llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/deepseek.txt 에 저장:
+        SERVICE: deepseek
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/deepseek.txt"
+          label: "search report exists"
+    - name: search-xai
+      instruction: |
+        llms.txt 탐색 — xai (model_providers).
+
+        목표: xai 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.x.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.x.ai/llms.txt
+        2. https://docs.x.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "xai llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/xai.txt 에 저장:
+        SERVICE: xai
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/xai.txt"
+          label: "search report exists"
+    - name: search-groq
+      instruction: |
+        llms.txt 탐색 — groq (model_providers).
+
+        목표: groq 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://console.groq.com/docs
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://console.groq.com/docs/llms.txt
+        2. https://console.groq.com/docs/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "groq llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/groq.txt 에 저장:
+        SERVICE: groq
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/groq.txt"
+          label: "search report exists"
+    - name: search-ollama
+      instruction: |
+        llms.txt 탐색 — ollama (model_providers).
+
+        목표: ollama 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://ollama.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://ollama.com/llms.txt
+        2. https://ollama.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "ollama llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/ollama.txt 에 저장:
+        SERVICE: ollama
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/ollama.txt"
+          label: "search report exists"
+    - name: search-replicate
+      instruction: |
+        llms.txt 탐색 — replicate (model_providers).
+
+        목표: replicate 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://replicate.com/docs
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://replicate.com/docs/llms.txt
+        2. https://replicate.com/docs/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "replicate llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/replicate.txt 에 저장:
+        SERVICE: replicate
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/replicate.txt"
+          label: "search report exists"
+    - name: search-fireworks-ai
+      instruction: |
+        llms.txt 탐색 — fireworks-ai (model_providers).
+
+        목표: fireworks-ai 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.fireworks.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.fireworks.ai/llms.txt
+        2. https://docs.fireworks.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "fireworks-ai llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/fireworks-ai.txt 에 저장:
+        SERVICE: fireworks-ai
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/fireworks-ai.txt"
+          label: "search report exists"
+    - name: search-together-ai
+      instruction: |
+        llms.txt 탐색 — together-ai (model_providers).
+
+        목표: together-ai 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.together.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.together.ai/llms.txt
+        2. https://docs.together.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "together-ai llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/together-ai.txt 에 저장:
+        SERVICE: together-ai
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/together-ai.txt"
+          label: "search report exists"
+    - name: search-cerebras
+      instruction: |
+        llms.txt 탐색 — cerebras (model_providers).
+
+        목표: cerebras 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://inference-docs.cerebras.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://inference-docs.cerebras.ai/llms.txt
+        2. https://inference-docs.cerebras.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "cerebras llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/cerebras.txt 에 저장:
+        SERVICE: cerebras
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/cerebras.txt"
+          label: "search report exists"
+    - name: search-anyscale
+      instruction: |
+        llms.txt 탐색 — anyscale (model_providers).
+
+        목표: anyscale 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.anyscale.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.anyscale.com/llms.txt
+        2. https://docs.anyscale.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "anyscale llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/anyscale.txt 에 저장:
+        SERVICE: anyscale
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/anyscale.txt"
+          label: "search report exists"
+    - name: search-baseten
+      instruction: |
+        llms.txt 탐색 — baseten (model_providers).
+
+        목표: baseten 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.baseten.co
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.baseten.co/llms.txt
+        2. https://docs.baseten.co/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "baseten llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/baseten.txt 에 저장:
+        SERVICE: baseten
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/baseten.txt"
+          label: "search report exists"
+    - name: search-nvidia-nim
+      instruction: |
+        llms.txt 탐색 — nvidia-nim (model_providers).
+
+        목표: nvidia-nim 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.nvidia.com/nim
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.nvidia.com/nim/llms.txt
+        2. https://docs.nvidia.com/nim/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "nvidia-nim llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/nvidia-nim.txt 에 저장:
+        SERVICE: nvidia-nim
+        CATEGORY: model_providers
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/nvidia-nim.txt"
+          label: "search report exists"
+    - name: search-langchain
+      instruction: |
+        llms.txt 탐색 — langchain (ai_frameworks).
+
+        목표: langchain 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://python.langchain.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://python.langchain.com/llms.txt
+        2. https://python.langchain.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "langchain llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/langchain.txt 에 저장:
+        SERVICE: langchain
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/langchain.txt"
+          label: "search report exists"
+    - name: search-langchain-js
+      instruction: |
+        llms.txt 탐색 — langchain-js (ai_frameworks).
+
+        목표: langchain-js 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://js.langchain.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://js.langchain.com/llms.txt
+        2. https://js.langchain.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "langchain-js llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/langchain-js.txt 에 저장:
+        SERVICE: langchain-js
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/langchain-js.txt"
+          label: "search report exists"
+    - name: search-langgraph
+      instruction: |
+        llms.txt 탐색 — langgraph (ai_frameworks).
+
+        목표: langgraph 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://langchain-ai.github.io/langgraph
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://langchain-ai.github.io/langgraph/llms.txt
+        2. https://langchain-ai.github.io/langgraph/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "langgraph llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/langgraph.txt 에 저장:
+        SERVICE: langgraph
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/langgraph.txt"
+          label: "search report exists"
+    - name: search-langsmith
+      instruction: |
+        llms.txt 탐색 — langsmith (ai_frameworks).
+
+        목표: langsmith 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.smith.langchain.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.smith.langchain.com/llms.txt
+        2. https://docs.smith.langchain.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "langsmith llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/langsmith.txt 에 저장:
+        SERVICE: langsmith
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/langsmith.txt"
+          label: "search report exists"
+    - name: search-llamaindex
+      instruction: |
+        llms.txt 탐색 — llamaindex (ai_frameworks).
+
+        목표: llamaindex 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.llamaindex.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.llamaindex.ai/llms.txt
+        2. https://docs.llamaindex.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "llamaindex llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/llamaindex.txt 에 저장:
+        SERVICE: llamaindex
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/llamaindex.txt"
+          label: "search report exists"
+    - name: search-vercel-ai-sdk
+      instruction: |
+        llms.txt 탐색 — vercel-ai-sdk (ai_frameworks).
+
+        목표: vercel-ai-sdk 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://ai-sdk.dev
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://ai-sdk.dev/llms.txt
+        2. https://ai-sdk.dev/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "vercel-ai-sdk llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/vercel-ai-sdk.txt 에 저장:
+        SERVICE: vercel-ai-sdk
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/vercel-ai-sdk.txt"
+          label: "search report exists"
+    - name: search-crewai
+      instruction: |
+        llms.txt 탐색 — crewai (ai_frameworks).
+
+        목표: crewai 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.crewai.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.crewai.com/llms.txt
+        2. https://docs.crewai.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "crewai llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/crewai.txt 에 저장:
+        SERVICE: crewai
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/crewai.txt"
+          label: "search report exists"
+    - name: search-pydantic-ai
+      instruction: |
+        llms.txt 탐색 — pydantic-ai (ai_frameworks).
+
+        목표: pydantic-ai 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://ai.pydantic.dev
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://ai.pydantic.dev/llms.txt
+        2. https://ai.pydantic.dev/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "pydantic-ai llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/pydantic-ai.txt 에 저장:
+        SERVICE: pydantic-ai
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/pydantic-ai.txt"
+          label: "search report exists"
+    - name: search-mastra
+      instruction: |
+        llms.txt 탐색 — mastra (ai_frameworks).
+
+        목표: mastra 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://mastra.ai/docs
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://mastra.ai/docs/llms.txt
+        2. https://mastra.ai/docs/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "mastra llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/mastra.txt 에 저장:
+        SERVICE: mastra
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/mastra.txt"
+          label: "search report exists"
+    - name: search-autogen
+      instruction: |
+        llms.txt 탐색 — autogen (ai_frameworks).
+
+        목표: autogen 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://microsoft.github.io/autogen
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://microsoft.github.io/autogen/llms.txt
+        2. https://microsoft.github.io/autogen/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "autogen llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/autogen.txt 에 저장:
+        SERVICE: autogen
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/autogen.txt"
+          label: "search report exists"
+    - name: search-haystack
+      instruction: |
+        llms.txt 탐색 — haystack (ai_frameworks).
+
+        목표: haystack 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.haystack.deepset.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.haystack.deepset.ai/llms.txt
+        2. https://docs.haystack.deepset.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "haystack llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/haystack.txt 에 저장:
+        SERVICE: haystack
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/haystack.txt"
+          label: "search report exists"
+    - name: search-dspy
+      instruction: |
+        llms.txt 탐색 — dspy (ai_frameworks).
+
+        목표: dspy 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://dspy.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://dspy.ai/llms.txt
+        2. https://dspy.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "dspy llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/dspy.txt 에 저장:
+        SERVICE: dspy
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/dspy.txt"
+          label: "search report exists"
+    - name: search-inspectai
+      instruction: |
+        llms.txt 탐색 — inspectai (ai_frameworks).
+
+        목표: inspectai 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://inspect.aisi.org.uk
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://inspect.aisi.org.uk/llms.txt
+        2. https://inspect.aisi.org.uk/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "inspectai llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/inspectai.txt 에 저장:
+        SERVICE: inspectai
+        CATEGORY: ai_frameworks
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/inspectai.txt"
+          label: "search report exists"
+    - name: search-langfuse
+      instruction: |
+        llms.txt 탐색 — langfuse (ai_observability).
+
+        목표: langfuse 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://langfuse.com/docs
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://langfuse.com/docs/llms.txt
+        2. https://langfuse.com/docs/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "langfuse llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/langfuse.txt 에 저장:
+        SERVICE: langfuse
+        CATEGORY: ai_observability
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/langfuse.txt"
+          label: "search report exists"
+    - name: search-helicone
+      instruction: |
+        llms.txt 탐색 — helicone (ai_observability).
+
+        목표: helicone 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.helicone.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.helicone.ai/llms.txt
+        2. https://docs.helicone.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "helicone llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/helicone.txt 에 저장:
+        SERVICE: helicone
+        CATEGORY: ai_observability
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/helicone.txt"
+          label: "search report exists"
+    - name: search-promptlayer
+      instruction: |
+        llms.txt 탐색 — promptlayer (ai_observability).
+
+        목표: promptlayer 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.promptlayer.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.promptlayer.com/llms.txt
+        2. https://docs.promptlayer.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "promptlayer llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/promptlayer.txt 에 저장:
+        SERVICE: promptlayer
+        CATEGORY: ai_observability
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/promptlayer.txt"
+          label: "search report exists"
+    - name: search-arize
+      instruction: |
+        llms.txt 탐색 — arize (ai_observability).
+
+        목표: arize 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.arize.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.arize.com/llms.txt
+        2. https://docs.arize.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "arize llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/arize.txt 에 저장:
+        SERVICE: arize
+        CATEGORY: ai_observability
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/arize.txt"
+          label: "search report exists"
+    - name: search-weave
+      instruction: |
+        llms.txt 탐색 — weave (ai_observability).
+
+        목표: weave 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://weave-docs.wandb.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://weave-docs.wandb.ai/llms.txt
+        2. https://weave-docs.wandb.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "weave llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/weave.txt 에 저장:
+        SERVICE: weave
+        CATEGORY: ai_observability
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/weave.txt"
+          label: "search report exists"
+    - name: search-galileo
+      instruction: |
+        llms.txt 탐색 — galileo (ai_observability).
+
+        목표: galileo 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.galileo.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.galileo.ai/llms.txt
+        2. https://docs.galileo.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "galileo llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/galileo.txt 에 저장:
+        SERVICE: galileo
+        CATEGORY: ai_observability
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/galileo.txt"
+          label: "search report exists"
+    - name: search-phoenix-arize
+      instruction: |
+        llms.txt 탐색 — phoenix-arize (ai_observability).
+
+        목표: phoenix-arize 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.arize.com/phoenix
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.arize.com/phoenix/llms.txt
+        2. https://docs.arize.com/phoenix/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "phoenix-arize llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/phoenix-arize.txt 에 저장:
+        SERVICE: phoenix-arize
+        CATEGORY: ai_observability
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/phoenix-arize.txt"
+          label: "search report exists"
+    - name: search-braintrust
+      instruction: |
+        llms.txt 탐색 — braintrust (ai_observability).
+
+        목표: braintrust 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://www.braintrust.dev/docs
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://www.braintrust.dev/docs/llms.txt
+        2. https://www.braintrust.dev/docs/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "braintrust llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/braintrust.txt 에 저장:
+        SERVICE: braintrust
+        CATEGORY: ai_observability
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/braintrust.txt"
+          label: "search report exists"
+    - name: search-cursor
+      instruction: |
+        llms.txt 탐색 — cursor (ai_code_tools).
+
+        목표: cursor 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.cursor.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.cursor.com/llms.txt
+        2. https://docs.cursor.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "cursor llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/cursor.txt 에 저장:
+        SERVICE: cursor
+        CATEGORY: ai_code_tools
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/cursor.txt"
+          label: "search report exists"
+    - name: search-cline
+      instruction: |
+        llms.txt 탐색 — cline (ai_code_tools).
+
+        목표: cline 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.cline.bot
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.cline.bot/llms.txt
+        2. https://docs.cline.bot/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "cline llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/cline.txt 에 저장:
+        SERVICE: cline
+        CATEGORY: ai_code_tools
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/cline.txt"
+          label: "search report exists"
+    - name: search-aider
+      instruction: |
+        llms.txt 탐색 — aider (ai_code_tools).
+
+        목표: aider 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://aider.chat/docs
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://aider.chat/docs/llms.txt
+        2. https://aider.chat/docs/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "aider llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/aider.txt 에 저장:
+        SERVICE: aider
+        CATEGORY: ai_code_tools
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/aider.txt"
+          label: "search report exists"
+    - name: search-continue
+      instruction: |
+        llms.txt 탐색 — continue (ai_code_tools).
+
+        목표: continue 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.continue.dev
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.continue.dev/llms.txt
+        2. https://docs.continue.dev/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "continue llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/continue.txt 에 저장:
+        SERVICE: continue
+        CATEGORY: ai_code_tools
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/continue.txt"
+          label: "search report exists"
+    - name: search-codeium
+      instruction: |
+        llms.txt 탐색 — codeium (ai_code_tools).
+
+        목표: codeium 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.codeium.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.codeium.com/llms.txt
+        2. https://docs.codeium.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "codeium llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/codeium.txt 에 저장:
+        SERVICE: codeium
+        CATEGORY: ai_code_tools
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/codeium.txt"
+          label: "search report exists"
+    - name: search-lancedb
+      instruction: |
+        llms.txt 탐색 — lancedb (vector_rag_infra).
+
+        목표: lancedb 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://lancedb.github.io/lancedb
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://lancedb.github.io/lancedb/llms.txt
+        2. https://lancedb.github.io/lancedb/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "lancedb llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/lancedb.txt 에 저장:
+        SERVICE: lancedb
+        CATEGORY: vector_rag_infra
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/lancedb.txt"
+          label: "search report exists"
+    - name: search-vespa
+      instruction: |
+        llms.txt 탐색 — vespa (vector_rag_infra).
+
+        목표: vespa 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.vespa.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.vespa.ai/llms.txt
+        2. https://docs.vespa.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "vespa llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/vespa.txt 에 저장:
+        SERVICE: vespa
+        CATEGORY: vector_rag_infra
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/vespa.txt"
+          label: "search report exists"
+    - name: search-marqo
+      instruction: |
+        llms.txt 탐색 — marqo (vector_rag_infra).
+
+        목표: marqo 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.marqo.ai
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.marqo.ai/llms.txt
+        2. https://docs.marqo.ai/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "marqo llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/marqo.txt 에 저장:
+        SERVICE: marqo
+        CATEGORY: vector_rag_infra
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/marqo.txt"
+          label: "search report exists"
+    - name: search-zilliz
+      instruction: |
+        llms.txt 탐색 — zilliz (vector_rag_infra).
+
+        목표: zilliz 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://docs.zilliz.com
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://docs.zilliz.com/llms.txt
+        2. https://docs.zilliz.com/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "zilliz llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/zilliz.txt 에 저장:
+        SERVICE: zilliz
+        CATEGORY: vector_rag_infra
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/zilliz.txt"
+          label: "search report exists"
+    - name: search-typesense
+      instruction: |
+        llms.txt 탐색 — typesense (vector_rag_infra).
+
+        목표: typesense 공식 문서의 llms.txt URL 확보.
+        시작 URL hint: https://typesense.org/docs
+
+        다음 패턴 순서로 curl HEAD 시도 (HTTP 200/301 OK):
+        1. https://typesense.org/docs/llms.txt
+        2. https://typesense.org/docs/llms-full.txt
+        3. (base 도메인) /llms.txt
+        4. (base 도메인) /docs/llms.txt
+        5. WebSearch "typesense llms.txt site:" — 마지막 수단
+
+        각 시도에 대해 curl -ILs -o /dev/null -w "%{http_code}|%{url_effective}\n" 사용.
+
+        결과를 /tmp/llms-search/typesense.txt 에 저장:
+        SERVICE: typesense
+        CATEGORY: vector_rag_infra
+        RESULT: <FOUND|NOT_FOUND>
+        URL: <found_url 또는 NONE>
+        NOTES: <어떤 패턴에서 발견했는지>
+
+        mkdir -p /tmp/llms-search 먼저 실행.
+      gates:
+        - bash: "test -f /tmp/llms-search/typesense.txt"
+          label: "search report exists"
