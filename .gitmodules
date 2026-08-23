@@ -46,3 +46,6 @@
 [submodule "plugins/gaseo"]
 	path = plugins/gaseo
 	url = https://github.com/fivetaku/gaseo.git
+[submodule "plugins/tikeytaka"]
+	path = plugins/tikeytaka
+	url = https://github.com/fivetaku/tikeytaka.git
