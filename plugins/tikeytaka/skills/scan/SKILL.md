@@ -20,9 +20,9 @@ description: 기존 프로젝트들의 .env 파일을 탐색해 API 키를 중�
 
 4. **충돌 검증**: 같은 이름의 키가 파일마다 다른 값이면, 가능한 경우 각 서비스의 무료 인증 확인 엔드포인트로 유효성을 실측해 살아있는 값을 정본으로 고른다(예: Gemini `GET /v1beta/models?key=`, OpenAI `GET /v1/models`, Telegram `getMe`). 실측 불가하면 최근 수정 파일의 값을 쓰되 사용자에게 고지한다.
 
-5. **등록·연결** (파일 수정 전 반드시 원본을 `~/.config/tikeytaka/backup-<날짜>/`에 백업):
+5. **등록·연결** (파일 수정 전 반드시 원본 백업 — 백업 자체가 평문 시크릿이므로: `umask 077` 상태에서 `~/.config/tikeytaka/backup-<날짜>/`에 복사, 디렉토리 700·파일 600 확인, sync 검증 후 삭제 권장을 사용자에게 고지):
    ```bash
-   tkt set <service> "$값"            # 값은 셸 변수로만 전달
+   printf '%s' "$값" | tkt set-stdin <service>   # argv·히스토리 미노출 경로만 사용 (set <svc> <값> 금지)
    tkt map-add '<파일>' <변수> <service>
    tkt sync --check                    # 드라이런 확인 후
    tkt sync

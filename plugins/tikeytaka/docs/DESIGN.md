@@ -35,7 +35,20 @@
 
 - tkt 전 기능 왕복 테스트: init → set/get 일치 → map-add → sync --check → sync 반영 → del. 격리 볼트에서 통과.
 - 실환경 이관: 키 14종 볼트 등록, 죽은 키 9건 교체(교체 후 Gemini 실호출 200 확인), 24개 파일·변수 매핑 전파.
-- 함정 기록: zsh 비분리 변수(`${=VAR}` 필요), `grep -v` 전량 제거 시 exit 1로 파이프라인 중단(`|| true` 필수), LibreSSL은 `-pbkdf2` 미지원(고엔트로피 랜덤 암호로 상쇄).
+- 함정 기록: zsh 비분리 변수(`${=VAR}` 필요). ~~`grep -v` 전량 제거 시 `|| true` 필수~~ → **v2에서 폐기**: `|| true`는 정규식 오류(exit 2)까지 은폐해 볼트 소실 경로가 됨(GPT-5.6 Sol Pro 리뷰 M-6). ~~LibreSSL `-pbkdf2` 미지원~~ → **오류였음**: LibreSSL 3.3.6에서 `-pbkdf2 -iter` 동작 실측 확인(2026-08-23), v2는 pbkdf2 채택.
+
+## 5.5 v2 재설계 (2026-08-23 — 자체 실측 + GPT-5.6 Sol Pro 리뷰 반영)
+
+v0.1.0의 `dec | grep | enc` 스트리밍 구조는 손상 볼트/정규식 오류 시 빈 볼트로 덮어쓰는 치명 결함이 실측 재현되어 전면 교체. 리뷰 원문: 부모 레포 `.insane-review/response_tikeytaka_20260823_173119_70702_446dfa.md`.
+
+- **TKT2 포맷**: `#TKT2` magic + `#SHA256:` 본문 해시 + TSV. 복호화 성공 ≠ 정상 볼트 문제 해결.
+- **트랜잭션 쓰기**: 복호화→검증→편집→재암호화→라운드트립 cmp→원본 해시 재확인→`.bak`→원자적 rename.
+- **암호 전달**: openssl `-pass stdin` (argv 노출 제거, ps 실증 후 교체). `set-stdin` 신설.
+- **암호화 옵션 명시**: `-pbkdf2 -iter 600000 -md sha256` — 맥/리눅스 기본값 차이 의존 제거. LibreSSL↔OpenSSL3 교차 복호화 실측 통과.
+- **경로 고정**: 최초 감지 경로를 `vault.path`에 기록, 이후 자동 전환 금지.
+- **입력 검증**: 서비스명/변수명 화이트리스트, 값의 공백·탭·개행·따옴표 거부(단일행 토큰), 정규식 매칭 전면 폐기(정확 필드 비교).
+- **Windows**: Git Bash 전제, OneDrive(`$HOME/OneDrive`)는 기존 감지가 동작, `~/iCloudDrive`·`/g/My Drive` 추가, 암호는 PowerShell DPAPI 분기(준검증).
+- **회귀 게이트**: `tests/regression.sh` 31케이스 — 손상 볼트 무손상·ps 미노출·권한 보존·교차 복호화 포함.
 
 ## 6. 향후 옵션
 
