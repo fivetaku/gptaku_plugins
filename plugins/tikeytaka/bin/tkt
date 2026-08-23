@@ -61,7 +61,8 @@ detect_cloud_dir() {
   local c
   c="$HOME/Library/Mobile Documents/com~apple~CloudDocs"; [ -d "$c" ] && { echo "$c/tikeytaka"; return; }
   for c in "$HOME/Library/CloudStorage"/GoogleDrive-*/"My Drive" "$HOME/Google Drive/My Drive" \
-           "$HOME/iCloudDrive" "/g/My Drive" "$HOME/OneDrive"* "$HOME/Dropbox"; do
+           "$HOME/iCloudDrive" "/g/My Drive" "$HOME/OneDrive"* "$HOME/Dropbox" \
+           /mnt/c/Users/*/OneDrive* "/mnt/c/Users"/*/iCloudDrive "/mnt/g/My Drive"; do
     [ -d "$c" ] && { echo "$c/tikeytaka"; return; }
   done
   echo "$HOME/.tikeytaka"   # 동기화 폴더 없음 — 단일 기기 모드
@@ -79,7 +80,11 @@ pin_vault_dir() {  # init에서만 호출 — 경로 확정
 VAULT="$(vault_dir)/secrets.enc"
 
 # ---------- 복호화 암호 저장소 (OS별; 저장소 간 자동 폴백 없음 — 명시성 우선) ----------
-win_path() { if command -v cygpath >/dev/null 2>&1; then cygpath -w "$1"; else printf '%s' "$1"; fi; }
+win_path() {
+  if command -v cygpath >/dev/null 2>&1; then cygpath -w "$1"       # Git Bash/MSYS
+  elif command -v wslpath >/dev/null 2>&1; then wslpath -w "$1"     # WSL
+  else printf '%s' "$1"; fi
+}
 pass_get() {
   if [ -n "${TKT_PASSPHRASE_FILE:-}" ]; then cat "$TKT_PASSPHRASE_FILE" 2>/dev/null; return; fi
   if command -v security >/dev/null 2>&1; then
