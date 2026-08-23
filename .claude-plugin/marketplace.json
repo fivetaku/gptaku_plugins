@@ -186,21 +186,6 @@
       ]
     },
     {
-      "name": "insane-video",
-      "description": "AI 영상을 한 방 프롬프트가 아니라 의사결정 루프로 만든다 — 생성 전에 성공 기준을 고정하고, 뽑은 클립을 프레임 단위로 관찰해 실패를 타임스탬프로 잡고, 좋았던 부분은 잠근 채 최소 패치만 해서 재생성한다. Higgsfield CLI/MCP·TopView MCP를 같은 인터페이스로 갈아끼운다.",
-      "source": "./plugins/insane-video",
-      "category": "productivity",
-      "tags": [
-        "video",
-        "seedance",
-        "higgsfield",
-        "topview",
-        "ugc",
-        "quality-loop",
-        "provider-abstraction"
-      ]
-    },
-    {
       "name": "goaljaby",
       "description": "Bridge skill from PRD to /goal for Claude Code — auto-generates 5 Korean review docs (VALIDATION/RECOVERY/PLAN/PROGRESS/goal-command), shows a Korean review summary in chat, prepends a 4-line summary to PROGRESS.md, and after a mandatory human approval gate the assistant emits /goal on the last line of its reply so the session starts the goal on the next turn.",
       "source": "./plugins/goaljaby",
