@@ -245,7 +245,7 @@
     },
     {
       "name": "tikeytaka",
-      "description": "Central API key vault — consolidate scattered .env keys into an encrypted cloud-synced vault, register without chat exposure, propagate everywhere",
+      "description": "Central API key vault — consolidate scattered .env keys into an encrypted cloud-synced vault, register without chat exposure, auto-wire keys when tasks need them, propagate everywhere",
       "source": "./plugins/tikeytaka",
       "category": "development",
       "tags": [
