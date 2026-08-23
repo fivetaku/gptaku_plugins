@@ -21,5 +21,5 @@ Central API key vault plugin — consolidate keys scattered across `.env` files 
 ## Connecting a new device
 
 1. Wait for the cloud folder to sync (the vault file arrives)
-2. `bash <plugin-path>/scripts/tkt init` — enter the same vault passphrase
+2. `bash <plugin-path>/bin/tkt init` — enter the same vault passphrase
 3. `tkt sync` — done

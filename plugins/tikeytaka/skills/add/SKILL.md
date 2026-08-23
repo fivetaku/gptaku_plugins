@@ -5,7 +5,7 @@ description: 새 API 키를 채팅에 노출하지 않고 중앙 볼트에 등�
 
 # tikeytaka:add — 유출 없는 키 등록
 
-코어 CLI: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/tkt"` (이하 `tkt`)
+코어 CLI: `bash "${CLAUDE_PLUGIN_ROOT}/bin/tkt"` (이하 `tkt`)
 
 ## 원칙
 **키 값은 절대 채팅창에 받지 않는다.** 이미 붙여넣어졌다면 유출로 간주하고 재발급을 권고한 뒤, 재발급 키로 아래 절차를 진행한다.
@@ -16,7 +16,7 @@ description: 새 API 키를 채팅에 노출하지 않고 중앙 볼트에 등�
 
 2. **등록 안내**: 사용자에게 **별도 터미널**에서 실행하도록 정확한 명령을 준다:
    ```
-   bash "<플러그인경로>/scripts/tkt" setp <서비스명>
+   bash "<플러그인경로>/bin/tkt" setp <서비스명>
    ```
    숨김 프롬프트가 뜨면 키를 붙여넣으면 된다. (대화창 `!` 실행은 출력이 대화에 남으므로 권하지 않는다)
 

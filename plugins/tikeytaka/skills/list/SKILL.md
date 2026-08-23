@@ -5,7 +5,7 @@ description: 중앙 볼트에서 관리 중인 API 키 서비스 목록과 프�
 
 # tikeytaka:list — 관리 현황
 
-코어 CLI: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/tkt"` (이하 `tkt`)
+코어 CLI: `bash "${CLAUDE_PLUGIN_ROOT}/bin/tkt"` (이하 `tkt`)
 
 ```bash
 tkt list        # 볼트의 서비스명 목록 (값은 안 나옴)

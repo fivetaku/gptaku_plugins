@@ -5,7 +5,7 @@ description: 중앙 볼트의 키를 연결된 모든 프로젝트 .env에 전�
 
 # tikeytaka:sync — 볼트 → 프로젝트 전파
 
-코어 CLI: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/tkt"` (이하 `tkt`)
+코어 CLI: `bash "${CLAUDE_PLUGIN_ROOT}/bin/tkt"` (이하 `tkt`)
 
 ```bash
 tkt sync --check   # 1) 드라이런: 무엇이 바뀔지 먼저 확인

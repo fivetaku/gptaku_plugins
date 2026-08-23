@@ -1,0 +1,137 @@
+#!/bin/bash
+# tkt — tikeytaka 코어 CLI. API 키 정본 볼트(암호화 파일) + 프로젝트 .env 전파.
+# 정본: 클라우드 동기화 폴더의 secrets.enc (AES-256). 가입 불필요 — 이미 쓰는 클라우드 폴더를 감지해 사용.
+# 복호화 암호: OS 기본 비밀 저장소(맥 키체인 / Linux secret-tool / 폴백 파일).
+#
+# 사용법:
+#   tkt init                  새 기기 셋업 (볼트 암호 등록; 최초 기기는 자동 생성)
+#   tkt set <service> <값>    키 등록/갱신
+#   tkt setp <service>        키 등록 (숨김 입력 — 채팅/히스토리 유출 방지)
+#   tkt get <service>         값 조회
+#   tkt del <service>         삭제
+#   tkt list                  서비스 목록
+#   tkt map-add <파일> <변수> <service>   프로젝트 .env 연결 추가
+#   tkt map-list              연결 목록
+#   tkt sync [--check]        볼트 → 연결된 모든 .env 전파 (--check는 드라이런)
+#   tkt where                 볼트/매핑 파일 위치 출력
+set -euo pipefail
+
+ACCT="${USER:-tikeytaka}"
+CONF_DIR="$HOME/.config/tikeytaka"
+MAP="$CONF_DIR/map.tsv"
+mkdir -p "$CONF_DIR"
+
+# ---------- 볼트 위치: 클라우드 동기화 폴더 자동 감지 ----------
+vault_dir() {
+  if [ -n "${TIKEYTAKA_DIR:-}" ]; then echo "$TIKEYTAKA_DIR"; return; fi
+  local c
+  c="$HOME/Library/Mobile Documents/com~apple~CloudDocs"; [ -d "$c" ] && { echo "$c/tikeytaka"; return; }
+  for c in "$HOME/Library/CloudStorage"/GoogleDrive-*/"My Drive" "$HOME/Google Drive/My Drive" "$HOME/OneDrive"* "$HOME/Dropbox"; do
+    [ -d "$c" ] && { echo "$c/tikeytaka"; return; }
+  done
+  echo "$HOME/.tikeytaka"   # 동기화 없음 — 단일 기기 모드
+}
+VAULT="$(vault_dir)/secrets.enc"
+
+# ---------- 복호화 암호 저장소 (OS별) ----------
+pass_get() {
+  if command -v security >/dev/null 2>&1; then
+    security find-generic-password -s tikeytaka-passphrase -w 2>/dev/null && return
+  elif command -v secret-tool >/dev/null 2>&1; then
+    secret-tool lookup service tikeytaka 2>/dev/null && return
+  elif [ -f "$CONF_DIR/passphrase" ]; then
+    cat "$CONF_DIR/passphrase" && return
+  fi
+  return 1
+}
+pass_set() {
+  if command -v security >/dev/null 2>&1; then
+    security add-generic-password -U -s tikeytaka-passphrase -a "$ACCT" -w "$1"
+  elif command -v secret-tool >/dev/null 2>&1; then
+    printf '%s' "$1" | secret-tool store --label=tikeytaka service tikeytaka
+  else
+    umask 077; printf '%s' "$1" > "$CONF_DIR/passphrase"
+    echo "주의: OS 비밀 저장소가 없어 $CONF_DIR/passphrase(600)에 저장했습니다." >&2
+  fi
+}
+
+dec() { [ -f "$VAULT" ] || return 0; openssl enc -d -aes-256-cbc -salt -pass "pass:$(pass_get)" -in "$VAULT"; }
+enc() { mkdir -p "$(dirname "$VAULT")"; openssl enc -aes-256-cbc -salt -pass "pass:$(pass_get)" -out "$VAULT.tmp" && mv "$VAULT.tmp" "$VAULT"; }
+need_pass() { pass_get >/dev/null || { echo "볼트 암호 미등록 — 'tkt init' 먼저 실행하세요." >&2; exit 1; }; }
+
+cmd="${1:-help}"
+case "$cmd" in
+  init)
+    if pass_get >/dev/null 2>&1; then echo "이미 셋업됨. 볼트: $VAULT"; exit 0; fi
+    if [ -f "$VAULT" ]; then
+      printf '기존 볼트 발견. 다른 기기와 동일한 암호 입력: '
+      read -rs p; echo
+    else
+      p="$(openssl rand -base64 32)"
+      echo "새 볼트 생성. 암호를 자동 생성해 OS 저장소에 등록합니다."
+      echo "⚠️  다른 기기 연결 시 필요하니 아래 암호를 안전한 곳(암호 관리자)에 보관하세요:"
+      echo "$p"
+    fi
+    pass_set "$p"
+    dec >/dev/null 2>&1 || { echo "암호가 볼트와 맞지 않습니다." >&2; exit 1; }
+    echo "셋업 완료. 볼트: $VAULT" ;;
+  set)
+    [ $# -eq 3 ] || { echo "usage: tkt set <service> <value>" >&2; exit 1; }
+    need_pass
+    { dec | { grep -v "^$2	" || true; }; printf '%s\t%s\n' "$2" "$3"; } | sort | enc
+    echo "set: $2" ;;
+  setp)
+    [ $# -eq 2 ] || { echo "usage: tkt setp <service>" >&2; exit 1; }
+    need_pass
+    printf '%s 값 입력(화면에 안 보임): ' "$2"
+    read -rs v; echo
+    [ -n "$v" ] || { echo "빈 값" >&2; exit 1; }
+    "$0" set "$2" "$v" ;;
+  get)
+    [ $# -eq 2 ] || { echo "usage: tkt get <service>" >&2; exit 1; }
+    need_pass
+    v="$(dec | awk -F'\t' -v s="$2" '$1==s{print $2}')"
+    [ -n "$v" ] || { echo "없음: $2" >&2; exit 1; }
+    printf '%s\n' "$v" ;;
+  del)
+    [ $# -eq 2 ] || { echo "usage: tkt del <service>" >&2; exit 1; }
+    need_pass
+    dec | { grep -v "^$2	" || true; } | enc
+    echo "del: $2" ;;
+  list)
+    need_pass; dec | cut -f1 ;;
+  map-add)
+    [ $# -eq 4 ] || { echo "usage: tkt map-add <파일> <변수> <service>" >&2; exit 1; }
+    touch "$MAP"
+    grep -qF "$2	$3	" "$MAP" 2>/dev/null && { echo "이미 연결됨: $2 :: $3"; exit 0; }
+    printf '%s\t%s\t%s\n' "$2" "$3" "$4" >> "$MAP"
+    echo "연결 추가: $2 :: $3 ← $4" ;;
+  map-list)
+    [ -f "$MAP" ] && column -t -s $'\t' "$MAP" || echo "연결 없음" ;;
+  sync)
+    need_pass
+    check="${2:-}"; changed=0
+    [ -f "$MAP" ] || { echo "연결 없음 — tkt map-add 먼저"; exit 0; }
+    while IFS=$'\t' read -r file var svc; do
+      [ -z "$file" ] && continue; case "$file" in \#*) continue;; esac
+      f="${file/#\~/$HOME}"
+      [ -f "$f" ] || { echo "skip (파일 없음): $f"; continue; }
+      val="$(dec | awk -F'\t' -v s="$svc" '$1==s{print $2}')"
+      [ -n "$val" ] || { echo "skip (볼트에 없음): $svc"; continue; }
+      cur="$(grep -E "^${var}=" "$f" | head -1 | cut -d= -f2- | tr -d '"'"'"' ' || true)"
+      [ "$cur" = "$val" ] && continue
+      changed=$((changed+1))
+      if [ "$check" = "--check" ]; then echo "would update: $f :: $var"; continue; fi
+      if grep -qE "^${var}=" "$f"; then
+        awk -v var="$var" -v val="$val" 'BEGIN{done=0} $0 ~ "^"var"=" && !done {print var"="val; done=1; next} {print}' "$f" > "$f.tkt.tmp" && mv "$f.tkt.tmp" "$f"
+      else
+        printf '%s=%s\n' "$var" "$val" >> "$f"
+      fi
+      echo "updated: $f :: $var"
+    done < "$MAP"
+    echo "sync 완료 (${changed}건 변경)" ;;
+  where)
+    echo "볼트: $VAULT"; echo "매핑: $MAP" ;;
+  *)
+    grep '^#' "$0" | sed 's/^# \{0,1\}//' | sed -n '2,20p' ;;
+esac

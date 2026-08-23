@@ -5,7 +5,7 @@ description: 기존 프로젝트들의 .env 파일을 탐색해 API 키를 중�
 
 # tikeytaka:scan — 파편화된 .env 키를 볼트로 통합
 
-코어 CLI: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/tkt"` (이하 `tkt`)
+코어 CLI: `bash "${CLAUDE_PLUGIN_ROOT}/bin/tkt"` (이하 `tkt`)
 
 ## 절차
 
