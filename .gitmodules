@@ -49,3 +49,6 @@
 [submodule "plugins/tikeytaka"]
 	path = plugins/tikeytaka
 	url = https://github.com/fivetaku/tikeytaka.git
+[submodule "plugins/ddiring"]
+	path = plugins/ddiring
+	url = https://github.com/fivetaku/ddiring.git

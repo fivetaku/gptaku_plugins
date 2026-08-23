@@ -240,6 +240,20 @@
         "env",
         "security"
       ]
+    },
+    {
+      "name": "ddiring",
+      "description": "띠링 — multi-session completion notifications: which folder, which terminal, what task. Click to jump to that app.",
+      "source": "./plugins/ddiring",
+      "category": "productivity",
+      "tags": [
+        "notification",
+        "multi-session",
+        "stop-hook",
+        "terminal",
+        "macos",
+        "windows"
+      ]
     }
   ]
 }
