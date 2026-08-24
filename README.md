@@ -6,11 +6,11 @@ English | [한국어](README.ko.md) | [中文](README.zh.md) | [日本語](READM
 
 **Stop explaining what you want — let Claude Code do it.**
 
-15 plugins that search blocked sites, rip design systems from any URL,
+17 plugins that search blocked sites, rip design systems from any URL,
 review your code, and turn rough ideas into PRDs — all inside Claude Code.
 
 <p>
-  <a href="#-all-plugins-by-category"><img src="https://img.shields.io/badge/plugins-15-6E56CF" alt="15 plugins"></a>
+  <a href="#-all-plugins-by-category"><img src="https://img.shields.io/badge/plugins-17-6E56CF" alt="17 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -263,6 +263,14 @@ All plugins are open source. Every submodule README lists its exact command boun
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/gaseo">gaseo</a></strong></td>
   <td>Send the Claude Code session you're in to Paseo (<code>/gaseo</code>).</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/tikeytaka">tikeytaka</a></strong></td>
+  <td>Central API key vault — consolidate scattered .env keys into an encrypted cloud-synced vault; register, wire, and verify keys in conversation.</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
+  <td>Multi-session completion alerts — which folder, which terminal, what task in one notification; click to jump to that app.</td>
 </tr>
 </table>
 

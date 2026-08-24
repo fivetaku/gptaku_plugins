@@ -7,10 +7,10 @@
 **やりたいことを説明するのはもう終わり — Claude Code に丸ごとやらせましょう。**
 
 ブロックされたサイトを突破し、あらゆる URL からデザインシステムを抜き取り、
-コードをレビューし、ざっくりしたアイデアを PRD に変える — それを全部 Claude Code の中でやる 15 個のプラグインです。
+コードをレビューし、ざっくりしたアイデアを PRD に変える — それを全部 Claude Code の中でやる 17 個のプラグインです。
 
 <p>
-  <a href="#-全プラグイン一覧カテゴリ別"><img src="https://img.shields.io/badge/plugins-15-6E56CF" alt="15個のプラグイン"></a>
+  <a href="#-全プラグイン一覧カテゴリ別"><img src="https://img.shields.io/badge/plugins-17-6E56CF" alt="17個のプラグイン"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -259,6 +259,14 @@ WAF、403、CAPTCHA、ログイン壁にぶつかった? パブリック API リ
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/gaseo">gaseo</a></strong></td>
   <td>いま話している Claude Code セッションを Paseo へ送る (<code>/gaseo</code>).</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/tikeytaka">tikeytaka</a></strong></td>
+  <td>散らばった .env の API キーを暗号化クラウドボルトに統合 — 登録・配線・死活検証まで会話で完結。</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
+  <td>マルチセッション完了通知 — どのフォルダ・どのターミナル・何の作業かを 1 つの通知で表示、クリックでそのアプリへジャンプ。</td>
 </tr>
 </table>
 

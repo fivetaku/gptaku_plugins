@@ -6,11 +6,11 @@
 
 **Deja de explicar lo que quieres — que Claude Code lo haga.**
 
-15 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
+17 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
 revisan tu código y convierten ideas en bruto en PRDs — todo dentro de Claude Code.
 
 <p>
-  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-15-6E56CF" alt="15 plugins"></a>
+  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-17-6E56CF" alt="17 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -259,6 +259,14 @@ Todos los plugins son de código abierto. El README de cada submódulo detalla s
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/gaseo">gaseo</a></strong></td>
   <td>Manda a Paseo la sesión de Claude Code en la que estás (<code>/gaseo</code>).</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/tikeytaka">tikeytaka</a></strong></td>
+  <td>Bóveda central de claves API — consolida las claves .env dispersas en una bóveda cifrada sincronizada en la nube; registra, conecta y verifica claves conversando.</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
+  <td>Alertas de finalización multisesión — qué carpeta, qué terminal y qué tarea en una sola notificación; clic para saltar a esa app.</td>
 </tr>
 </table>
 

@@ -6,11 +6,11 @@
 
 **别再费口舌解释你想要什么——让 Claude Code 直接搞定。**
 
-15 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
+17 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
 审查你的代码、把粗糙的想法变成 PRD——全部在 Claude Code 里完成。
 
 <p>
-  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-15-6E56CF" alt="15 个插件"></a>
+  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-17-6E56CF" alt="17 个插件"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -259,6 +259,14 @@
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/gaseo">gaseo</a></strong></td>
   <td>把你正在聊的 Claude Code 会话送进 Paseo (<code>/gaseo</code>).</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/tikeytaka">tikeytaka</a></strong></td>
+  <td>中央 API 密钥保险库 — 把散落各处的 .env 密钥整合进加密云同步保险库，注册、接线、存活验证全程对话完成。</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
+  <td>多会话完成提醒 — 一条通知告诉你哪个文件夹、哪个终端、什么任务；点击即可跳转到对应应用。</td>
 </tr>
 </table>
 

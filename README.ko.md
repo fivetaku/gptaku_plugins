@@ -6,10 +6,10 @@
 
 **원하는 걸 구구절절 설명하지 마세요 — Claude Code에게 직접 시키세요.**
 
-차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 15개의 플러그인.
+차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 17개의 플러그인.
 
 <p>
-  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-15-6E56CF" alt="15 plugins"></a>
+  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-17-6E56CF" alt="17 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -258,6 +258,14 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/gaseo">gaseo</a></strong></td>
   <td>지금 대화 중인 Claude Code 세션을 Paseo로 보낸다 (<code>/gaseo</code>).</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/tikeytaka">tikeytaka</a></strong></td>
+  <td>흩어진 .env API 키를 암호화 클라우드 볼트로 통합 — 등록·배선·생사 검증까지 대화로 처리.</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
+  <td>띠링 — 멀티세션 완료 알림: 어느 폴더·어느 터미널·무슨 작업인지 한 알림에 표시, 클릭하면 해당 앱으로 점프.</td>
 </tr>
 </table>
 
