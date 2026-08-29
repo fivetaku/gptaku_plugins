@@ -1,0 +1,12 @@
+{
+  "worktree": {
+    "setup": [
+      "cp -f \"$PASEO_SOURCE_CHECKOUT_PATH/CLAUDE.md\" . 2>/dev/null || true",
+      "cp -Rf \"$PASEO_SOURCE_CHECKOUT_PATH/.claude\" . 2>/dev/null || true",
+      "cp -f \"$PASEO_SOURCE_CHECKOUT_PATH/validate_plugins.py\" . 2>/dev/null || true"
+    ]
+  },
+  "scripts": {
+    "validate": { "command": "python3 validate_plugins.py" }
+  }
+}
