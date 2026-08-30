@@ -106,6 +106,10 @@ A 7-phase pipeline: it scopes the question, spawns specialized research agents, 
   <td><code>insane-search</code></td>
 </tr>
 <tr>
+  <td>X/Twitter research, monitoring, drafts, or approved account actions</td>
+  <td><a href="https://github.com/Xquik-dev/hermes-tweet"><code>Hermes Tweet</code></a> companion plugin</td>
+</tr>
+<tr>
   <td>Code review that needs another strong model</td>
   <td><code>insane-review</code></td>
 </tr>
