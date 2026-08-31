@@ -19,9 +19,6 @@
 [submodule "plugins/kkirikkiri"]
 	path = plugins/kkirikkiri
 	url = https://github.com/fivetaku/kkirikkiri.git
-[submodule "plugins/test-playground"]
-	path = plugins/test-playground
-	url = https://github.com/fivetaku/test-playground.git
 [submodule "plugins/skillers-suda"]
 	path = plugins/skillers-suda
 	url = https://github.com/fivetaku/skillers-suda.git

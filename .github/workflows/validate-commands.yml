@@ -29,3 +29,6 @@ jobs:
 
       - name: Validate skill contracts
         run: python3 tools/validate_skill_contracts.py
+
+      - name: Validate marketplace & plugin manifests
+        run: python3 tools/validate_marketplace.py --check-releases
