@@ -32,3 +32,8 @@ jobs:
 
       - name: Validate marketplace & plugin manifests
         run: python3 tools/validate_marketplace.py --check-releases
+
+      # gptaku_doctor.py 자체는 로컬 설치 상태를 진단하므로 CI에서 못 돌린다.
+      # 이 테스트는 가짜 HOME에 픽스처를 세워 축별 판정만 검증하므로 CI 가능.
+      - name: Verify gptaku_doctor axis judgments (fault injection)
+        run: python3 tools/test_gptaku_doctor.py

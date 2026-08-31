@@ -304,16 +304,19 @@ def main():
         report[name] = check_plugin(name, entry, enabled_map, sub_shas, repos,
                                     args.network)
 
+    counts = {"ok": 0, "warn": 0, "fail": 0, "unverified": 0}
+    for checks in report.values():
+        for _, status, _, _ in checks:
+            counts[status] += 1
+
+    # 종료코드는 두 출력 모드에서 동일해야 한다 — --json도 CI 게이트로 쓰인다
     if args.as_json:
         print(json.dumps({n: [dict(zip(("axis", "status", "message", "fix"), c))
                               for c in cs] for n, cs in report.items()},
                          ensure_ascii=False, indent=2))
-        return
+        sys.exit(1 if counts["fail"] else 0)
 
-    counts = {"ok": 0, "warn": 0, "fail": 0, "unverified": 0}
     for name, checks in report.items():
-        for _, status, _, _ in checks:
-            counts[status] += 1
         worst = min((c[1] for c in checks), key=SEVERITY.get)
         shown = checks if args.all else [c for c in checks if c[1] != "ok"]
         if not shown and not args.all:
