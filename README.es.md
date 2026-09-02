@@ -130,6 +130,10 @@ Un pipeline de 7 fases: delimita la pregunta, despliega agentes de investigació
   <td><code>pumasi</code> o <code>kkirikkiri</code></td>
 </tr>
 <tr>
+  <td>Un producto que necesita una página de detalle que venda (hoja de cortes de imagen)</td>
+  <td><code>sangse</code></td>
+</tr>
+<tr>
   <td>Una captura de pantalla, un log largo o una referencia copiada</td>
   <td><code>dd</code></td>
 </tr>

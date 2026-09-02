@@ -130,6 +130,10 @@ WAF、403、CAPTCHA、ログイン壁にぶつかった? パブリック API リ
   <td><code>pumasi</code> または <code>kkirikkiri</code></td>
 </tr>
 <tr>
+  <td>売れる商品詳細ページ（画像カットシート）が必要な商品</td>
+  <td><code>sangse</code></td>
+</tr>
+<tr>
   <td>スクリーンショット、長いログ、コピーしたリファレンス</td>
   <td><code>dd</code></td>
 </tr>

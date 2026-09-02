@@ -129,6 +129,10 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
   <td><code>pumasi</code> 또는 <code>kkirikkiri</code></td>
 </tr>
 <tr>
+  <td>팔리는 상세페이지(이미지 컷 시트)가 필요한 제품</td>
+  <td><code>sangse</code></td>
+</tr>
+<tr>
   <td>스크린샷, 긴 로그, 혹은 복사해 둔 참고 데이터를 직접 넘기고 싶을 때</td>
   <td><code>dd</code></td>
 </tr>

@@ -130,6 +130,10 @@ A 7-phase pipeline: it scopes the question, spawns specialized research agents, 
   <td><code>pumasi</code> or <code>kkirikkiri</code></td>
 </tr>
 <tr>
+  <td>A product that needs a selling detail page (image cut sheet)</td>
+  <td><code>sangse</code></td>
+</tr>
+<tr>
   <td>A screenshot, long log, or copied reference</td>
   <td><code>dd</code></td>
 </tr>

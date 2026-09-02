@@ -130,6 +130,10 @@
   <td><code>pumasi</code> 或 <code>kkirikkiri</code></td>
 </tr>
 <tr>
+  <td>需要一张能卖货的详情页（图片切图长页）的产品</td>
+  <td><code>sangse</code></td>
+</tr>
+<tr>
   <td>一张截图、一段长日志，或复制好的参考资料</td>
   <td><code>dd</code></td>
 </tr>
