@@ -3,7 +3,8 @@
 
 격리된 가짜 HOME에 마켓/캐시/매니페스트 픽스처를 세우고, 축별로 고장을 하나씩
 주입해 doctor가 그 축을 정확한 status로 잡는지 대조한다. 실제 설치 상태는
-건드리지 않는다 (doctor는 Path.home() 기준이고 POSIX에서 $HOME을 따른다).
+건드리지 않는다 — HOME, 개발 리포(GPTAKU_DEV_ROOT), gh(PATH 선두의 가짜 실행파일)
+셋 모두 픽스처로 바꿔 끼우므로 7축 전부가 네트워크 없이 검증된다.
 
 clean 케이스가 전 축 ok여야 오탐 없음도 함께 보장된다.
 
@@ -37,6 +38,11 @@ EXPECTATIONS = [
     ("hook-missing",    "훅",     "fail"),
     ("hook-empty",      "훅",     "fail"),
     ("not-installed",   "등록",   "fail"),
+    ("path-missing",    "경로",   "fail"),      # installPath가 캐시 밖을 가리킴
+    ("dev-drift",       "개발리포", "warn"),    # 개발 리포 버전 앞섬 (env 격리된 DEV_ROOT)
+    ("hook-unbraced",   "훅",     "fail"),      # $CLAUDE_PLUGIN_ROOT (중괄호 없음) 참조 미존재
+    ("content-noise",   "SHA",    "warn"),      # __pycache__/.DS_Store만 다름 → 오탐 금지
+    ("release-missing", "릴리즈", "fail"),      # 가짜 gh가 이 리포만 404
 ]
 
 
@@ -46,7 +52,7 @@ def write_json(path, data):
 
 
 def make_plugin_tree(root, name, version, *, dotfile=True, hooks=None,
-                     extra_file=None):
+                     extra_file=None, braced=True):
     """플러그인 디렉토리 하나를 만든다. hooks=스크립트 상대경로 or None."""
     root.mkdir(parents=True, exist_ok=True)
     if dotfile:
@@ -58,24 +64,26 @@ def make_plugin_tree(root, name, version, *, dotfile=True, hooks=None,
     if hooks is not None:
         write_json(root / "hooks/hooks.json", {"hooks": {"Stop": [{"hooks": [
             {"type": "command",
-             "command": f'bash "${{CLAUDE_PLUGIN_ROOT}}{hooks}" stop',
+             "command": (f'bash "${{CLAUDE_PLUGIN_ROOT}}{hooks}" stop' if braced
+                         else f'bash "$CLAUDE_PLUGIN_ROOT{hooks}" stop'),
              "timeout": 10}]}]}})
     if extra_file:
         (root / extra_file).write_text("drifted content\n")
 
 
 def build_fixture(home):
-    """가짜 HOME에 12개 케이스를 세운다. (installed, settings, market, cache)"""
+    """가짜 HOME에 17개 케이스를 세운다. (installed, settings, market, cache)"""
     cache = home / ".claude/plugins/cache" / MARKET
     market = home / ".claude/plugins/marketplaces" / MARKET
     mplug = market / "plugins"
     installed, enabled, gitlinks = {}, {}, {}
 
-    def register(name, version, *, sha=FAKE_SHA_A, enable=True, install=True):
+    def register(name, version, *, sha=FAKE_SHA_A, enable=True, install=True,
+                 install_path=None):
         if install:
             installed[f"{name}@{MARKET}"] = [{
                 "scope": "user",
-                "installPath": str(cache / name / version),
+                "installPath": str(install_path or cache / name / version),
                 "version": version,
                 "installedAt": "2026-01-01T00:00:00.000Z",
                 "lastUpdated": "2026-01-01T00:00:00.000Z",
@@ -154,6 +162,44 @@ def build_fixture(home):
     shutil.copytree(mplug / "not-installed", cache / "not-installed/1.0.0")
     register("not-installed", "1.0.0", install=False)
 
+    # ── path-missing: 캐시엔 1.0.0이 있는데 installPath가 다른 곳을 가리킴 ──
+    make_plugin_tree(mplug / "path-missing", "path-missing", "1.0.0")
+    shutil.copytree(mplug / "path-missing", cache / "path-missing/1.0.0")
+    register("path-missing", "1.0.0",
+             install_path=cache / "path-missing/1.0.0-ghost")
+
+    # ── dev-drift: 격리된 개발 리포(GPTAKU_DEV_ROOT)가 2.0.0, 배포본 1.0.0 ──
+    make_plugin_tree(mplug / "dev-drift", "dev-drift", "1.0.0")
+    shutil.copytree(mplug / "dev-drift", cache / "dev-drift/1.0.0")
+    make_plugin_tree(home / "dev-plugins/dev-drift", "dev-drift", "2.0.0")
+    register("dev-drift", "1.0.0")
+
+    # ── hook-unbraced: $CLAUDE_PLUGIN_ROOT/… (중괄호 없음)로 없는 스크립트 참조 ──
+    make_plugin_tree(mplug / "hook-unbraced", "hook-unbraced", "1.0.0",
+                     hooks="/hooks/scripts/gone.sh", braced=False)
+    shutil.copytree(mplug / "hook-unbraced", cache / "hook-unbraced/1.0.0")
+    register("hook-unbraced", "1.0.0")
+
+    # ── content-noise: SHA 불일치 + 캐시에 파이썬 캐시/.DS_Store만 추가 → warn ──
+    make_plugin_tree(mplug / "content-noise", "content-noise", "1.0.0")
+    shutil.copytree(mplug / "content-noise", cache / "content-noise/1.0.0")
+    (cache / "content-noise/1.0.0/__pycache__").mkdir()
+    (cache / "content-noise/1.0.0/__pycache__/x.cpython-312.pyc").write_bytes(b"\x00")
+    (cache / "content-noise/1.0.0/.DS_Store").write_bytes(b"\x00")
+    register("content-noise", "1.0.0", sha=FAKE_SHA_B)
+
+    # ── release-missing: 가짜 gh가 test/release-missing 리포만 릴리즈 없음 처리 ──
+    make_plugin_tree(mplug / "release-missing", "release-missing", "1.0.0")
+    shutil.copytree(mplug / "release-missing", cache / "release-missing/1.0.0")
+    register("release-missing", "1.0.0")
+
+    # 가짜 gh — 네트워크 없이 릴리즈 축을 돌린다 (PATH 선두에 놓임)
+    fake_bin = home / "bin"; fake_bin.mkdir()
+    gh = fake_bin / "gh"
+    gh.write_text("#!/bin/sh\ncase \"$*\" in *test/release-missing*) exit 1;; esac\n"
+                  "echo '{\"tagName\":\"v1.0.0\"}'\n")
+    gh.chmod(0o755)
+
     write_json(home / ".claude/plugins/installed_plugins.json",
                {"version": 1, "plugins": installed})
     write_json(home / ".claude/settings.json", {"enabledPlugins": enabled})
@@ -181,9 +227,11 @@ def main():
         home = tmp / "home"
         build_fixture(home)
         r = subprocess.run(
-            [sys.executable, str(DOCTOR), "--json"],
+            [sys.executable, str(DOCTOR), "--json", "--network"],
             capture_output=True, text=True,
-            env={**os.environ, "HOME": str(home)})
+            env={**os.environ, "HOME": str(home),
+                 "GPTAKU_DEV_ROOT": str(home / "dev-plugins"),
+                 "PATH": f"{home / 'bin'}{os.pathsep}{os.environ.get('PATH', '')}"})
         if not r.stdout.strip():
             sys.exit(f"doctor가 출력 없이 종료 (rc={r.returncode})\n{r.stderr}")
         report = json.loads(r.stdout)
@@ -196,8 +244,7 @@ def main():
                 continue
             got = {c["axis"]: c["status"] for c in checks}
             if axis is None:
-                bad = {a: s for a, s in got.items()
-                       if s not in ("ok", "unverified")}
+                bad = {a: s for a, s in got.items() if s != "ok"}
                 if bad:
                     failures.append(f"{name}: 전 축 ok여야 하는데 {bad} (오탐)")
                 else:

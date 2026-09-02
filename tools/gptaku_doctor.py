@@ -21,6 +21,7 @@ CLAUDE.md의 8단계 배포 체크리스트가 어긋났을 때 생기는 만성
 import argparse
 import configparser
 import json
+import os
 import re
 import subprocess
 import sys
@@ -32,7 +33,9 @@ CACHE_ROOT = HOME / ".claude/plugins/cache" / MARKET
 MARKET_ROOT = HOME / ".claude/plugins/marketplaces" / MARKET
 INSTALLED_JSON = HOME / ".claude/plugins/installed_plugins.json"
 SETTINGS_JSON = HOME / ".claude/settings.json"
-DEV_ROOT = Path(__file__).resolve().parent.parent / "plugins"
+# 개발 리포 위치. 테스트가 실제 plugins/를 읽지 않도록 env로 격리 가능
+DEV_ROOT = Path(os.environ.get("GPTAKU_DEV_ROOT")
+                or Path(__file__).resolve().parent.parent / "plugins")
 
 C = {"ok": "\033[32m", "warn": "\033[33m", "fail": "\033[31m",
      "unverified": "\033[36m", "reset": "\033[0m", "bold": "\033[1m"}
@@ -92,7 +95,8 @@ def hook_script_paths(install_path):
     data = load_json(hooks_file)
     if data is None:
         return "unparsable", []
-    paths = re.findall(r"\$\{CLAUDE_PLUGIN_ROOT\}([^\s\"'\\]+)", json.dumps(data))
+    # ${CLAUDE_PLUGIN_ROOT}/x 와 $CLAUDE_PLUGIN_ROOT/x 둘 다 포착
+    paths = re.findall(r"\$\{?CLAUDE_PLUGIN_ROOT\}?([^\s\"'\\]+)", json.dumps(data))
     return "present", sorted(set(paths))
 
 
@@ -186,7 +190,9 @@ def check_plugin(name, entry, enabled_map, sub_shas, repos, network):
             try:
                 r = subprocess.run(
                     ["diff", "-rq", str(market_dir), str(install_path),
-                     "--exclude=.git", "--exclude=.in_use"],
+                     "--exclude=.git", "--exclude=.in_use",
+                     "--exclude=__pycache__", "--exclude=*.pyc",
+                     "--exclude=.DS_Store"],
                     capture_output=True, text=True, timeout=30)
                 content_differs = r.returncode != 0
             except (subprocess.SubprocessError, OSError):
