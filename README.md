@@ -272,6 +272,10 @@ All plugins are open source. Every submodule README lists its exact command boun
   <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
   <td>Multi-session completion alerts — which folder, which terminal, what task in one notification; click to jump to that app.</td>
 </tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/sangse">sangse</a></strong></td>
+  <td>Korean e-commerce detail page builder — product facts → verified image cut sheet (Kurly / Coupang / Smart Store style) with compliance filters and a 3-gate QA (<code>/sangse</code>).</td>
+</tr>
 </table>
 
 ---

@@ -268,6 +268,10 @@ WAF、403、CAPTCHA、ログイン壁にぶつかった? パブリック API リ
   <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
   <td>マルチセッション完了通知 — どのフォルダ・どのターミナル・何の作業かを 1 つの通知で表示、クリックでそのアプリへジャンプ。</td>
 </tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/sangse">sangse</a></strong></td>
+  <td>商品情報から検証済みの画像カットシート型商品詳細ページを生成（Kurly・Coupang・スマートストア形式）。コンプライアンスフィルター + 3 段ゲート QA（<code>/sangse</code>）。</td>
+</tr>
 </table>
 
 ---

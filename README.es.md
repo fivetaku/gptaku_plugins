@@ -268,6 +268,10 @@ Todos los plugins son de código abierto. El README de cada submódulo detalla s
   <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
   <td>Alertas de finalización multisesión — qué carpeta, qué terminal y qué tarea en una sola notificación; clic para saltar a esa app.</td>
 </tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/sangse">sangse</a></strong></td>
+  <td>Páginas de detalle para e-commerce coreano — datos del producto → hoja de cortes de imagen verificada (estilo Kurly / Coupang / Smart Store) con filtros de cumplimiento y QA de 3 puertas (<code>/sangse</code>).</td>
+</tr>
 </table>
 
 ---

@@ -267,6 +267,10 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
   <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
   <td>띠링 — 멀티세션 완료 알림: 어느 폴더·어느 터미널·무슨 작업인지 한 알림에 표시, 클릭하면 해당 앱으로 점프.</td>
 </tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/sangse">sangse</a></strong></td>
+  <td>제품 정보 → 검증된 이미지 컷 시트 상세페이지(컬리·쿠팡·스마트스토어식). 컴플라이언스 필터 + 3중 게이트 검증 (<code>/sangse</code>).</td>
+</tr>
 </table>
 
 ---

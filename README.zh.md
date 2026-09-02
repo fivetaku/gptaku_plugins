@@ -268,6 +268,10 @@
   <td width="25%"><strong><a href="https://github.com/fivetaku/ddiring">ddiring</a></strong></td>
   <td>多会话完成提醒 — 一条通知告诉你哪个文件夹、哪个终端、什么任务；点击即可跳转到对应应用。</td>
 </tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/sangse">sangse</a></strong></td>
+  <td>韩国电商详情页生成器 — 产品信息 → 经验证的图片切图长页（Kurly / Coupang / 智能商店风格），含合规过滤与三重门 QA（<code>/sangse</code>）。</td>
+</tr>
 </table>
 
 ---
