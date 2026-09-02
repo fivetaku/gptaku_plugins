@@ -49,3 +49,6 @@
 [submodule "plugins/ddiring"]
 	path = plugins/ddiring
 	url = https://github.com/fivetaku/ddiring.git
+[submodule "plugins/sangse"]
+	path = plugins/sangse
+	url = https://github.com/fivetaku/sangse.git

@@ -254,6 +254,22 @@
         "macos",
         "windows"
       ]
+    },
+    {
+      "name": "sangse",
+      "description": "Korean e-commerce detail page builder — product facts → verified image cut sheet (Kurly/Coupang/Smart Store style) with 8-question copy, compliance filters and a 3-gate QA",
+      "source": "./plugins/sangse",
+      "category": "marketing",
+      "tags": [
+        "detail-page",
+        "landing-page",
+        "sales-copy",
+        "smartstore",
+        "coupang",
+        "image-cut-sheet",
+        "compliance",
+        "sangse"
+      ]
     }
   ]
 }
