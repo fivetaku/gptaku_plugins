@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "ownerRoot": "/Users/chulrolee/gptaku_plugins",
+  "instructions": [
+    "/Users/chulrolee/gptaku_plugins/CLAUDE.md"
+  ],
+  "skills": [],
+  "bindings": [
+    {
+      "id": "hook-precommit-validate-002",
+      "event": "tool_call",
+      "tools": [
+        "bash"
+      ],
+      "dialect": "claude",
+      "program": "/opt/homebrew/bin/python3",
+      "args": [
+        "-c",
+        "import json,sys,subprocess,re;d=json.load(sys.stdin);c=d.get('tool_input',{}).get('command','');m=re.search(r'(?:^|[;&|])\\s*git\\b[^|;&]*\\bcommit\\b',c);r=subprocess.run(['python3','/Users/chulrolee/gptaku_plugins/tools/validate_commands.py'],capture_output=True,text=True) if m else None;(sys.stderr.write(r.stdout+r.stderr),sys.exit(2)) if (r and r.returncode!=0) else sys.exit(0)"
+      ],
+      "source": "/Users/chulrolee/gptaku_plugins/tools/validate_commands.py",
+      "mode": "readOnly",
+      "timeoutMs": 15000
+    }
+  ],
+  "roles": [],
+  "mcp": []
+}
