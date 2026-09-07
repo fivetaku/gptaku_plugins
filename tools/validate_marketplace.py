@@ -23,6 +23,7 @@ Exit 0 = clean, 1 = 위반. 의존성 없음(stdlib + git CLI).
 """
 import json
 import os
+import posixpath
 import re
 import subprocess
 import sys
@@ -125,8 +126,32 @@ def validate_component_paths(ctx, plugin_dir, manifest):
 
 
 def validate_plugin_manifest(entry_name, source):
-    plugin_dir = os.path.normpath(os.path.join(ROOT, source))
     ctx = f"plugin `{entry_name}`"
+    expected_source = f"plugins/{entry_name}"
+    if (not isinstance(source, str) or os.path.isabs(source)
+            or ".." in source.split("/")
+            or posixpath.normpath(source) != expected_source):
+        fail(f"{ctx}: source must be a local path at {expected_source}: {source!r}")
+        return
+    # Compare against the lexical plugin location, not its resolved symlink target.
+    plugin_dir = os.path.join(os.path.realpath(ROOT), "plugins", entry_name)
+    if os.path.realpath(plugin_dir) != plugin_dir:
+        fail(f"{ctx}: source symlink escapes {expected_source}: {source}")
+        return
+    try:
+        ignored = subprocess.run(
+            ["git", "-C", ROOT, "check-ignore", "--no-index", "-q", "--", expected_source],
+            capture_output=True, text=True, timeout=60,
+        )
+    except (OSError, subprocess.TimeoutExpired) as e:
+        fail(f"{ctx}: cannot check source Git ignore rules: {e}")
+        return
+    if ignored.returncode == 0:
+        fail(f"{ctx}: source is excluded by Git ignore rules: {source}")
+        return
+    if ignored.returncode != 1:
+        fail(f"{ctx}: cannot check source Git ignore rules: {ignored.stderr.strip()}")
+        return
     if not os.path.isdir(plugin_dir):
         fail(f"{ctx}: source 디렉토리 없음: {source}")
         return

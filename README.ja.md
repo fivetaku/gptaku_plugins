@@ -7,10 +7,10 @@
 **やりたいことを説明するのはもう終わり — Claude Code に丸ごとやらせましょう。**
 
 ブロックされたサイトを突破し、あらゆる URL からデザインシステムを抜き取り、
-コードをレビューし、ざっくりしたアイデアを PRD に変える — それを全部 Claude Code の中でやる 17 個のプラグインです。
+コードをレビューし、ざっくりしたアイデアを PRD に変える — それを全部 Claude Code の中でやる 18 個のプラグインです。
 
 <p>
-  <a href="#-全プラグイン一覧カテゴリ別"><img src="https://img.shields.io/badge/plugins-17-6E56CF" alt="17個のプラグイン"></a>
+  <a href="#-全プラグイン一覧カテゴリ別"><img src="https://img.shields.io/badge/plugins-18-6E56CF" alt="18個のプラグイン"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -282,8 +282,8 @@ WAF、403、CAPTCHA、ログイン壁にぶつかった? パブリック API リ
 
 ## 動作要件
 
-- **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)** のみ — Codex / Antigravity / その他のターミナルインターフェースは対象外です。
-- **Windows**: WSL2（`wsl --install`）で実行 · **macOS / Linux**: そのまま動きます。
+- マーケットプレイスは **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)** 向けです。Pumasi は別途 [OMO などからの直接 Node 実行](plugins/pumasi/docs/host-workers.md)に対応しますが、プラグイン形式の移植ではありません。
+- OS とターミナルの対応範囲はプラグインごとに異なるため、インストール前に各 README を確認してください。**ddiring** の通知は macOS と実験的な Windows Git Bash に対応し、Linux/WSL の通知には対応していません。
 - 一部のプラグインは、必要に応じてオプションの CLI ツール（`gh`、`yt-dlp`、Playwright MCP）を自動でインストールします。
 
 ## なぜ GPTaku?

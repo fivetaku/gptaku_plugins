@@ -40,6 +40,10 @@ DEV_ROOT = Path(os.environ.get("GPTAKU_DEV_ROOT")
 C = {"ok": "\033[32m", "warn": "\033[33m", "fail": "\033[31m",
      "unverified": "\033[36m", "reset": "\033[0m", "bold": "\033[1m"}
 SEVERITY = {"fail": 0, "warn": 1, "unverified": 2, "ok": 3}
+RUNTIME_CACHE_PATHS = {
+    "insane-search": ("skills/insane-search/observations",),
+    "pumasi": ("skills/pumasi/.jobs", "skills/pumasi/node_modules"),
+}
 
 
 def load_json(path):
@@ -178,6 +182,41 @@ def check_plugin(name, entry, enabled_map, sub_shas, repos, network):
                            f"git submodule update --init plugins/{name}"))
         else:
             checks.append(("마켓", "ok", f"마켓 클론 버전 일치 {mv}", None))
+        # 기록된 SHA는 캐시 내용의 증거가 아니다. 메타데이터와 독립적으로 대조한다.
+        content_differs = None
+        try:
+            r = subprocess.run(
+                ["diff", "-rq", str(market_dir), str(install_path),
+                 "--exclude=.git", "--exclude=.in_use",
+                 "--exclude=__pycache__", "--exclude=*.pyc",
+                 "--exclude=.DS_Store"],
+                capture_output=True, text=True, timeout=30,
+                env={**os.environ, "LC_ALL": "C"})
+            if r.returncode in (0, 1):
+                content_differs = r.returncode == 1
+                if content_differs:
+                    # Ignore only added, documented runtime directories at exact paths.
+                    # Shipped files and same-named directories elsewhere remain checked.
+                    runtime_additions = set()
+                    for relative in RUNTIME_CACHE_PATHS.get(name, ()):
+                        runtime = install_path / relative
+                        if (runtime.is_dir() and not runtime.is_symlink()
+                                and not (market_dir / relative).exists()):
+                            runtime_additions.add(f"Only in {runtime.parent}: {runtime.name}")
+                    differences = r.stdout.splitlines()
+                    content_differs = not differences or any(
+                        line not in runtime_additions for line in differences)
+            comparison_error = f"diff 종료코드 {r.returncode}: {r.stderr.strip()}"
+        except (subprocess.SubprocessError, OSError) as e:
+            comparison_error = str(e)
+        if content_differs is None:
+            checks.append(("내용", "unverified", f"내용 대조 실패: {comparison_error}", None))
+        elif content_differs:
+            checks.append(("내용", "fail", "캐시 내용이 마켓과 다름",
+                           "docs/plugin-release.md Step 5~6: 새 staging에서 검증 후 "
+                           "캐시 교체 및 설치 정보 대조 (기존 캐시에 덮어쓰지 않음)"))
+        else:
+            checks.append(("내용", "ok", "캐시 내용이 마켓과 일치", None))
         sha = entry.get("gitCommitSha", "")
         if sub_shas is None:
             checks.append(("SHA", "unverified", "git ls-tree 실패 — 대조 안 함", None))
@@ -186,24 +225,12 @@ def check_plugin(name, entry, enabled_map, sub_shas, repos, network):
         elif sha == sub_shas[name]:
             checks.append(("SHA", "ok", f"gitCommitSha 일치 {sha[:8]}", None))
         else:
-            # 버전이 같아도 bump 없이 배포된 fix가 캐시에 빠졌을 수 있다 — 내용 대조
-            try:
-                r = subprocess.run(
-                    ["diff", "-rq", str(market_dir), str(install_path),
-                     "--exclude=.git", "--exclude=.in_use",
-                     "--exclude=__pycache__", "--exclude=*.pyc",
-                     "--exclude=.DS_Store"],
-                    capture_output=True, text=True, timeout=30)
-                content_differs = r.returncode != 0
-            except (subprocess.SubprocessError, OSError):
-                content_differs = None
             if content_differs:
                 checks.append(("SHA", "fail",
                                f"캐시 내용이 마켓과 다름 (동일 버전 {ver}, "
                                f"bump 없이 배포된 fix 미반영 — SHA "
                                f"{sha[:8]}≠{sub_shas[name][:8]})",
-                               f'cp -R "{market_dir}/." "{install_path}/" && '
-                               f'trash "{install_path}/.git" 후 '
+                               "docs/plugin-release.md Step 5~6: 검증된 새 캐시로 교체 후 "
                                f"gitCommitSha를 {sub_shas[name][:8]}로 정정"))
             else:
                 note = ("내용은 일치" if content_differs is False else "내용 대조 실패")

@@ -6,10 +6,10 @@
 
 **원하는 걸 구구절절 설명하지 마세요 — Claude Code에게 직접 시키세요.**
 
-차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 17개의 플러그인.
+차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 18개의 플러그인.
 
 <p>
-  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-17-6E56CF" alt="17 plugins"></a>
+  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-18-6E56CF" alt="18 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -281,8 +281,8 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
 
 ## 요구사항
 
-- **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)** 전용 — Codex, Antigravity 등 기타 터미널 인터페이스 미지원.
-- **Windows**: WSL2 환경 필요 (`wsl --install`) · **macOS / Linux**: 즉시 연동 가능.
+- 마켓플레이스 설치는 **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)**용입니다. 품앗이는 별도로 [OMO 등 다른 호스트의 직접 Node 실행](plugins/pumasi/docs/host-workers.md)을 지원하며, 마켓플레이스 패키지 자체를 이식한 것은 아닙니다.
+- OS와 터미널 지원 범위는 플러그인마다 다르므로 설치 전에 개별 README를 확인하세요. **ddiring** 알림은 macOS와 실험적 Windows Git Bash를 지원하며, Linux/WSL 알림은 지원하지 않습니다.
 - 일부 플러그인은 필요 시 의존 도구(`gh`, `yt-dlp`, Playwright MCP 등)를 자동 설치합니다.
 
 ## 왜 GPTaku인가?

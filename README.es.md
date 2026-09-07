@@ -6,11 +6,11 @@
 
 **Deja de explicar lo que quieres — que Claude Code lo haga.**
 
-17 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
+18 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
 revisan tu código y convierten ideas en bruto en PRDs — todo dentro de Claude Code.
 
 <p>
-  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-17-6E56CF" alt="17 plugins"></a>
+  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-18-6E56CF" alt="18 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -282,8 +282,8 @@ Todos los plugins son de código abierto. El README de cada submódulo detalla s
 
 ## Requisitos
 
-- **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)** únicamente — sin Codex / Antigravity / otras interfaces de terminal.
-- **Windows**: Ejecútalo en WSL2 (`wsl --install`) · **macOS / Linux**: Funciona sin más.
+- El marketplace se instala en **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)**. Pumasi también permite [ejecución directa con Node desde OMO u otros anfitriones](plugins/pumasi/docs/host-workers.md); no es una adaptación del formato de plugin.
+- La compatibilidad con sistemas operativos y terminales depende del plugin; consulta su README antes de instalarlo. Las notificaciones de **ddiring** funcionan en macOS y, de forma experimental, en Windows Git Bash; no están disponibles en Linux/WSL.
 - Algunos plugins instalan automáticamente herramientas CLI opcionales (`gh`, `yt-dlp`, Playwright MCP) cuando hace falta.
 
 ## ¿Por qué GPTaku?
