@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "insane-crawl",
+  "version": "0.1.0",
+  "description": "Local, resumable research crawler for public pages with deterministic SQLite checkpoints, bounded agent-facing output, and per-page receipts.",
+  "author": {
+    "name": "fivetaku",
+    "url": "https://github.com/fivetaku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "crawler",
+    "research",
+    "local-first",
+    "sqlite",
+    "resumable",
+    "public-content",
+    "receipts",
+    "robots"
+  ]
+}
