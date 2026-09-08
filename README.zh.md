@@ -6,11 +6,11 @@
 
 **别再费口舌解释你想要什么——让 Claude Code 直接搞定。**
 
-17 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
+18 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
 审查你的代码、把粗糙的想法变成 PRD——全部在 Claude Code 里完成。
 
 <p>
-  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-17-6E56CF" alt="17 个插件"></a>
+  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-18-6E56CF" alt="18 个插件"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -282,8 +282,8 @@
 
 ## 环境要求
 
-- 仅支持 **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)**——不支持 Codex / Antigravity / 其他终端界面。
-- **Windows**：在 WSL2 上运行（`wsl --install`）· **macOS / Linux**：开箱即用。
+- 市场安装面向 **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)**。Pumasi 另支持[从 OMO 等宿主直接运行 Node](plugins/pumasi/docs/host-workers.md)，并非将市场插件格式移植到其他宿主。
+- 各插件支持的操作系统和终端不同，请在安装前查看对应的 README。**ddiring** 通知支持 macOS 和实验性的 Windows Git Bash，不支持 Linux/WSL 通知。
 - 部分插件会在需要时自动安装可选的 CLI 工具（`gh`、`yt-dlp`、Playwright MCP）。
 
 ## 为什么是 GPTaku？

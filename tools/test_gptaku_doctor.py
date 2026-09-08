@@ -11,13 +11,20 @@ clean 케이스가 전 축 ok여야 오탐 없음도 함께 보장된다.
 사용: python3 tools/test_gptaku_doctor.py
 """
 
+import importlib
 import json
 import os
 import shutil
 import subprocess
 import sys
 import tempfile
+import unittest
 from pathlib import Path
+from typing import ClassVar
+from unittest.mock import patch
+
+doctor = importlib.import_module(
+    f"{__package__}.gptaku_doctor" if __package__ else "gptaku_doctor")
 
 DOCTOR = Path(__file__).resolve().parent / "gptaku_doctor.py"
 MARKET = "gptaku-plugins"
@@ -34,6 +41,7 @@ EXPECTATIONS = [
     ("ver-mismatch",    "버전",   "fail"),
     ("market-drift",    "마켓",   "fail"),
     ("content-drift",   "SHA",    "fail"),
+    ("same-sha-drift",  "내용",   "fail"),
     ("sha-only",        "SHA",    "warn"),
     ("hook-missing",    "훅",     "fail"),
     ("hook-empty",      "훅",     "fail"),
@@ -72,7 +80,7 @@ def make_plugin_tree(root, name, version, *, dotfile=True, hooks=None,
 
 
 def build_fixture(home):
-    """가짜 HOME에 17개 케이스를 세운다. (installed, settings, market, cache)"""
+    """가짜 HOME에 결함 케이스를 세운다. (installed, settings, market, cache)"""
     cache = home / ".claude/plugins/cache" / MARKET
     market = home / ".claude/plugins/marketplaces" / MARKET
     mplug = market / "plugins"
@@ -138,6 +146,14 @@ def build_fixture(home):
     make_plugin_tree(cache / "content-drift/1.0.0", "content-drift", "1.0.0")
     register("content-drift", "1.0.0", sha=FAKE_SHA_B)
 
+    # 버전과 기록된 SHA가 같아도 캐시 명령 내용은 다를 수 있다.
+    make_plugin_tree(mplug / "same-sha-drift", "same-sha-drift", "1.0.0")
+    (mplug / "same-sha-drift/commands").mkdir()
+    (mplug / "same-sha-drift/commands/run.md").write_text("current command\n")
+    shutil.copytree(mplug / "same-sha-drift", cache / "same-sha-drift/1.0.0")
+    (cache / "same-sha-drift/1.0.0/commands/run.md").write_text("stale command\n")
+    register("same-sha-drift", "1.0.0")
+
     # ── sha-only: SHA만 낡음, 내용은 동일 ──
     make_plugin_tree(mplug / "sha-only", "sha-only", "1.0.0")
     shutil.copytree(mplug / "sha-only", cache / "sha-only/1.0.0")
@@ -193,6 +209,15 @@ def build_fixture(home):
     shutil.copytree(mplug / "release-missing", cache / "release-missing/1.0.0")
     register("release-missing", "1.0.0")
 
+    # Real plugin names exercise their documented runtime paths in an isolated HOME.
+    for name in ("insane-search", "pumasi"):
+        make_plugin_tree(mplug / name, name, "1.0.0")
+        skill = mplug / name / "skills" / name
+        skill.mkdir(parents=True)
+        (skill / "owned.txt").write_text("shipped content\n", encoding="utf-8")
+        shutil.copytree(mplug / name, cache / name / "1.0.0")
+        register(name, "1.0.0")
+
     # 가짜 gh — 네트워크 없이 릴리즈 축을 돌린다 (PATH 선두에 놓임)
     fake_bin = home / "bin"; fake_bin.mkdir()
     gh = fake_bin / "gh"
@@ -219,6 +244,189 @@ def build_fixture(home):
     for n, sha in gitlinks.items():
         run("update-index", "--add", "--cacheinfo", f"160000,{sha},plugins/{n}")
     run("commit", "-q", "-m", "fixture")
+
+
+class ContentVerificationTests(unittest.TestCase):
+    home: ClassVar[Path]
+    cache: ClassVar[Path]
+    market: ClassVar[Path]
+    env: ClassVar[dict[str, str]]
+
+    @classmethod
+    def setUpClass(cls):
+        tmp = tempfile.TemporaryDirectory(prefix="doctor-content-")
+        cls.addClassCleanup(tmp.cleanup)
+        cls.home = Path(tmp.name) / "home"
+        build_fixture(cls.home)
+        cls.cache = cls.home / ".claude/plugins/cache" / MARKET
+        cls.market = cls.home / ".claude/plugins/marketplaces" / MARKET
+        cls.env = {**os.environ, "HOME": str(cls.home),
+                   "GPTAKU_DEV_ROOT": str(cls.home / "dev-plugins"),
+                   "PATH": f"{cls.home / 'bin'}{os.pathsep}{os.environ.get('PATH', '')}"}
+
+    def run_cli(self, name, *, as_json=True):
+        result = subprocess.run(
+            [sys.executable, str(DOCTOR), "--network",
+             "--json" if as_json else "--all", name],
+            capture_output=True, text=True, env=self.env, timeout=45)
+        self.assertEqual(result.stderr, "")
+        if not as_json:
+            return result.returncode, {}
+        checks = json.loads(result.stdout)[name]
+        return result.returncode, {c["axis"]: c["status"] for c in checks}
+
+    def check_locally(self, name, sub_shas):
+        installed = json.loads(
+            (self.home / ".claude/plugins/installed_plugins.json").read_text())
+        key = f"{name}@{MARKET}"
+        with patch.multiple(doctor, CACHE_ROOT=self.cache, MARKET_ROOT=self.market,
+                            DEV_ROOT=self.home / "dev-plugins"):
+            checks = doctor.check_plugin(
+                name, installed["plugins"][key][0], {key: True}, sub_shas, {}, False)
+        return {axis: status for axis, status, _, _ in checks}
+
+    def test_same_sha_clean(self):
+        rc, statuses = self.run_cli("clean")
+        self.assertEqual(rc, 0)
+        self.assertEqual(statuses["내용"], "ok")
+        self.assertEqual(set(statuses.values()), {"ok"})
+
+    def test_same_sha_content_drift(self):
+        rc, statuses = self.run_cli("same-sha-drift")
+        self.assertEqual(rc, 1)
+        self.assertEqual(statuses["버전"], "ok")
+        self.assertEqual(statuses["마켓"], "ok")
+        self.assertEqual(statuses["SHA"], "ok")
+        self.assertEqual(statuses["내용"], "fail")
+
+    def test_text_cli_exit_codes(self):
+        for name, expected in (("clean", 0), ("same-sha-drift", 1)):
+            with self.subTest(name=name):
+                rc, _ = self.run_cli(name, as_json=False)
+                self.assertEqual(rc, expected)
+
+    def test_harmless_cache_exclusions(self):
+        root = self.cache / "clean/1.0.0"
+        for relative in (".git", ".in_use", "__pycache__/module.pyc",
+                         "hooks/scripts/module.pyc", "hooks/.DS_Store"):
+            path = root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"cache noise\n")
+            self.addCleanup(path.unlink)
+        rc, statuses = self.run_cli("clean")
+        self.assertEqual(rc, 0)
+        self.assertEqual(statuses["내용"], "ok")
+        self.assertEqual(set(statuses.values()), {"ok"})
+
+    def test_sha_only_stays_warning(self):
+        rc, statuses = self.run_cli("sha-only")
+        self.assertEqual(rc, 0)
+        self.assertEqual(statuses["SHA"], "warn")
+        self.assertEqual(statuses["내용"], "ok")
+
+    def test_documented_runtime_directories_are_not_drift(self) -> None:
+        paths = {
+            "insane-search": ("skills/insane-search/observations",),
+            "pumasi": ("skills/pumasi/.jobs", "skills/pumasi/node_modules"),
+        }
+        for name, relatives in paths.items():
+            with self.subTest(plugin=name):
+                root = self.cache / name / "1.0.0"
+                for relative in relatives:
+                    directory = root / relative
+                    directory.mkdir(parents=True)
+                    self.addCleanup(shutil.rmtree, directory)
+                    (directory / "runtime.json").write_text("{}", encoding="utf-8")
+                rc, statuses = self.run_cli(name)
+                self.assertEqual(rc, 0)
+                self.assertEqual(statuses["내용"], "ok")
+
+    def test_runtime_name_outside_allowed_location_is_drift(self) -> None:
+        directory = self.cache / "insane-search/1.0.0/observations"
+        directory.mkdir()
+        self.addCleanup(shutil.rmtree, directory)
+        (directory / "unexpected.txt").write_text("unexpected", encoding="utf-8")
+        rc, statuses = self.run_cli("insane-search")
+        self.assertEqual(rc, 1)
+        self.assertEqual(statuses["내용"], "fail")
+
+    def test_shipped_observations_are_still_checked(self) -> None:
+        relative = "skills/insane-search/observations"
+        for root, content in ((self.market / "plugins/insane-search", "original"),
+                              (self.cache / "insane-search/1.0.0", "changed")):
+            directory = root / relative
+            directory.mkdir()
+            self.addCleanup(shutil.rmtree, directory)
+            (directory / "owned.txt").write_text(content, encoding="utf-8")
+        rc, statuses = self.run_cli("insane-search")
+        self.assertEqual(rc, 1)
+        self.assertEqual(statuses["내용"], "fail")
+
+    def test_runtime_artifacts_do_not_hide_source_drift(self) -> None:
+        root = self.cache / "insane-search/1.0.0/skills/insane-search"
+        runtime = root / "observations"
+        runtime.mkdir()
+        self.addCleanup(shutil.rmtree, runtime)
+        owned = root / "owned.txt"
+        original = owned.read_text(encoding="utf-8")
+        self.addCleanup(owned.write_text, original, encoding="utf-8")
+        owned.write_text("changed", encoding="utf-8")
+        rc, statuses = self.run_cli("insane-search")
+        self.assertEqual(rc, 1)
+        self.assertEqual(statuses["내용"], "fail")
+
+    def test_runtime_named_regular_file_is_not_ignored(self) -> None:
+        runtime = self.cache / "insane-search/1.0.0/skills/insane-search/observations"
+        runtime.write_text("not a runtime directory", encoding="utf-8")
+        self.addCleanup(runtime.unlink)
+        rc, statuses = self.run_cli("insane-search")
+        self.assertEqual(rc, 1)
+        self.assertEqual(statuses["내용"], "fail")
+
+    def assert_comparison_unverified(self):
+        for name, sha_status in (("clean", "ok"), ("sha-only", "warn")):
+            with self.subTest(name=name):
+                rc, statuses = self.run_cli(name)
+                self.assertEqual(rc, 0)
+                self.assertEqual(statuses["내용"], "unverified")
+                self.assertEqual(statuses["SHA"], sha_status)
+                self.assertNotIn("fail", statuses.values())
+
+    def test_diff_error_is_not_drift(self):
+        diff = self.home / "bin/diff"
+        diff.write_text("#!/bin/sh\necho 'comparison failed' >&2\nexit 2\n")
+        diff.chmod(0o755)
+        self.addCleanup(diff.unlink)
+        self.assert_comparison_unverified()
+
+    def test_diff_unavailable_is_unverified(self):
+        git = shutil.which("git")
+        if git is None:
+            self.fail("git is required to build the fixture")
+        (self.home / "bin/git").symlink_to(git)
+        self.addCleanup((self.home / "bin/git").unlink)
+        self.enterContext(patch.dict(self.env, PATH=str(self.home / "bin")))
+        self.assert_comparison_unverified()
+
+    def test_diff_timeout_is_unverified(self):
+        for name, sha_status in (("clean", "ok"), ("sha-only", "warn")):
+            with self.subTest(name=name), patch.object(
+                    doctor.subprocess, "run",
+                    side_effect=subprocess.TimeoutExpired(["diff"], 30)) as run:
+                statuses = self.check_locally(name, {name: FAKE_SHA_A})
+                run.assert_called_once()
+                self.assertEqual(run.call_args.args[0][0], "diff")
+                self.assertEqual(run.call_args.kwargs["timeout"], 30)
+                self.assertEqual(statuses["내용"], "unverified")
+                self.assertEqual(statuses["SHA"], sha_status)
+                self.assertNotIn("fail", statuses.values())
+
+    def test_content_checked_without_sha_metadata(self):
+        for sub_shas in (None, {}):
+            with self.subTest(sub_shas=sub_shas):
+                statuses = self.check_locally("same-sha-drift", sub_shas)
+                self.assertEqual(statuses["SHA"], "unverified")
+                self.assertEqual(statuses["내용"], "fail")
 
 
 def main():
@@ -277,3 +485,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    unittest.main(verbosity=2)

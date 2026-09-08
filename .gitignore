@@ -2,7 +2,6 @@ ideation/
 .DS_Store
 .omc/
 .claude/
-CLAUDE.md
 PLUGIN_STANDARD.md
 VERSIONING.md
 validate_plugins.py
@@ -10,6 +9,11 @@ PRD/
 PRD-*/
 RESEARCH/
 scripts/
+!/scripts/
+/scripts/*
+!/scripts/plugin-release.sh
 .kkirikkiri/
 .insane-review/
 .fix-standard/
+/plugins/insane-slide/
+/plugins/insane-video/
