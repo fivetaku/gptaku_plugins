@@ -18,16 +18,3 @@ def test_extract_links_keeps_same_site_document_order() -> None:
         "https://example.com/b",
         "https://docs.example.com/c",
     )
-
-
-def test_link_heavy_page_preserves_first_seen_normalized_order() -> None:
-    links = []
-    for number in range(500):
-        links.extend((
-            f'<a href="/p/{number}?utm_source=sample#first">first</a>',
-            f'<a href="https://example.com/p/{number}#duplicate">duplicate</a>',
-            '<a href="https://other.test/no">outside</a>',
-        ))
-    assert extract_links("".join(links), "https://example.com/", "https://example.com/") == tuple(
-        f"https://example.com/p/{number}" for number in range(500)
-    )

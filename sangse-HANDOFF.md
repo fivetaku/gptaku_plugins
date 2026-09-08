@@ -21,20 +21,24 @@
 - 개발 체크아웃: `~/sangse` (구 `~/.claude/skills/sangse` — 플러그인과 이름 충돌로 이동). GitHub Pages는 `fivetaku/sangse` main 루트에서 서빙.
 - 주의: 이 마켓 레포의 working tree에 **내 것이 아닌 미커밋 변경**이 있다 — `.claude-plugin/marketplace.json`의 `insane-crawl` 항목, `.gitignore`, 여러 submodule 포인터(docs-guide·git-teacher·insane-design·nopal·show-me-the-prd·skillers-suda), `.agents/`·`.antigravitycli/`. sangse 커밋 때 의도적으로 제외했다. 건드리지 말 것.
 
-## 3. 다음 작업: 다른 플러그인 기준에 맞추기
+## 3. 다른 플러그인 기준에 맞추기 — ✅ 2026-09-03 전부 완료 (v0.5.1 릴리스·배포, gptaku_doctor 7축 ok, tests/test-gates.sh 19/19)
 
 pumasi·tikeytaka 등 성숙 플러그인의 문서 세트와 비교한 갭:
 
-- [ ] **README 다국어**: `README.ja.md`, `README.es.md`, `README.zh.md` 추가 (pumasi 패턴: 첫 줄 language toggle 전 언어 상호 링크). 현재 en·ko만 있음. 첫 줄 토글도 5개 언어로 갱신.
-- [ ] **VERSIONING.md 규칙 대조**: CHANGELOG 형식(날짜·섹션명)과 plugin.json 버전이 이 레포 규칙과 같은지 확인. 0.5.0 → 다음 릴리스는 0.6.0(아래 §4 병합 시).
-- [ ] **CLAUDE.md "플러그인 버전 업데이트 체크리스트"** 절차대로 릴리스 리허설 1회: 서브모듈 안에서 버전 올리고 push → 부모 레포 submodule 포인터 커밋 → `claude plugin marketplace update` → 캐시 버전 확인. 이 절차를 `plugins/sangse/CHANGELOG.md` 상단이나 README 개발 섹션에 1줄로 링크.
-- [ ] **tests/**: pumasi처럼 `tests/` 디렉토리. 후보: `check_cuts.py`를 `examples/` 3종에 돌려 PASS를 확인하는 `tests/test-gates.sh`, `assemble_html.py` 컷 모드 스모크, `check_deps.sh` exit 0. (`examples/`가 이미 픽스처 역할.)
-- [ ] **commands/sangse.md 표준 대조**: PLUGIN_STANDARD §4 frontmatter(`argument-hint`, `allowed-tools`)와 다른 플러그인 라우터의 "No argument → AskUserQuestion" 패턴 일치 확인. `Skill`·`Agent` 도구가 allowed-tools에 들어간 것이 다른 플러그인과 일관되는지 검토.
-- [ ] **setup/setup.sh**: pumasi 것을 PLUGIN/OWN_REPO만 바꿔 복사했다. `gptaku-update-check.cjs` 훅 등록 경로·마커 파일명이 sangse로 잘 갈리는지 1회 실행 확인(`bash setup/setup.sh ask` → 출력 없음 또는 `STAR_ASK`).
-- [ ] **.gitignore**: 표준 항목(`.claude/*.local.md`, `node_modules/`) 포함됨. `sangse/`(사용자 프로젝트 산출물 폴더명)와 `RESEARCH/` 제외가 의도대로인지 확인.
-- [ ] **assets/**: 마켓 README 카드용 대표 이미지(다른 플러그인은 `assets/`에 로고·스크린샷). 예시 페이지 첫 컷 스크린샷을 후보로.
-- [ ] 루트 `README.md`(마켓플레이스 소개, 5개 언어) 플러그인 목록에 sangse 1줄 추가 — 현재 미반영.
-- [ ] `CLAUDE.md` 프로젝트 구조 트리에 `sangse/  # 상세페이지 컷 시트 제작` 1줄 추가.
+- [x] **README 다국어**: `README.ja.md`, `README.es.md`, `README.zh.md` 추가 (pumasi 패턴: 첫 줄 language toggle 전 언어 상호 링크). 현재 en·ko만 있음. 첫 줄 토글도 5개 언어로 갱신.
+- [x] **VERSIONING.md 규칙 대조**: CHANGELOG 형식(날짜·섹션명)과 plugin.json 버전이 이 레포 규칙과 같은지 확인. 0.5.0 → 다음 릴리스는 0.6.0(아래 §4 병합 시).
+- [x] **CLAUDE.md "플러그인 버전 업데이트 체크리스트"** 절차대로 릴리스 리허설 1회: 서브모듈 안에서 버전 올리고 push → 부모 레포 submodule 포인터 커밋 → `claude plugin marketplace update` → 캐시 버전 확인. 이 절차를 `plugins/sangse/CHANGELOG.md` 상단이나 README 개발 섹션에 1줄로 링크.
+- [x] **tests/**: pumasi처럼 `tests/` 디렉토리. 후보: `check_cuts.py`를 `examples/` 3종에 돌려 PASS를 확인하는 `tests/test-gates.sh`, `assemble_html.py` 컷 모드 스모크, `check_deps.sh` exit 0. (`examples/`가 이미 픽스처 역할.)
+- [x] **commands/sangse.md 표준 대조** (frontmatter 4필드 표준 일치. `Agent`·`Skill`은 다른 플러그인에 없으나 /pumasi:image 호출·리뷰어 4인 위임에 필요해 유지): PLUGIN_STANDARD §4 frontmatter(`argument-hint`, `allowed-tools`)와 다른 플러그인 라우터의 "No argument → AskUserQuestion" 패턴 일치 확인. `Skill`·`Agent` 도구가 allowed-tools에 들어간 것이 다른 플러그인과 일관되는지 검토.
+- [x] **setup/setup.sh**: pumasi 것을 PLUGIN/OWN_REPO만 바꿔 복사했다. `gptaku-update-check.cjs` 훅 등록 경로·마커 파일명이 sangse로 잘 갈리는지 1회 실행 확인(`bash setup/setup.sh ask` → 출력 없음 또는 `STAR_ASK`).
+- [x] **.gitignore**: `sangse/`(슬래시 없음)가 `skills/sangse/` 신규 파일까지 ignore하던 결함 발견 → `/sangse/`로 수정(0.5.1).
+- [x] **assets/**: 마켓 README 카드용 대표 이미지(다른 플러그인은 `assets/`에 로고·스크린샷). 예시 페이지 첫 컷 스크린샷을 후보로.
+- [x] 루트 `README.md`(마켓플레이스 소개, 5개 언어) 플러그인 목록에 sangse 1줄 추가 — 현재 미반영.
+- [x] `CLAUDE.md` 프로젝트 구조 트리에 `sangse/  # 상세페이지 컷 시트 제작` 1줄 추가.
+
+## 3-1. 스타일 팩 (2026-09-04, v0.7.0~0.7.1 배포 완료)
+
+리서치 `RESEARCH/sangse_style_pack_sources_20260903_210901/`(outputs 00~07, 해부 18건 `artifacts/dissections/`, 캡처 `captures/`). 팩 6종 `assets/style-packs/`, 가이드 `references/style-packs.md`, 채널 프리셋 `assets/channel-presets.json`. 라운드 C 완료(0.7.2): 6팩 전부 verified, 해부 20페이지, channel-presets. 남은: 이미지 생성 포함 룩 비교(Codex 이미지 도구 미노출로 차단 — 복구 후 `experiment/*/anchor_prompt_en.txt`), 해외 팩(후순위). 함정: 해부 에이전트는 Sonnet(Fable 3동시=릴레이 429), 조각은 nh≥2500 스트립만, 오픈마켓 상세는 Aside 브라우저로만 회수됨.
 
 ## 4. 미완 콘텐츠 (별도 세션 재실행 필요 — 서버 rate limit으로 중단)
 
@@ -51,7 +55,7 @@ pumasi·tikeytaka 등 성숙 플러그인의 문서 세트와 비교한 갭:
 
 완료된 해부: 무신사(F, 스킬에 F1~F8 반영 완료), 크몽(G_kmong.md — **템플릿 G1~G8이 아직 `assets/cut-templates.json`·`cut-sheet.md`에 미반영**).
 
-병합 방법: 컴플라이언스 결과 → `skills/sangse/references/compliance.md` §6 인덱스 자리에 업종별 상세 섹션 + `assets/banned-words.json`에 카테고리 키 추가 + `check_cuts.py LEGAL_REQUIRED`와 `interview.md` Q-규제 옵션 갱신. 해부 결과 → `cut-templates.json` 템플릿 추가 + `cut-sheet.md` §3 시퀀스 + `reference-patterns.md` §7 비교표. 그다음 0.6.0.
+병합 방법: 컴플라이언스 결과 → `skills/sangse/references/compliance.md` §6 인덱스 자리에 업종별 상세 섹션 + `assets/banned-words.json`에 카테고리 키 추가 + `check_cuts.py LEGAL_REQUIRED`와 `interview.md` Q-규제 옵션 갱신. 해부 결과 → `cut-templates.json` 템플릿 추가 + `cut-sheet.md` §3 시퀀스 + `reference-patterns.md` §7 비교표. 그다음 0.7.0 (0.6.0은 2026-09-03 Step 4-1 윤문으로 사용됨).
 
 ## 5. 참고 자료 위치
 

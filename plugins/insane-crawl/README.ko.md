@@ -27,23 +27,9 @@ python3 -m engine page JOB_ID 1 --limit 20000
 - URL 정규화와 중복 제거를 적용한 동일 사이트 크롤
 - SQLite 프론티어와 append-only 이벤트
 - 페이지별 fetch 시도 예산과 전체 크롤 페이지 예산 분리
-- `discover`는 호환되는 로컬 `insane-search`의 endpoint miner가 있을 때 재사용.
-  현재 insane-search 배포본에는 이 스크립트가 없어 `unavailable`을 반환하며,
-  crawl/fetch에는 영향을 주지 않음. 텍스트에서 찾은 후보는
+- `discover`는 로컬 `insane-search`의 endpoint miner를 재사용. 텍스트에서 찾은 후보는
   `candidate`, GET JSON 재생에 성공한 후보는 `probable`이며, 렌더 귀속 검증 전에는
   신뢰 fast-path 레시피로 승격하지 않음
-
-## 의존성
-
-`INSANE_SEARCH_SKILL_ROOT`를 우선하고, 다음으로
-`~/.claude/plugins/installed_plugins.json`에 등록된 insane-search의 `installPath`,
-마지막으로 개발용 형제 디렉토리 `plugins/insane-search/skills/insane-search`를 찾습니다.
-두 플러그인의 캐시 버전은 같을 필요가 없으며, 미등록 캐시를 버전순으로 고르지 않습니다.
-
-선택 기능인 discovery는 `INSANE_SEARCH_ENDPOINT_MINER`로 호환되는 로컬
-`endpoint_miner.py`를 직접 지정할 수 있습니다. 그 외에는 같은 skill 경로와
-기존 marketplace/source 경로를 확인합니다. 이 플러그인은 endpoint miner를
-새로 제공하지 않으며, 스크립트가 없으면 실제로 `unavailable`을 반환합니다.
 
 ## 상태 위치
 

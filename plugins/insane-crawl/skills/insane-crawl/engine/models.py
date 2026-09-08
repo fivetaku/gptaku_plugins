@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Final, Literal, TypedDict
 
-JobState = Literal["running", "paused_budget", "paused_backpressure", "completed", "cancelled", "failed"]
+JobState = Literal["running", "paused_budget", "completed", "cancelled", "failed"]
 FrontierState = Literal["pending", "leased", "done", "failed", "skipped"]
 DiscoveryState = Literal["unavailable", "candidate", "probable", "proven"]
 
@@ -21,7 +21,6 @@ class EventPayload(TypedDict, total=False):
     count: int
     authority: str
     delay_seconds: float
-    retry_at: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -55,10 +54,8 @@ class JobStatus:
     state_dir: str
     ignore_robots: bool
     cancelled: bool
-    pause_reason: str = ""
-    retry_at: float = 0.0
 
-    def to_dict(self) -> dict[str, str | int | float | bool]:
+    def to_dict(self) -> dict[str, str | int | bool]:
         return asdict(self)
 
 
@@ -68,7 +65,7 @@ class CrawlResult:
     processed_this_run: int
     next_step: str
 
-    def to_dict(self) -> dict[str, dict[str, str | int | float | bool] | int | str]:
+    def to_dict(self) -> dict[str, dict[str, str | int | bool] | int | str]:
         return {
             "job": self.status.to_dict(),
             "processed_this_run": self.processed_this_run,
@@ -97,7 +94,7 @@ class DiscoveryResult:
 def parse_job_state(value: str) -> JobState:
     """Parse persisted state without a type-system escape hatch."""
     match value:
-        case "running" | "paused_budget" | "paused_backpressure" | "completed" | "cancelled" | "failed":
+        case "running" | "paused_budget" | "completed" | "cancelled" | "failed":
             return value
         case _:
             raise RuntimeError(f"unknown persisted job state: {value}")

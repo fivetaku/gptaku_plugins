@@ -153,6 +153,20 @@
       ]
     },
     {
+      "name": "insane-crawl",
+      "description": "Local, resumable research crawler for public pages with deterministic SQLite checkpoints, bounded output, and per-page receipts.",
+      "source": "./plugins/insane-crawl",
+      "category": "productivity",
+      "tags": [
+        "crawler",
+        "research",
+        "local-first",
+        "sqlite",
+        "resumable",
+        "robots"
+      ]
+    },
+    {
       "name": "insane-design",
       "description": "Design system extractor, applier, and builder — analyze any URL, apply to your project, or build from scratch with deterministic CSS + §18 DON'T grep contract",
       "source": "./plugins/insane-design",

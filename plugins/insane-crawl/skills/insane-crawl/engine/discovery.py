@@ -10,7 +10,6 @@ from typing import TypedDict, cast
 from urllib.parse import urlsplit
 
 from .models import DiscoveryResult
-from .search_dependency import search_skill_roots
 
 
 class ProbeResult(TypedDict, total=False):
@@ -38,11 +37,7 @@ def discover(
         return DiscoveryResult(
             state="unavailable",
             candidates=(),
-            reason=(
-                "local insane-search endpoint_miner.py was not found; current insane-search "
-                "releases do not include this optional script. Set INSANE_SEARCH_ENDPOINT_MINER "
-                "to a compatible local endpoint_miner.py if available, or use crawl/fetch without discovery."
-            ),
+            reason="local insane-search endpoint_miner.py was not found",
         )
     env = os.environ.copy()
     completed = subprocess.run(
@@ -93,25 +88,31 @@ def discover(
 def find_endpoint_miner() -> Path | None:
     """Prefer explicit and installed local insane-search copies."""
     override = os.environ.get("INSANE_SEARCH_ENDPOINT_MINER", "").strip()
-    if override:
-        script = Path(override).expanduser().resolve()
-        if script.is_file():
-            return script
-    for root in search_skill_roots():
-        script = root / "scripts" / "endpoint_miner.py"
-        if script.is_file():
-            return script
+    candidates = [Path(override).expanduser()] if override else []
+    skill_override = os.environ.get("INSANE_SEARCH_SKILL_ROOT", "").strip()
+    if skill_override:
+        candidates.append(Path(skill_override).expanduser() / "scripts" / "endpoint_miner.py")
     home = Path.home()
-    candidates = sorted(
-        home.glob(
-            ".claude/plugins/marketplaces/*/plugins/insane-search/skills/insane-search/scripts/endpoint_miner.py"
-        ),
-        reverse=True,
+    candidates.extend(
+        sorted(
+            home.glob(
+                ".claude/plugins/marketplaces/*/plugins/insane-search/skills/insane-search/scripts/endpoint_miner.py"
+            ),
+            reverse=True,
+        )
     )
     candidates.append(
         home
         / "insane_plugins"
         / "plugins"
+        / "insane-search"
+        / "skills"
+        / "insane-search"
+        / "scripts"
+        / "endpoint_miner.py"
+    )
+    candidates.append(
+        Path(__file__).resolve().parents[4]
         / "insane-search"
         / "skills"
         / "insane-search"

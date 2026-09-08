@@ -62,10 +62,8 @@ def extract_links(html: str, base_url: str, seed_url: str) -> tuple[str, ...]:
     parser = _LinkParser()
     parser.feed(html)
     links: list[str] = []
-    seen: set[str] = set()
     for raw in parser.links:
         normalized = normalize_url(urljoin(base_url, raw))
-        if normalized and same_site(seed_url, normalized) and normalized not in seen:
-            seen.add(normalized)
+        if normalized and same_site(seed_url, normalized) and normalized not in links:
             links.append(normalized)
     return tuple(links)

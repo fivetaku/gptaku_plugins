@@ -7,7 +7,7 @@ from time import monotonic, sleep, time
 from urllib.parse import urlsplit
 from uuid import uuid4
 
-from .fetcher import BACKPRESSURE_STATUSES, fetch_page
+from .fetcher import fetch_page
 from .models import DEFAULT_USER_AGENT, CrawlResult
 from .robots import RobotsCache, check_robots
 from .store import Store
@@ -15,12 +15,10 @@ from .urls import normalize_url
 
 DEFAULT_DELAY_SECONDS = 1.0
 DEFAULT_LEASE_TIMEOUT_SECONDS = 300.0
-# Search's public result omits Retry-After; use a fixed, bounded cooldown.
-DEFAULT_BACKPRESSURE_SECONDS = 60.0
 
 
 def _wall_clock() -> float:
-    """Lease ages and cooldown deadlines must survive process restarts."""
+    """Lease ages must survive process restarts, so they use wall-clock time."""
     return time()
 
 
@@ -116,6 +114,7 @@ def resume(
     status = store.status(job_id)
     if status.cancelled:
         return CrawlResult(status=status, processed_this_run=0, next_step="none")
+    store.set_state(job_id, "running")
     return _run(
         store,
         job_id,
@@ -143,13 +142,6 @@ def _run(
 ) -> CrawlResult:
     started = monotonic()
     processed_this_run = 0
-    status = store.status(job_id)
-    if status.cancelled:
-        return CrawlResult(status=status, processed_this_run=0, next_step="none")
-    if status.retry_at > _wall_clock():
-        return CrawlResult(status=status, processed_this_run=0, next_step="resume")
-    if status.state != "running":
-        store.set_state(job_id, "running")
     worker_id = uuid4().hex[:12]
     pacer = _HostPacer(delay_seconds)
     robots_cache = RobotsCache()
@@ -203,16 +195,6 @@ def _run(
             allow_private=allow_private,
             receipt_dir=store.root / "receipts" / job_id / f"{seq:08d}",
         )
-        if not page.ok and page.backpressure_status in BACKPRESSURE_STATUSES:
-            store.pause_backpressure(
-                job_id,
-                seq=seq,
-                reason=f"http_{page.backpressure_status}_retry_after_unavailable",
-                retry_at=_wall_clock() + DEFAULT_BACKPRESSURE_SECONDS,
-            )
-            return CrawlResult(
-                status=store.status(job_id), processed_this_run=processed_this_run, next_step="resume",
-            )
         links = page.links if depth < status.max_depth else ()
         store.commit_page(
             job_id,

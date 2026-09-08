@@ -30,8 +30,6 @@ def read_status(connect: sqlite3.Connection, root: Path, job_id: str) -> JobStat
         state_dir=str(root),
         ignore_robots=bool(job["ignore_robots"]),
         cancelled=bool(job["cancelled"]),
-        pause_reason=str(job["pause_reason"]),
-        retry_at=float(job["retry_at"]),
     )
 
 

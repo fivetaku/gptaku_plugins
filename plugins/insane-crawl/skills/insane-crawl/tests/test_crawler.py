@@ -24,12 +24,11 @@ def test_crawl_pauses_and_resumes_in_deterministic_order(tmp_path: Path, monkeyp
         state_root=tmp_path,
         max_pages=3,
         max_pages_this_run=1,
-        delay_seconds=0,
     )
     assert first.status.state == "paused_budget"
     assert first.status.processed_pages == 1
 
-    second = crawler.resume(first.status.job_id, state_root=tmp_path, max_pages_this_run=5, delay_seconds=0)
+    second = crawler.resume(first.status.job_id, state_root=tmp_path, max_pages_this_run=5)
     assert second.status.state == "completed"
     assert [page.url for page in Store(tmp_path).results(first.status.job_id, 10, 0)] == [
         "https://example.com/",

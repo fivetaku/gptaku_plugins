@@ -71,18 +71,13 @@ def utc_now() -> str:
     return datetime.now(UTC).isoformat()
 
 
-def _migrate_columns(connection: sqlite3.Connection) -> None:
-    """Add lease and pause bookkeeping to older databases without losing rows."""
+def _migrate_lease_columns(connection: sqlite3.Connection) -> None:
+    """Add lease bookkeeping columns to databases created before they existed."""
     existing = {str(row["name"]) for row in connection.execute("PRAGMA table_info(frontier)")}
     if "lease_owner" not in existing:
         connection.execute("ALTER TABLE frontier ADD COLUMN lease_owner TEXT NOT NULL DEFAULT ''")
     if "leased_at" not in existing:
         connection.execute("ALTER TABLE frontier ADD COLUMN leased_at REAL")
-    job_columns = {str(row["name"]) for row in connection.execute("PRAGMA table_info(jobs)")}
-    if "pause_reason" not in job_columns:
-        _ = connection.execute("ALTER TABLE jobs ADD COLUMN pause_reason TEXT NOT NULL DEFAULT ''")
-    if "retry_at" not in job_columns:
-        _ = connection.execute("ALTER TABLE jobs ADD COLUMN retry_at REAL NOT NULL DEFAULT 0")
     connection.commit()
 
 
@@ -109,7 +104,7 @@ class Store:
         connection = sqlite3.connect(self.database)
         connection.row_factory = sqlite3.Row
         connection.executescript(_SCHEMA)
-        _migrate_columns(connection)
+        _migrate_lease_columns(connection)
         return connection
 
     def create_job(
@@ -124,8 +119,7 @@ class Store:
         now = utc_now()
         with closing(self.connect()) as connection:
             connection.execute(
-                """INSERT INTO jobs(job_id, seed_url, state, max_pages, max_depth, ignore_robots,
-                   cancelled, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?)""",
+                "INSERT INTO jobs VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?)",
                 (job_id, seed_url, "running", max_pages, max_depth, int(ignore_robots), now, now),
             )
             connection.execute(
@@ -152,10 +146,8 @@ class Store:
         with closing(self.connect()) as connection:
             connection.execute("BEGIN IMMEDIATE")
             row = connection.execute(
-                """SELECT seq, url, depth FROM frontier WHERE job_id=? AND state='pending'
-                   AND EXISTS (SELECT 1 FROM jobs WHERE job_id=? AND cancelled=0 AND retry_at<=?)
-                   ORDER BY seq LIMIT 1""",
-                (job_id, job_id, now),
+                "SELECT seq, url, depth FROM frontier WHERE job_id=? AND state='pending' ORDER BY seq LIMIT 1",
+                (job_id,),
             ).fetchone()
             if row is not None:
                 connection.execute(
@@ -261,12 +253,6 @@ class Store:
                 ).rowcount
                 if inserted == 1:
                     next_seq += 1
-            # Keep small jobs on their existing indexes. Build once the frontier
-            # reaches 1,000 rows, after bulk inserts rather than on every read.
-            if next_seq > 1000:
-                connection.execute(
-                    "CREATE INDEX IF NOT EXISTS frontier_job_state_seq ON frontier(job_id, state, seq)"
-                )
             connection.execute("UPDATE jobs SET updated_at=? WHERE job_id=?", (fetched_at, job_id))
             connection.commit()
         self.event(job_id, "page_committed", {"seq": seq, "url": final_url, "status": status})
@@ -281,33 +267,10 @@ class Store:
             connection.commit()
         self.event(job_id, "page_skipped", {"seq": seq, "reason": reason})
 
-    def pause_backpressure(self, job_id: str, *, seq: int, reason: str, retry_at: float) -> None:
-        """Atomically keep the limited page retryable and persist the job's deadline."""
-        now = utc_now()
-        with closing(self.connect()) as connection:
-            _ = connection.execute("BEGIN IMMEDIATE")
-            _ = connection.execute(
-                """UPDATE frontier SET state='pending', error=?, lease_owner='', leased_at=NULL
-                   WHERE job_id=? AND seq=?""",
-                (reason, job_id, seq),
-            )
-            _ = connection.execute(
-                """UPDATE jobs SET state='paused_backpressure', pause_reason=?, retry_at=?,
-                   updated_at=? WHERE job_id=? AND cancelled=0""",
-                (reason, retry_at, now, job_id),
-            )
-            _ = connection.execute(
-                "INSERT INTO events(job_id, created_at, kind, payload) VALUES (?, ?, ?, ?)",
-                (job_id, now, "backpressure_paused", json.dumps(
-                    {"seq": seq, "reason": reason, "retry_at": retry_at}, sort_keys=True,
-                )),
-            )
-            connection.commit()
-
     def set_state(self, job_id: str, state: JobState) -> None:
         with closing(self.connect()) as connection:
             connection.execute(
-                "UPDATE jobs SET state=?, updated_at=?, pause_reason='', retry_at=0 WHERE job_id=?",
+                "UPDATE jobs SET state=?, updated_at=? WHERE job_id=?",
                 (state, utc_now(), job_id),
             )
             connection.commit()
