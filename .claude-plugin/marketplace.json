@@ -284,6 +284,20 @@
         "compliance",
         "sangse"
       ]
+    },
+    {
+      "name": "you-com",
+      "description": "You.com web search — keyless you-search MCP tool by default, optional YDC_API_KEY upgrade for URL content extraction and cited research",
+      "source": "./plugins/you-com",
+      "category": "productivity",
+      "tags": [
+        "web-search",
+        "search",
+        "mcp",
+        "you.com",
+        "research",
+        "citations"
+      ]
     }
   ]
 }

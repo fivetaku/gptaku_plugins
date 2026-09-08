@@ -6,11 +6,11 @@ English | [한국어](README.ko.md) | [中文](README.zh.md) | [日本語](READM
 
 **Stop explaining what you want — let Claude Code do it.**
 
-18 plugins that search blocked sites, rip design systems from any URL,
+19 plugins that search blocked sites, rip design systems from any URL,
 review your code, and turn rough ideas into PRDs — all inside Claude Code.
 
 <p>
-  <a href="#-all-plugins-by-category"><img src="https://img.shields.io/badge/plugins-18-6E56CF" alt="18 plugins"></a>
+  <a href="#-all-plugins-by-category"><img src="https://img.shields.io/badge/plugins-19-6E56CF" alt="19 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -203,6 +203,10 @@ All plugins are open source. Every submodule README lists its exact command boun
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/docs-guide">docs-guide</a></strong></td>
   <td>Answers grounded in official docs — llms.txt + 68 libraries.</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/youdotcom-oss/agent-skills">you-com</a></strong></td>
+  <td>Current web search + cited answers via the You.com MCP server — keyless by default, optional API key.</td>
 </tr>
 </table>
 
