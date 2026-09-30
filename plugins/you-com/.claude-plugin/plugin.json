@@ -1,0 +1,26 @@
+{
+  "name": "you-com",
+  "version": "0.1.0",
+  "description": "You.com web search for Claude Code — keyless you-search MCP tool by default, optional YDC_API_KEY upgrade for you-contents and you-research.",
+  "author": {
+    "name": "You.com",
+    "url": "https://github.com/youdotcom-oss"
+  },
+  "homepage": "https://docs.you.com",
+  "repository": "https://github.com/youdotcom-oss/agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "web-search",
+    "search",
+    "mcp",
+    "you.com",
+    "research",
+    "citations"
+  ],
+  "mcpServers": {
+    "you": {
+      "type": "http",
+      "url": "https://api.you.com/mcp?profile=free"
+    }
+  }
+}
