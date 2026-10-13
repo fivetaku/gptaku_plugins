@@ -46,7 +46,7 @@ OWNER_KEYS = {"name", "url", "email"}
 PLUGIN_KEYS = {
     "$schema", "name", "version", "description", "author", "license",
     "keywords", "homepage", "repository", "category", "tags",
-    "commands", "skills", "agents", "hooks", "mcpServers",
+    "commands", "skills", "agents", "hooks", "mcpServers", "dependencies",
 }
 PLUGIN_REQUIRED = {"name", "version", "description", "author", "license"}
 

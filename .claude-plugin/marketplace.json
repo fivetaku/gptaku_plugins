@@ -7,6 +7,17 @@
   },
   "plugins": [
     {
+      "name": "gptaku-core",
+      "description": "Shared base for gptaku plugins — routes requests to the matching gptaku skill. Installed automatically as a dependency.",
+      "source": "./plugins/gptaku-core",
+      "category": "development",
+      "tags": [
+        "router",
+        "skills",
+        "hooks"
+      ]
+    },
+    {
       "name": "docs-guide",
       "description": "Fetch and explain official documentation for any library/framework using llms.txt pattern",
       "source": "./plugins/docs-guide",
