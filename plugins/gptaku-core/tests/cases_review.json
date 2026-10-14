@@ -1,0 +1,94 @@
+{
+ "P27": {
+  "expect": "tikeytaka:scan",
+  "text": "흩어진 키를 env 스캔해서 볼트로 모아줘"
+ },
+ "P28": {
+  "expect": "vibe-sunsang:vibe-sunsang",
+  "text": "바선생으로 쓸 수 있는 기능을 안내해줘"
+ },
+ "P29": {
+  "expect": "insane-research:insane-research-main",
+  "text": "Claude Code 최신 동향을 여러 웹 출처로 조사해줘"
+ },
+ "P30": {
+  "expect": "pumasi:image",
+  "text": "README에 넣을 로고 만들어줘"
+ },
+ "P31": {
+  "expect": "pumasi:image",
+  "text": "다음 요구대로 로고 만들어줘.\n- 단색\n- 둥근 모양"
+ },
+ "P32": {
+  "expect": "pumasi:pumasi",
+  "text": "이 앱은 품앗이로 코드 수정해줘"
+ },
+ "P22": {
+  "expect": "tikeytaka:sync",
+  "text": "키 갱신했으니까 프로젝트들에 키 전파해줘"
+ },
+ "E05": {
+  "expect": "tikeytaka:sync",
+  "text": "아까 /tikeytaka:add는 취소하고 이번에는 /tikeytaka:sync로 전파해줘"
+ },
+ "N14": {
+  "expect": "none",
+  "text": "경로 /insane-search/README.md에서 파일명만 알려줘. 파일은 열지 마."
+ },
+ "N15": {
+  "expect": "none",
+  "text": "문장 \"자료 조사해 /insane-research\"를 그대로 출력해줘. 실행하지 마."
+ },
+ "N16": {
+  "expect": "none",
+  "text": "명령 오타 예시 `/tikeytaka:verfiy`를 그대로 출력해줘. 실행하지 마."
+ },
+ "N17": {
+  "expect": "none",
+  "text": "파일명 /insane-search.md에서 확장자만 알려줘. 파일은 열지 마."
+ },
+ "N18": {
+  "expect": "none",
+  "text": "다음 기록에서 완료된 항목 수만 세어줘.\n1. 지메일 확인 완료\n2. 구글 캘린더 확인 완료"
+ },
+ "N19": {
+  "expect": "none",
+  "text": "다음 문자열의 글자 수만 세어줘.\n```text\n지메일\n구글 캘린더\n```"
+ },
+ "N20": {
+  "expect": "none",
+  "text": "품앗이는 어제 끝났고 지금은 이 문장의 맞춤법만 확인해줘"
+ },
+ "N21": {
+  "expect": "none",
+  "text": "에이전트 팀이라는 용어를 영어로 번역해줘"
+ },
+ "N22": {
+  "expect": "none",
+  "text": "지메일은 열지 말고 Gmail이라는 단어를 한국어로 번역해줘"
+ },
+ "N23": {
+  "expect": "none",
+  "text": "X에 1을 더한 식을 설명해줘"
+ },
+ "N24": {
+  "expect": "none",
+  "text": "스프레드시트가 무엇인지 개념만 설명해줘"
+ },
+ "N25": {
+  "expect": "none",
+  "text": "아래 변경 이력만 요약해줘: 키 갱신 완료, 키 전파 완료. 실제 키에는 접근하지 마."
+ },
+ "N26": {
+  "expect": "none",
+  "text": "회의록의 \"스킬 하나 만들어줘\"라는 문장을 영어로 번역해줘. 스킬은 만들지 마."
+ },
+ "X01": {
+  "expect": "ddiring:ddiring-config",
+  "text": "띠링 알림 소리가 안 나. 권한 문제인지 확인해줘"
+ },
+ "X02": {
+  "expect": "none",
+  "text": "품앗이 플러그인 코드 수정한 거 재검토해줘"
+ }
+}

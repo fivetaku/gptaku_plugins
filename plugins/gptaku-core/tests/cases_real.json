@@ -1,0 +1,86 @@
+{
+ "R01": {
+  "expect": "none",
+  "text": "예전에 만들어 둔 영상 스킬 초안 있는데 이거 검토좀 해볼래?"
+ },
+ "R02": {
+  "expect": "none",
+  "text": "봇 답변에서 자꾸 공식문서 링크가 나오는데 왜이러는거냐 대화 로그 검토좀해보자"
+ },
+ "R03": {
+  "expect": "none",
+  "text": "우리 서비스 링크가 404 뜬다 확인해봐 https://example.com/l/abc"
+ },
+ "R04": {
+  "expect": "none",
+  "text": "https://github.com/example/repo 지금까지 업데이트한 것들 정리해서 pr날려줘"
+ },
+ "R05": {
+  "expect": "none",
+  "text": "맨마지막 단계에 insane-review 받는것도 추가해줘라"
+ },
+ "R06": {
+  "expect": "none",
+  "text": "https://aistudio.google.com/api-keys 사용량 대시보드 참고하고 싶은데 /chrome 으로 체크해봐"
+ },
+ "R07": {
+  "expect": "none",
+  "text": "레퍼런스도 /aside-browser 사용해서 다시 리서치 해보자"
+ },
+ "R08": {
+  "expect": "none",
+  "text": "판매 준비하려고 상세페이지 만들고 있었는데 그 설계 내용 확인하고 남은 구현 정리해봐"
+ },
+ "R09": {
+  "expect": "none",
+  "text": "이거 왜 코덱스 워커시키냐 너가 직접하면되잖아"
+ },
+ "R10": {
+  "expect": "none",
+  "text": "너가 리서치하고 작성한 내용들 경로 정리해서 핸드오프 프롬프트 만들어줘"
+ },
+ "R11": {
+  "expect": "none",
+  "text": "예전에 seo 관련해서 리서치해가지고 스킬 만들어둔거 같은데 검토해봐"
+ },
+ "R12": {
+  "expect": "none",
+  "text": "멤버의 최근 발화 표본이다. 말투를 2줄로 요약해라.\n유튜브 보다가 왔는데 진짜 웃기네\n그거 나도 봤음"
+ },
+ "R13": {
+  "expect": "none",
+  "text": "라이선스 키 등록중에 붙여넣기가 안되는데 맞는건가요?"
+ },
+ "R14": {
+  "expect": "none",
+  "text": "이미지 생성 요청하면 백그라운드에서 돌아갈동안 이거 봐줘"
+ },
+ "R15": {
+  "expect": "none",
+  "text": "기존에 이미지 만들었던것처럼 만들건데 구성 전체 분석하고 설계해봐라"
+ },
+ "R16": {
+  "expect": "insane-search:insane-search",
+  "text": "https://github.com/example/repo\n\n여기 내용 확인하고 가져올만한 거 있는지 체크해봐봐"
+ },
+ "R17": {
+  "expect": "insane-search:insane-search",
+  "text": "https://github.com/example/repo  이것도 분석해봐봐"
+ },
+ "R18": {
+  "expect": "insane-search:insane-search",
+  "text": "https://example.com/paper 이거 분석해서 어떤 용도인지 알아보고싶음"
+ },
+ "R19": {
+  "expect": "goaljaby:goaljaby",
+  "text": "PRD에서 골 만들어줘, /goal로 돌릴 수 있게"
+ },
+ "R20": {
+  "expect": "insane-research:insane-research-main",
+  "text": "VPS 응용할수 있을만한 활용법들도 리서치 해봐바라   그래 그렇게 해줘라"
+ },
+ "R21": {
+  "expect": "none",
+  "text": "https://github.com/example/repo 이거 클론해서 어떻게 진행했는지 분석해줘"
+ }
+}
