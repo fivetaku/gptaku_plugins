@@ -1,174 +1,190 @@
 {
- "prompts_R1": {
-  "expect": "research",
-  "text": "우리 라우터에 TypeSafe의 Jev 모델이 적용돼 있는데 OpenAI에서 디시전 모델이 나왔대. 비교 분석해보고 싶은데 먼저 이거에 대해 리서치부터 해보자"
- },
- "prompts_R2": {
-  "expect": "research",
-  "text": "요즘 AI 코딩 에이전트 시장 동향 좀 조사해줘"
- },
- "prompts_R3": {
-  "expect": "research",
-  "text": "Cloudflare Workers랑 Vercel Edge Functions 가격이랑 성능 비교해서 정리해줘"
- },
- "prompts_R4": {
-  "expect": "research",
-  "text": "한국 바이브코딩 강의 시장이 어느 정도 규모인지 알아봐줘"
- },
- "prompts_R5": {
-  "expect": "research",
-  "text": "MCP 서버 관련 보안 사고 최근 사례들 정리해줘"
- },
- "prompts_S1": {
-  "expect": "search",
-  "text": "레딧에서 요즘 Claude Code 플러그인 추천 글 몇 개 찾아서 요약해줘"
- },
- "prompts_S2": {
-  "expect": "search",
-  "text": "이 유튜브 영상 자막 뽑아서 요약해줘 https://www.youtube.com/watch?v=dQw4w9WgXcQ"
- },
- "prompts_S3": {
-  "expect": "search",
-  "text": "네이버 블로그에서 성수동 팝업카페 후기 몇 개 가져와줘"
- },
- "prompts_S4": {
-  "expect": "search",
-  "text": "X에서 AnthropicAI 계정이 최근에 뭐 올렸는지 봐줘"
- },
- "prompts_S5": {
-  "expect": "search",
-  "text": "긱뉴스 오늘 올라온 글 제목들 가져와줘"
- },
- "prompts_N1": {
-  "expect": "none",
-  "text": "파이썬으로 리스트 순서 유지하면서 중복 제거하는 함수 하나 짜줘"
- },
- "prompts_N2": {
-  "expect": "none",
-  "text": "현재 폴더에 있는 파일 목록 보여줘"
- },
- "prompts_N3": {
-  "expect": "none",
-  "text": "HTTP 404랑 410 차이가 뭐야?"
- },
- "prompts_N4": {
-  "expect": "none",
-  "text": "이 코드 분석해서 버그 찾아줘"
- },
- "prompts_N5": {
-  "expect": "none",
-  "text": "README에 설치 방법 섹션 추가해줘"
- },
- "prompts_N6": {
-  "expect": "none",
-  "text": "로그 파일에서 에러 원인 조사해줘"
- },
- "prompts_N7": {
-  "expect": "none",
-  "text": "이 함수 두 개 성능 비교해서 정리해줘"
- },
- "prompts_N8": {
-  "expect": "none",
-  "text": "현재 브랜치 상태 좀 알아봐줘"
- },
- "prompts_N9": {
-  "expect": "none",
-  "text": "package.json 의존성 버전 정리해줘"
- },
- "prompts_N10": {
-  "expect": "none",
-  "text": "트렌드 차트 그리는 matplotlib 코드 짜줘"
- },
- "heldout_H1": {
-  "expect": "research",
-  "text": "국내 AI 에이전트 스타트업들 투자 현황 좀 조사해줘"
- },
- "heldout_H2": {
-  "expect": "research",
-  "text": "Bun이랑 Deno 요즘 생태계 트렌드 알아봐줘"
- },
- "heldout_H3": {
-  "expect": "research",
-  "text": "로컬 LLM 추론 서버들 비교 분석 리서치 해보자"
- },
- "heldout_H4": {
-  "expect": "search",
-  "text": "https://news.hada.io/topic?id=12345 이 글 읽고 요약해줘"
- },
- "heldout_H5": {
-  "expect": "search",
-  "text": "레딧 r/ClaudeAI에서 플러그인 불만 글 모아줘"
- },
- "heldout_H6": {
-  "expect": "search",
-  "text": "유튜브에서 바이브코딩 강의 영상 몇 개 찾아서 자막 요약해줘"
- },
- "heldout_H7": {
-  "expect": "none",
-  "text": "테스트가 왜 실패하는지 원인 조사해줘"
- },
- "heldout_H8": {
-  "expect": "none",
-  "text": "이 PR 변경사항 알아봐주고 리뷰해줘"
- },
- "heldout_H9": {
-  "expect": "none",
-  "text": "두 정렬 알고리즘 시간복잡도 비교 분석해줘"
- },
- "heldout_H10": {
-  "expect": "none",
-  "text": "사용자 행동 트렌드 대시보드 컴포넌트 만들어줘"
- },
- "heldout_H11": {
-  "expect": "none",
-  "text": "settings.json에 훅 하나 추가해줘"
- },
- "heldout_H12": {
-  "expect": "none",
-  "text": "이 에러 메시지 의미가 뭐야? TypeError: undefined is not a function"
- },
- "real_credit": {
-  "expect": "none",
-  "text": "Gemini 크레딧 부족을 거쳐 OpenAI API로 생성했습니다"
- },
- "real_email": {
-  "expect": "none",
-  "text": "가입 메일은 fivetaku@naver.com 이거임 확인해봐"
- },
- "real_path": {
-  "expect": "none",
-  "text": "20-knowledge/research/applyhome-guide 폴더 자료들 검토해"
- },
- "real_paseo_talk": {
-  "expect": "none",
-  "text": "어차피 컨트롤 타워 하는건 paseo에서 할건데 상관있나"
- },
- "real_plugin_dev": {
-  "expect": "none",
-  "text": "품앗이 제대로 수정했는지 재검토하고 개선해라"
- },
- "real_clip_write": {
-  "expect": "none",
-  "text": "이거 클립보드로 넣어줄래?"
- },
- "real_research_q": {
-  "expect": "none",
-  "text": "아직도 리서치하냐?? 뭐가 문제냐"
- },
- "real_youtube_talk": {
-  "expect": "none",
-  "text": "근데 4만 팔로워가 많은건가?? 유튜브 가면 4만은 작은데"
- },
- "explicit_cmd": {
-  "expect": "insane-research:insane-research-main",
-  "text": "비용처리 방법들 정리해줘 /insane-research:insane-research"
- },
- "explicit_mid": {
-  "expect": "pumasi:image",
-  "text": "리드미에 메인 이미지 하나 넣자 /pumasi:image"
- },
- "pasted_list": {
-  "expect": "none",
-  "text": "- 메일함에 결제 완료 회신이 없습니다\n- 지메일 초대 링크 확인\n이건 뭐냐"
- }
+  "prompts_R1": {
+    "expect": "research",
+    "text": "우리 라우터에 TypeSafe의 Jev 모델이 적용돼 있는데 OpenAI에서 디시전 모델이 나왔대. 비교 분석해보고 싶은데 먼저 이거에 대해 리서치부터 해보자"
+  },
+  "prompts_R2": {
+    "expect": "research",
+    "text": "요즘 AI 코딩 에이전트 시장 동향 좀 조사해줘"
+  },
+  "prompts_R3": {
+    "expect": "research",
+    "text": "Cloudflare Workers랑 Vercel Edge Functions 가격이랑 성능 비교해서 정리해줘"
+  },
+  "prompts_R4": {
+    "expect": "research",
+    "text": "한국 바이브코딩 강의 시장이 어느 정도 규모인지 알아봐줘"
+  },
+  "prompts_R5": {
+    "expect": "research",
+    "text": "MCP 서버 관련 보안 사고 최근 사례들 정리해줘"
+  },
+  "prompts_S1": {
+    "expect": "search",
+    "text": "레딧에서 요즘 Claude Code 플러그인 추천 글 몇 개 찾아서 요약해줘"
+  },
+  "prompts_S2": {
+    "expect": "search",
+    "text": "이 유튜브 영상 자막 뽑아서 요약해줘 https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  },
+  "prompts_S3": {
+    "expect": "search",
+    "text": "네이버 블로그에서 성수동 팝업카페 후기 몇 개 가져와줘"
+  },
+  "prompts_S4": {
+    "expect": "search",
+    "text": "X에서 AnthropicAI 계정이 최근에 뭐 올렸는지 봐줘"
+  },
+  "prompts_S5": {
+    "expect": "search",
+    "text": "긱뉴스 오늘 올라온 글 제목들 가져와줘"
+  },
+  "prompts_N1": {
+    "expect": "none",
+    "text": "파이썬으로 리스트 순서 유지하면서 중복 제거하는 함수 하나 짜줘"
+  },
+  "prompts_N2": {
+    "expect": "none",
+    "text": "현재 폴더에 있는 파일 목록 보여줘"
+  },
+  "prompts_N3": {
+    "expect": "none",
+    "text": "HTTP 404랑 410 차이가 뭐야?"
+  },
+  "prompts_N4": {
+    "expect": "none",
+    "text": "이 코드 분석해서 버그 찾아줘"
+  },
+  "prompts_N5": {
+    "expect": "none",
+    "text": "README에 설치 방법 섹션 추가해줘"
+  },
+  "prompts_N6": {
+    "expect": "none",
+    "text": "로그 파일에서 에러 원인 조사해줘"
+  },
+  "prompts_N7": {
+    "expect": "none",
+    "text": "이 함수 두 개 성능 비교해서 정리해줘"
+  },
+  "prompts_N8": {
+    "expect": "none",
+    "text": "현재 브랜치 상태 좀 알아봐줘"
+  },
+  "prompts_N9": {
+    "expect": "none",
+    "text": "package.json 의존성 버전 정리해줘"
+  },
+  "prompts_N10": {
+    "expect": "none",
+    "text": "트렌드 차트 그리는 matplotlib 코드 짜줘"
+  },
+  "heldout_H1": {
+    "expect": "research",
+    "text": "국내 AI 에이전트 스타트업들 투자 현황 좀 조사해줘"
+  },
+  "heldout_H2": {
+    "expect": "research",
+    "text": "Bun이랑 Deno 요즘 생태계 트렌드 알아봐줘"
+  },
+  "heldout_H3": {
+    "expect": "research",
+    "text": "로컬 LLM 추론 서버들 비교 분석 리서치 해보자"
+  },
+  "heldout_H4": {
+    "expect": "search",
+    "text": "https://news.hada.io/topic?id=12345 이 글 읽고 요약해줘"
+  },
+  "heldout_H5": {
+    "expect": "search",
+    "text": "레딧 r/ClaudeAI에서 플러그인 불만 글 모아줘"
+  },
+  "heldout_H6": {
+    "expect": "search",
+    "text": "유튜브에서 바이브코딩 강의 영상 몇 개 찾아서 자막 요약해줘"
+  },
+  "heldout_H7": {
+    "expect": "none",
+    "text": "테스트가 왜 실패하는지 원인 조사해줘"
+  },
+  "heldout_H8": {
+    "expect": "none",
+    "text": "이 PR 변경사항 알아봐주고 리뷰해줘"
+  },
+  "heldout_H9": {
+    "expect": "none",
+    "text": "두 정렬 알고리즘 시간복잡도 비교 분석해줘"
+  },
+  "heldout_H10": {
+    "expect": "none",
+    "text": "사용자 행동 트렌드 대시보드 컴포넌트 만들어줘"
+  },
+  "heldout_H11": {
+    "expect": "none",
+    "text": "settings.json에 훅 하나 추가해줘"
+  },
+  "heldout_H12": {
+    "expect": "none",
+    "text": "이 에러 메시지 의미가 뭐야? TypeError: undefined is not a function"
+  },
+  "real_credit": {
+    "expect": "none",
+    "text": "Gemini 크레딧 부족을 거쳐 OpenAI API로 생성했습니다"
+  },
+  "real_email": {
+    "expect": "none",
+    "text": "가입 메일은 fivetaku@naver.com 이거임 확인해봐"
+  },
+  "real_path": {
+    "expect": "none",
+    "text": "20-knowledge/research/applyhome-guide 폴더 자료들 검토해"
+  },
+  "real_paseo_talk": {
+    "expect": "none",
+    "text": "어차피 컨트롤 타워 하는건 paseo에서 할건데 상관있나"
+  },
+  "real_plugin_dev": {
+    "expect": "none",
+    "text": "품앗이 제대로 수정했는지 재검토하고 개선해라"
+  },
+  "real_clip_write": {
+    "expect": "none",
+    "text": "이거 클립보드로 넣어줄래?"
+  },
+  "real_research_q": {
+    "expect": "none",
+    "text": "아직도 리서치하냐?? 뭐가 문제냐"
+  },
+  "real_youtube_talk": {
+    "expect": "none",
+    "text": "근데 4만 팔로워가 많은건가?? 유튜브 가면 4만은 작은데"
+  },
+  "explicit_cmd": {
+    "expect": "insane-research:insane-research-main",
+    "text": "비용처리 방법들 정리해줘 /insane-research:insane-research"
+  },
+  "explicit_mid": {
+    "expect": "pumasi:image",
+    "text": "리드미에 메인 이미지 하나 넣자 /pumasi:image"
+  },
+  "pasted_list": {
+    "expect": "none",
+    "text": "- 메일함에 결제 완료 회신이 없습니다\n- 지메일 초대 링크 확인\n이건 뭐냐"
+  },
+  "U01": {
+    "expect": "insane-search:insane-search",
+    "text": "https://news.hada.io/topic?id=12345 이거 무슨 내용이야"
+  },
+  "U02": {
+    "expect": "insane-search:insane-search",
+    "text": "https://example.com/pricing 여기서 가격 정보 찾고 싶어"
+  },
+  "U03": {
+    "expect": "none",
+    "text": "https://myapp.vercel.app 배포했는데 왜 안 떠 뭐가 문제야"
+  },
+  "U04": {
+    "expect": "none",
+    "text": "https://api.example.com/v1/users 이 API 응답 구조 어떻게 돼있는지 코드로 파싱해줘"
+  }
 }

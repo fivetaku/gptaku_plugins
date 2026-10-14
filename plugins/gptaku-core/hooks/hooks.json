@@ -14,6 +14,22 @@
           { "type": "command", "command": "python3 -B \"${CLAUDE_PLUGIN_ROOT}/hooks/router.py\"" }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          { "type": "command", "command": "python3 -B \"${CLAUDE_PLUGIN_ROOT}/hooks/fetch_fallback.py\"" }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          { "type": "command", "command": "python3 -B \"${CLAUDE_PLUGIN_ROOT}/hooks/fetch_fallback.py\"" }
+        ]
+      }
     ]
   }
 }

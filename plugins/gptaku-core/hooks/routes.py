@@ -239,10 +239,14 @@ def _sentences(text):
 
 
 URL = re.compile(r"https?://\S+")
+# URL을 주고 묻는 문장("https://… 이거 무슨 내용이야")은 요청형 어미가 없어도 그 페이지를 읽어 달라는 요청이다
+URL_QUESTION = re.compile(r"(무슨|뭐|뭘|무엇|어떤|어떻|어디|언제|누가|얼마|몇)")
 
 
 def _is_request(sentence):
     """문장 안 어느 절이든 요청형으로 끝나면 요청이다("그려줘, 주제는 ~" · "요약해줘 https://…")."""
+    if URL.search(sentence) and URL_QUESTION.search(URL.sub(" ", sentence)):
+        return True
     s = URL.sub(" ", sentence)
     ends = [TRAIL.sub("", c) for c in CLAUSE_SPLIT.split(s) if c and c.strip()]
     return any(REQUEST_END.search(e) and not NOT_REQUEST.search(e) for e in ends)

@@ -1,6 +1,6 @@
 {
   "name": "gptaku-core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Shared base for gptaku plugins — routes each request to the matching gptaku skill before native WebSearch/WebFetch. Installed automatically as a dependency.",
   "author": {
     "name": "fivetaku",
