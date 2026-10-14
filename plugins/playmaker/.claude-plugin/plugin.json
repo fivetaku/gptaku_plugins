@@ -1,0 +1,11 @@
+{
+  "name": "playmaker",
+  "version": "0.1.0",
+  "description": "Live goal board for Claude Code — a mod pane that reads goaljaby's PLAN.md/PROGRESS.md and shows waiting · doing · done task cards with milestone tags, human-wait markers, and a one-line band above the prompt. Reads legacy goaljaby folders too.",
+  "author": { "name": "fivetaku", "url": "https://github.com/fivetaku" },
+  "homepage": "https://github.com/fivetaku/playmaker",
+  "repository": "https://github.com/fivetaku/playmaker",
+  "license": "MIT",
+  "keywords": ["goaljaby", "골잡이", "playmaker", "kanban", "progress", "mod", "pane", "claude-code", "korean"],
+  "types": "./types/index.d.ts"
+}
