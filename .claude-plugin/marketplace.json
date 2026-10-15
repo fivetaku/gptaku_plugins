@@ -213,6 +213,22 @@
       ]
     },
     {
+      "name": "playmaker",
+      "description": "Live goal board for goaljaby — a Claude Code mod pane with waiting · doing · done task cards, milestone tags and human-wait markers; press a card to send the session an instruction. Hosts without panes (Paseo) get a local web board.",
+      "source": "./plugins/playmaker",
+      "category": "productivity",
+      "tags": [
+        "goaljaby",
+        "playmaker",
+        "kanban",
+        "progress",
+        "mod",
+        "pane",
+        "paseo",
+        "korean"
+      ]
+    },
+    {
       "name": "dd",
       "description": "Drop the current clipboard (text or image) into Claude Code with /dd or /ㅇㅇ — no pasting.",
       "source": "./plugins/dd",

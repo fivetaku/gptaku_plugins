@@ -52,3 +52,6 @@
 [submodule "plugins/sangse"]
 	path = plugins/sangse
 	url = https://github.com/fivetaku/sangse.git
+[submodule "plugins/playmaker"]
+	path = plugins/playmaker
+	url = https://github.com/fivetaku/playmaker.git

@@ -6,11 +6,11 @@
 
 **别再费口舌解释你想要什么——让 Claude Code 直接搞定。**
 
-18 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
+19 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
 审查你的代码、把粗糙的想法变成 PRD——全部在 Claude Code 里完成。
 
 <p>
-  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-18-6E56CF" alt="18 个插件"></a>
+  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-19-6E56CF" alt="19 个插件"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -223,6 +223,10 @@
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/goaljaby">goaljaby</a></strong></td>
   <td>PRD → 经审查的 <code>/goal</code> 工作流执行契约。</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>
+  <td>goaljaby 目标进度看板 — 侧边面板显示 等待·进行中·完成 任务卡片,点击卡片直接向会话下指令(Paseo 使用网页看板)。</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/pumasi">pumasi</a></strong></td>
