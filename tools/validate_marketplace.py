@@ -47,6 +47,7 @@ PLUGIN_KEYS = {
     "$schema", "name", "version", "description", "author", "license",
     "keywords", "homepage", "repository", "category", "tags",
     "commands", "skills", "agents", "hooks", "mcpServers", "dependencies",
+    "types",  # mod 플러그인의 $.state 타입 계약 (claude plugin validate가 받는 키)
 }
 PLUGIN_REQUIRED = {"name", "version", "description", "author", "license"}
 
