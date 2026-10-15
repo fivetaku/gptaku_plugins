@@ -12,5 +12,9 @@ RESEARCH/
 scripts/
 .kkirikkiri/
 .insane-review/
-.fix-standard/plugins/insane-slide/
+.fix-standard/
 plugins/insane-slide/
+plugins/insane-image-web/
+plugins/insane-video/
+plugins/insane-crawl/
+AGENTS.md
