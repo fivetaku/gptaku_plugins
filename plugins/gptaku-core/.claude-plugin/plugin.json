@@ -1,7 +1,7 @@
 {
   "name": "gptaku-core",
-  "version": "0.1.2",
-  "description": "Shared base for gptaku plugins — routes each request to the matching gptaku skill before native WebSearch/WebFetch. Installed automatically as a dependency.",
+  "version": "0.2.0",
+  "description": "Shared base for gptaku plugins — routes each request to the matching gptaku skill (and, after /gptaku-core:setup, your own skills) before native WebSearch/WebFetch. Installed automatically as a dependency.",
   "author": {
     "name": "fivetaku",
     "url": "https://github.com/fivetaku"
@@ -9,5 +9,10 @@
   "homepage": "https://github.com/fivetaku/gptaku_plugins",
   "repository": "https://github.com/fivetaku/gptaku_plugins",
   "license": "MIT",
-  "keywords": ["router", "skills", "hooks", "gptaku"]
+  "keywords": [
+    "router",
+    "skills",
+    "hooks",
+    "gptaku"
+  ]
 }

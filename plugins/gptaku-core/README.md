@@ -17,6 +17,26 @@ gptaku 플러그인들이 공통으로 쓰는 기반 플러그인입니다. 다�
   `insane-search`로 같은 URL을 다시 열게 합니다. 주소가 없거나 연결이 거부된 경우는 넘기지
   않습니다. insane-search가 꺼져 있으면 아무것도 하지 않습니다.
 
+## 내 스킬도 자동으로 쓰게 하기 (사용자 라우트)
+
+gptaku 플러그인이 아닌 스킬 — `~/.claude/skills`의 개인 스킬, 다른 마켓 플러그인의 스킬 — 도 같은
+방식으로 지목할 수 있습니다. 다음처럼 요청하면 셋업이 진행됩니다.
+
+```
+/gptaku-core:setup
+```
+
+("내 스킬도 라우팅 걸어줘"라고 해도 됩니다.) 셋업은 설치된 스킬을 훑어 설명 속 트리거 문구로 키워드
+초안을 만들고, 승인받은 것만 `~/.claude/gptaku-core/routes.json`에 쓴 뒤 예문으로 자체 점검합니다.
+스킬을 새로 설치하면 다시 돌리면 됩니다.
+
+- 형식은 아래 `routing.json`과 같습니다. 개인 스킬은 콜론 없는 이름(`"skill": "my-skill"`), 다른 마켓
+  플러그인은 `"plugin:skill"`로 적습니다.
+- 사용자 라우트는 gptaku 플러그인 라우트와 같은 기준으로 순위를 매깁니다. 같은 스킬 이름이 양쪽에
+  있으면 플러그인 쪽을 씁니다.
+- 파일 위치를 바꾸려면 `GPTAKU_USER_ROUTES` 환경변수를 씁니다.
+- 직접 관리: `python3 <플러그인 경로>/hooks/user_routes.py list | remove <skill> | check "문장"`
+
 ## 플러그인 쪽에서 할 일
 
 플러그인 루트에 `routing.json`을 두고 `plugin.json`에 `"dependencies": ["gptaku-core"]`를

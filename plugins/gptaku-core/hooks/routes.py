@@ -1,12 +1,17 @@
-"""켜진 gptaku 플러그인의 routing.json을 모아 요청과 대조한다.
+"""켜진 gptaku 플러그인의 routing.json과 사용자 라우트 파일을 모아 요청과 대조한다.
 
 각 플러그인은 루트에 routing.json을 두고 자기 스킬의 의도 키워드를 선언한다.
 core는 그 목록만 읽으므로 새 플러그인이 추가돼도 여기를 고칠 필요가 없다.
+사용자가 가진 다른 스킬(개인 스킬·다른 마켓 플러그인)은 ~/.claude/gptaku-core/routes.json에
+같은 형식으로 적으면 함께 지목한다(/gptaku-core:setup이 초안을 만들어 준다).
 """
 import json, os, re, sys, unicodedata
 
 MARKET = "@gptaku-plugins"
 CONFIG = os.environ.get("CLAUDE_CONFIG_DIR") or os.path.join(os.path.expanduser("~"), ".claude")
+USER_ROUTES = os.environ.get("GPTAKU_USER_ROUTES") or os.path.join(CONFIG, "gptaku-core", "routes.json")
+PLUGIN_SKILL = re.compile(r"[^\s:/]+:[^\s:/]+")
+PERSONAL_SKILL = re.compile(r"[^\s:/]+")  # ~/.claude/skills의 개인 스킬은 콜론 없는 이름으로 부른다
 
 
 def _read_json(path):
@@ -55,35 +60,43 @@ LIST_FIELDS = ("keywords", "patterns", "weak", "weak_patterns", "context", "excl
                "exclude_override", "weak_exclude", "aliases")
 
 
-def _valid(r):
-    """필수 필드·타입·정규식을 검사한다. 잘못된 라우트 하나 때문에 훅 전체가 멈추지 않게 한다."""
-    if not isinstance(r, dict) or not isinstance(r.get("skill"), str) or ":" not in r["skill"]:
+def _valid(r, user=False):
+    """필수 필드·타입·정규식을 검사한다. 잘못된 라우트 하나 때문에 훅 전체가 멈추지 않게 한다.
+    플러그인 라우트는 plugin:skill만, 사용자 라우트는 개인 스킬의 콜론 없는 이름도 받는다."""
+    if not isinstance(r, dict) or not isinstance(r.get("skill"), str):
+        return False
+    if not (PLUGIN_SKILL.fullmatch(r["skill"]) or (user and PERSONAL_SKILL.fullmatch(r["skill"]))):
         return False
     if not isinstance(r.get("when", ""), str) or not isinstance(r.get("priority", 0), (int, float)):
         return False
     for k in LIST_FIELDS:
         v = r.get(k, [])
-        if not isinstance(v, list) or not all(isinstance(x, str) for x in v):
+        # 빈 문자열은 모든 절에 걸려 다른 라우트를 가로챈다
+        if not isinstance(v, list) or not all(isinstance(x, str) and x.strip() for x in v):
             return False
     try:
         for k in ("patterns", "weak_patterns"):
             for pat in r.get(k, []):
-                re.compile(pat)
+                if re.compile(pat).search(""):  # 빈 문자열에 맞는 패턴도 모든 절에 걸린다
+                    return False
     except re.error:
         return False
     return True
 
 
 def load_routes():
+    """플러그인 라우트가 먼저다. 사용자 파일에 같은 스킬이 있으면 플러그인 쪽을 쓴다."""
     routes, seen = [], set()
-    for d in plugin_dirs():
+    sources = [(os.path.join(d, "routing.json"), False) for d in plugin_dirs()] + [(USER_ROUTES, True)]
+    for path, user in sources:
         try:
-            data = _read_json(os.path.join(d, "routing.json"))
+            data = _read_json(path)
         except Exception:
             continue
-        for r in data.get("routes", []) if isinstance(data, dict) else []:
-            if not _valid(r):
-                sys.stderr.write(f"gptaku-core: {d}/routing.json의 잘못된 라우트를 건너뜀\n")
+        items = data.get("routes") if isinstance(data, dict) else None
+        for r in items if isinstance(items, list) else []:  # {"routes": null} 같은 손편집 실수에도 훅이 멈추지 않게
+            if not _valid(r, user):
+                sys.stderr.write(f"gptaku-core: {path}의 잘못된 라우트를 건너뜀\n")
                 continue
             if r["skill"] not in seen:
                 seen.add(r["skill"])
@@ -117,9 +130,9 @@ def _hit(keyword, text):
 # --- 지시와 자료 분리 -------------------------------------------------------
 FENCE = re.compile(r"```.*?(?:```|$)", re.S)
 INLINE = re.compile(r"`[^`\n]*`")
-QUOTED = re.compile(r'"[^"\n]*"|“[^”\n]*”|「[^」\n]*」')
+QUOTED = re.compile(r'"[^"\n]*"|“[^”\n]*”|「[^」\n]*」|‘[^’\n]*’|(?<![\w])\'[^\'\n]{2,}\'(?![\w])')
 PATHS = re.compile(r"'[~/][^'\n]*'|(?<![\w:/])[~/][^\s/]*/[^\s]*")  # 파일 경로 속 단어는 근거가 아니다
-LIST_LINE = re.compile(r"^\s*(?:[-*>|#]|\*\*|\d+[.)])\s?")
+LIST_LINE = re.compile(r"^\s*(?:[-*>|#]|\*\*|\d+[.)](?!\d))\s?")  # "2.5로 그려줘"는 목록이 아니다
 LONG_PROMPT = 500  # 지시 부분이 이보다 길면 명시 호출만 본다
 
 
@@ -228,7 +241,7 @@ def _evidence(c, r):
 
 
 SENTENCE_SPLIT = re.compile(r"[.!?]+(?=\s|$)|\n+|\s{2,}")
-TRAIL = re.compile(r"[\s?!.~…ㅋㅎㅠㅜ^)]+$")
+TRAIL = re.compile(r"[\s?!.~…ㅋㅎㅠㅜ^):：]+$")  # "다듬어줘: '인용문'"에서 인용을 지운 뒤 남는 콜론
 # 요청·제안으로 끝나는 문장: ~해줘 ~봐 ~하자 ~할래 ~가져와 ~만들어 ~할까 ...
 REQUEST_END = re.compile(r"(줘|봐|해|라|자|래|와|어|아|려|놔|싶음|싶어|싶다|세요|래요|까요|봐요|줘요|부탁|(?<=[할볼갈될줄낼쓸만올])까)$")  # "~니까"는 요청이 아니다
 NOT_REQUEST = re.compile(r"(잖아|[었았했겠]어|거야|건가요|던데)$")
@@ -243,13 +256,30 @@ URL = re.compile(r"https?://\S+")
 URL_QUESTION = re.compile(r"(무슨|뭐|뭘|무엇|어떤|어떻|어디|언제|누가|얼마|몇)")
 
 
+# 요청 동사 뒤에 짧은 보충어만 붙은 문장("슬라이드 만들어줘 IR용으로")도 요청이다
+REQUEST_THEN_TAIL = re.compile(r"(?:줘|주세요|줘요)\s+(?P<tail>\S.{0,24})$")
+TAIL_PREDICATE = re.compile(r"(데|다|네|어|요|지|고|서|면|니|까|음|해|했|됐|야|래|냐|죠|게|자|봐|줘)$")  # "…해줘 했는데"는 보충어가 아니라 다른 서술이다
+# 어미 목록은 새기 쉬우므로 인용·불평 표지가 꼬리 안 어디든 있으면 보충어로 보지 않는다("…해줘 라고 했잖아" · "…해줘 해도 안 됨")
+TAIL_REPORT = re.compile(r"(?<![가-힣])이?라(?:고|는)|하고|했|됐|그랬|해도|하면|하니|더니|잖|왜|안\s|못\s")
+
+
 def _is_request(sentence):
     """문장 안 어느 절이든 요청형으로 끝나면 요청이다("그려줘, 주제는 ~" · "요약해줘 https://…")."""
     if URL.search(sentence) and URL_QUESTION.search(URL.sub(" ", sentence)):
         return True
     s = URL.sub(" ", sentence)
     ends = [TRAIL.sub("", c) for c in CLAUSE_SPLIT.split(s) if c and c.strip()]
-    return any(REQUEST_END.search(e) and not NOT_REQUEST.search(e) for e in ends)
+    if any(REQUEST_END.search(e) and not NOT_REQUEST.search(e) for e in ends):
+        return True
+    return any((m := REQUEST_THEN_TAIL.search(e)) and not TAIL_PREDICATE.search(m.group("tail"))
+               and not TAIL_REPORT.search(m.group("tail")) for e in ends)
+
+
+def _exact_name(text, r):
+    """요청 전체가 키워드·별칭 하나뿐이면("출첵") 어미가 없어도 그 스킬을 부른 것이다.
+    문장·줄 단위로 보면 단어 목록("수정할 곳:\\n썸네일\\n…")의 한 줄에도 걸리므로 요청 전체로만 본다."""
+    s = TRAIL.sub("", _norm(text))
+    return any(s == _norm(k) for k in r.get("keywords", []) + r.get("aliases", []))
 
 
 def score(text, r):
@@ -261,9 +291,10 @@ def score(text, r):
     - weak_exclude는 요청 전체에서 본다(플러그인 자체를 고치는 이야기면 별칭을 근거로 쓰지 않는다)."""
     override = any(_hit(k, text) for k in r.get("exclude_override", []))
     dev_talk = any(_hit(k, text) for k in r.get("weak_exclude", []))
+    exact = _exact_name(text, r)
     total, why = 0.0, []
     for sent in _sentences(text):
-        if not r.get("any_mood") and not _is_request(sent):
+        if not r.get("any_mood") and not exact and not _is_request(sent):
             continue
         for c, w in _clauses(sent):
             if not w or (not override and any(_hit(k, c) for k in r.get("exclude", []))):
