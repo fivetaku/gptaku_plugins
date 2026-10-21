@@ -149,12 +149,12 @@ class RoutesTest(unittest.TestCase):
         self.assertEqual(table, [])
 
     def test_request_shapes(self):
-        r = {"skill": "p:w", "when": "w", "priority": 1, "keywords": ["윤문", "2.5로 그려", "슬라이드", "출첵"]}
+        r = {"skill": "p:w", "when": "w", "priority": 1, "keywords": ["윤문", "2.5로 그려", "슬라이드", "체크인"]}
         cases = {
             "이 문장 윤문해줘: '본 보고서는 다양한 측면에서 분석했습니다.'": "p:w",
             "2.5로 그려줘": "p:w",
             "슬라이드 만들어줘 IR용으로": "p:w",
-            "출첵": "p:w",
+            "체크인": "p:w",
             "슬라이드 만들어줘 했는데 안 되네": None,
             "슬라이드 만들어줘 라고 했잖아": None,
             "슬라이드 만들어줘 그랬잖아": None,
@@ -166,9 +166,9 @@ class RoutesTest(unittest.TestCase):
             "It's fine, 윤문 don't worry": None,
             "1. 윤문해줘": None,
             "1.윤문해줘": None,
-            "출첵!": "p:w",
-            "출첵. 이 파일 이름 바꿔줘": None,
-            "수정할 곳:\n출첵\n이 컴포넌트 코드 위치 찾아줘": None,
+            "체크인!": "p:w",
+            "체크인. 이 파일 이름 바꿔줘": None,
+            "수정할 곳:\n체크인\n이 컴포넌트 코드 위치 찾아줘": None,
         }
         got = {text: (m["skill"] if (m := self.routes.match(text, [r])) else None) for text in cases}
         self.assertEqual(got, cases)

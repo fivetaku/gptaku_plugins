@@ -1,7 +1,7 @@
 {
   "prompts_R1": {
     "expect": "research",
-    "text": "우리 라우터에 TypeSafe의 Jev 모델이 적용돼 있는데 OpenAI에서 디시전 모델이 나왔대. 비교 분석해보고 싶은데 먼저 이거에 대해 리서치부터 해보자"
+    "text": "우리 서비스에 A사 추천 모델이 적용돼 있는데 B사에서 새 의사결정 모델이 나왔대. 비교 분석해보고 싶은데 먼저 이거에 대해 리서치부터 해보자"
   },
   "prompts_R2": {
     "expect": "research",
@@ -133,11 +133,11 @@
   },
   "real_email": {
     "expect": "none",
-    "text": "가입 메일은 fivetaku@naver.com 이거임 확인해봐"
+    "text": "가입 메일은 someone@naver.com 이거임 확인해봐"
   },
   "real_path": {
     "expect": "none",
-    "text": "20-knowledge/research/applyhome-guide 폴더 자료들 검토해"
+    "text": "20-knowledge/research/sample-guide 폴더 자료들 검토해"
   },
   "real_paseo_talk": {
     "expect": "none",

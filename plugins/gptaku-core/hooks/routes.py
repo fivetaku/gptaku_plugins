@@ -276,7 +276,7 @@ def _is_request(sentence):
 
 
 def _exact_name(text, r):
-    """요청 전체가 키워드·별칭 하나뿐이면("출첵") 어미가 없어도 그 스킬을 부른 것이다.
+    """요청 전체가 키워드·별칭 하나뿐이면("체크인") 어미가 없어도 그 스킬을 부른 것이다.
     문장·줄 단위로 보면 단어 목록("수정할 곳:\\n썸네일\\n…")의 한 줄에도 걸리므로 요청 전체로만 본다."""
     s = TRAIL.sub("", _norm(text))
     return any(s == _norm(k) for k in r.get("keywords", []) + r.get("aliases", []))
