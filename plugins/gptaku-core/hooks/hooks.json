@@ -4,14 +4,14 @@
       {
         "matcher": "startup|clear|compact",
         "hooks": [
-          { "type": "command", "command": "python3 -B \"${CLAUDE_PLUGIN_ROOT}/hooks/session_rule.py\"" }
+          { "type": "command", "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/py.sh\" session_rule.py" }
         ]
       }
     ],
     "UserPromptSubmit": [
       {
         "hooks": [
-          { "type": "command", "command": "python3 -B \"${CLAUDE_PLUGIN_ROOT}/hooks/router.py\"" }
+          { "type": "command", "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/py.sh\" router.py" }
         ]
       }
     ],
@@ -19,7 +19,7 @@
       {
         "matcher": "WebFetch",
         "hooks": [
-          { "type": "command", "command": "python3 -B \"${CLAUDE_PLUGIN_ROOT}/hooks/fetch_fallback.py\"" }
+          { "type": "command", "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/py.sh\" fetch_fallback.py" }
         ]
       }
     ],
@@ -27,7 +27,7 @@
       {
         "matcher": "WebFetch",
         "hooks": [
-          { "type": "command", "command": "python3 -B \"${CLAUDE_PLUGIN_ROOT}/hooks/fetch_fallback.py\"" }
+          { "type": "command", "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/py.sh\" fetch_fallback.py" }
         ]
       }
     ]

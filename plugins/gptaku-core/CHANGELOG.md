@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.2] - 2026-10-28
+
+### Fixed
+- Windows에서 훅이 돌지 않던 문제 (#5). `python3`가 Microsoft Store 안내 스텁이면 바로 실패했고, 한국어 Windows는 표준입출력이 cp949라 라우터가 프롬프트를 못 읽었다. 훅을 `hooks/py.sh` 런처로 실행해 `python3`·`python`·`py -3` 중 실제로 도는 Python 3을 고르고 `-X utf8`로 실행한다. macOS·Linux 동작은 같다.
+
 ## [0.2.1] - 2026-10-21
 
 ### Changed
