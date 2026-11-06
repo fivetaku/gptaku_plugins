@@ -42,4 +42,8 @@ if UNREACHABLE.search(text) or not BLOCKED.search(text):
 
 msg = (f"[gptaku 폴백] WebFetch가 {url or '이 페이지'}를 열지 못했습니다(차단·접근 제한). "
        f"포기하거나 추측하지 말고 Skill 도구로 `{SKILL}`을 호출해 같은 URL을 다시 여세요.")
+CONFIG = os.environ.get("CLAUDE_CONFIG_DIR") or os.path.join(os.path.expanduser("~"), ".claude")
+if os.path.isdir(os.path.join(CONFIG, "skills", "aside-browser")):
+    msg += (" 단, 로그인·폼 입력·제출·클릭이 필요하거나 JS로만 그려지는 페이지(Typeform·SPA)면 "
+            "`aside-browser` 스킬로 여세요(insane-search의 Playwright 폴백은 크롬 창을 띄웁니다).")
 print(json.dumps({"hookSpecificOutput": {"hookEventName": event, "additionalContext": msg}}, ensure_ascii=False))
