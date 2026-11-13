@@ -6,11 +6,11 @@
 
 **Deja de explicar lo que quieres — que Claude Code lo haga.**
 
-19 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
+20 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
 revisan tu código y convierten ideas en bruto en PRDs — todo dentro de Claude Code.
 
 <p>
-  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-19-6E56CF" alt="19 plugins"></a>
+  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-20-6E56CF" alt="20 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -126,6 +126,10 @@ Un pipeline de 7 fases: delimita la pregunta, despliega agentes de investigació
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
+  <td>Un trabajo lleno de decisiones de elegir que quieres pasar a Jev</td>
+  <td><code>golla-jev</code></td>
+</tr>
+<tr>
   <td>Un desarrollo grande que conviene repartir entre varios workers</td>
   <td><code>pumasi</code> o <code>kkirikkiri</code></td>
 </tr>
@@ -178,6 +182,10 @@ La mayoría de los plugins solo necesitan una sesión de Claude Code en marcha �
   <td width="25%"><strong>CLI externo</strong></td>
   <td><code>pumasi</code> (requiere tener instalado el Codex CLI en tu sistema)</td>
 </tr>
+<tr>
+  <td width="25%"><strong>Clave de API de TypeSafe</strong></td>
+  <td><code>golla-jev</code> (solo para ejecutar las preguntas Jev diseñadas o el benchmark incluido; el diseño no necesita clave)</td>
+</tr>
 </table>
 
 Todos los plugins son de código abierto. El README de cada submódulo detalla sus límites de comandos exactos, sus skills y sus dependencias.
@@ -223,6 +231,10 @@ Todos los plugins son de código abierto. El README de cada submódulo detalla s
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/goaljaby">goaljaby</a></strong></td>
   <td>PRD → contrato de ejecución de workflow <code>/goal</code> revisado.</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/golla-jev">golla-jev</a></strong></td>
+  <td>Encuentra los momentos de elegir en tu trabajo y diseña un flujo con Jev (TypeSafe System One): JSON de preguntas, vista previa del documento y plan de pruebas (<code>/golla-jev</code>).</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>

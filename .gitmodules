@@ -55,3 +55,6 @@
 [submodule "plugins/playmaker"]
 	path = plugins/playmaker
 	url = https://github.com/fivetaku/playmaker.git
+[submodule "plugins/golla-jev"]
+	path = plugins/golla-jev
+	url = https://github.com/fivetaku/golla-jev.git

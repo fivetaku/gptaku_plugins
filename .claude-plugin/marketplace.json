@@ -297,6 +297,19 @@
         "compliance",
         "sangse"
       ]
+    },
+    {
+      "name": "golla-jev",
+      "description": "골라제브 — find the pick-one moments in your work and design a Jev (TypeSafe System One) workflow with question JSON, document preview and a test plan (/golla-jev).",
+      "source": "./plugins/golla-jev",
+      "category": "productivity",
+      "tags": [
+        "jev",
+        "typesafe",
+        "workflow",
+        "automation",
+        "korean"
+      ]
     }
   ]
 }

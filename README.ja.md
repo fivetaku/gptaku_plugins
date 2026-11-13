@@ -7,10 +7,10 @@
 **やりたいことを説明するのはもう終わり — Claude Code に丸ごとやらせましょう。**
 
 ブロックされたサイトを突破し、あらゆる URL からデザインシステムを抜き取り、
-コードをレビューし、ざっくりしたアイデアを PRD に変える — それを全部 Claude Code の中でやる 19 個のプラグインです。
+コードをレビューし、ざっくりしたアイデアを PRD に変える — それを全部 Claude Code の中でやる 20 個のプラグインです。
 
 <p>
-  <a href="#-全プラグイン一覧カテゴリ別"><img src="https://img.shields.io/badge/plugins-19-6E56CF" alt="19個のプラグイン"></a>
+  <a href="#-全プラグイン一覧カテゴリ別"><img src="https://img.shields.io/badge/plugins-20-6E56CF" alt="20個のプラグイン"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -126,6 +126,10 @@ WAF、403、CAPTCHA、ログイン壁にぶつかった? パブリック API リ
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
+  <td>一日中人が選んでいる仕事を Jev に任せたい</td>
+  <td><code>golla-jev</code></td>
+</tr>
+<tr>
   <td>複数のワーカーに分割すべき大規模なビルド</td>
   <td><code>pumasi</code> または <code>kkirikkiri</code></td>
 </tr>
@@ -178,6 +182,10 @@ WAF、403、CAPTCHA、ログイン壁にぶつかった? パブリック API リ
   <td width="25%"><strong>外部 CLI</strong></td>
   <td><code>pumasi</code>（ホストシステムに Codex CLI がインストールされている必要あり）</td>
 </tr>
+<tr>
+  <td width="25%"><strong>TypeSafe API キー</strong></td>
+  <td><code>golla-jev</code>（設計した Jev の質問や同梱ベンチマークを実際に動かすときだけ。設計案だけならキー不要）</td>
+</tr>
 </table>
 
 すべてのプラグインはオープンソースです。各サブモジュールの README に、正確なコマンドの境界、スキル、依存関係が記載されています。
@@ -223,6 +231,10 @@ WAF、403、CAPTCHA、ログイン壁にぶつかった? パブリック API リ
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/goaljaby">goaljaby</a></strong></td>
   <td>PRD → レビュー済みの <code>/goal</code> ワークフロー実行契約。</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/golla-jev">golla-jev</a></strong></td>
+  <td>業務の中の「選ぶ瞬間」を見つけて Jev（TypeSafe System One）のワークフローに設計 — 質問 JSON・文書プレビュー・テスト計画（<code>/golla-jev</code>）。</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>

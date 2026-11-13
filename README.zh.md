@@ -6,11 +6,11 @@
 
 **别再费口舌解释你想要什么——让 Claude Code 直接搞定。**
 
-19 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
+20 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
 审查你的代码、把粗糙的想法变成 PRD——全部在 Claude Code 里完成。
 
 <p>
-  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-19-6E56CF" alt="19 个插件"></a>
+  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-20-6E56CF" alt="20 个插件"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -126,6 +126,10 @@
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
+  <td>想把整天由人来挑选的工作交给 Jev</td>
+  <td><code>golla-jev</code></td>
+</tr>
+<tr>
   <td>一个该拆给多个工人并行的大型构建</td>
   <td><code>pumasi</code> 或 <code>kkirikkiri</code></td>
 </tr>
@@ -178,6 +182,10 @@
   <td width="25%"><strong>外部 CLI</strong></td>
   <td><code>pumasi</code>（需要在你的主机系统上安装 Codex CLI）</td>
 </tr>
+<tr>
+  <td width="25%"><strong>TypeSafe API 密钥</strong></td>
+  <td><code>golla-jev</code>（仅在实际运行设计好的 Jev 问题或附带基准测试时需要；只要设计案不需要密钥）</td>
+</tr>
 </table>
 
 所有插件均为开源。每个子模块的 README 都列明了它确切的命令边界、技能和依赖。
@@ -223,6 +231,10 @@
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/goaljaby">goaljaby</a></strong></td>
   <td>PRD → 经审查的 <code>/goal</code> 工作流执行契约。</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/golla-jev">golla-jev</a></strong></td>
+  <td>找出工作中的"挑选瞬间"，设计成 Jev（TypeSafe System One）工作流——问题 JSON、文档预览、测试计划（<code>/golla-jev</code>）。</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>

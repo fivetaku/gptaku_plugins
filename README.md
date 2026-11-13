@@ -6,11 +6,11 @@ English | [한국어](README.ko.md) | [中文](README.zh.md) | [日本語](READM
 
 **Stop explaining what you want — let Claude Code do it.**
 
-19 plugins that search blocked sites, rip design systems from any URL,
+20 plugins that search blocked sites, rip design systems from any URL,
 review your code, and turn rough ideas into PRDs — all inside Claude Code.
 
 <p>
-  <a href="#-all-plugins-by-category"><img src="https://img.shields.io/badge/plugins-19-6E56CF" alt="19 plugins"></a>
+  <a href="#-all-plugins-by-category"><img src="https://img.shields.io/badge/plugins-20-6E56CF" alt="20 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -126,6 +126,10 @@ A 7-phase pipeline: it scopes the question, spawns specialized research agents, 
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
+  <td>Work full of pick-one decisions you want to hand to Jev</td>
+  <td><code>golla-jev</code></td>
+</tr>
+<tr>
   <td>A large build that should be split across workers</td>
   <td><code>pumasi</code> or <code>kkirikkiri</code></td>
 </tr>
@@ -182,6 +186,10 @@ Most plugins need only a running Claude Code session — **no additional API key
   <td width="25%"><strong>External CLI</strong></td>
   <td><code>pumasi</code> (requires the Codex CLI to be installed on your host system)</td>
 </tr>
+<tr>
+  <td width="25%"><strong>TypeSafe API key</strong></td>
+  <td><code>golla-jev</code> (only to run the drafted Jev questions or the bundled benchmark; designs need no key)</td>
+</tr>
 </table>
 
 All plugins are open source. Every submodule README lists its exact command boundaries, skills, and dependencies.
@@ -227,6 +235,10 @@ All plugins are open source. Every submodule README lists its exact command boun
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/goaljaby">goaljaby</a></strong></td>
   <td>PRD → reviewed <code>/goal</code> workflow execution contract.</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/golla-jev">golla-jev</a></strong></td>
+  <td>Find the pick-one moments in your work and design a Jev (TypeSafe System One) workflow — question JSON, document preview, test plan (<code>/golla-jev</code>).</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>
