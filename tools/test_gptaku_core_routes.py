@@ -203,6 +203,23 @@ class RoutesTest(unittest.TestCase):
             with open(env["GPTAKU_USER_ROUTES"], encoding="utf-8") as f:
                 self.assertEqual(f.read(), '{"routes": [{"skill": "keep-me",')
 
+    def test_nopal_dedup_exception_reaches_both_hooks(self):
+        for hook, prompt in (("session_rule.py", ""), ("router.py", "받은 메일 확인해줘")):
+            out = subprocess.run([sys.executable, "-B", os.path.join(CORE, "hooks", hook)],
+                                 input=json.dumps({"prompt": prompt}), capture_output=True, text=True, env=_env())
+            self.assertEqual(out.returncode, 0, out.stderr)
+            context = json.loads(out.stdout)["hookSpecificOutput"]["additionalContext"]
+            self.assertIn("Gmail 단건", context)
+            self.assertIn("계정 확인·발송 승인", context)
+            self.assertIn("Nopal 명시 요청", context)
+            self.assertIn("여러 Google 서비스를 새로 조합", context)
+
+    def test_nopal_explicit_and_multi_service_remain_routable(self):
+        for prompt in ("노팔 /nopal:nopal로 받은 메일 확인해줘", "구글 캘린더 일정을 구글 시트에 정리해줘"):
+            route = self.routes.match(prompt, self.table)
+            self.assertIsNotNone(route, prompt)
+            self.assertEqual(route["skill"], "nopal:nopal", prompt)
+
     def test_off_switch_both_hooks(self):
         for hook, stdin in (("router.py", '{"prompt":"레딧에서 글 찾아줘"}'), ("session_rule.py", "{}")):
             out = subprocess.run([sys.executable, "-B", os.path.join(CORE, "hooks", hook)], input=stdin,

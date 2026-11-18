@@ -18,4 +18,8 @@ r = match(prompt, load_routes())
 if r:
     msg = (f"[gptaku 라우터] 이 요청은 `{r['skill']}` 스킬 대상입니다. "
            "직접 처리하거나 다른 도구를 부르기 전에 Skill 도구로 이 스킬을 먼저 호출하세요.")
+    if isinstance(r.get("skip_when"), str) and r["skip_when"].strip():
+        msg = (f"[gptaku 라우터] 이 요청은 `{r['skill']}` 사용 범위입니다. "
+               f"예외를 먼저 확인하세요: {r['skip_when']} "
+               "예외에 해당하지 않으면 다른 도구보다 먼저 이 스킬을 호출하세요.")
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": msg}}, ensure_ascii=False))

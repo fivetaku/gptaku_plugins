@@ -10,7 +10,8 @@ routes = load_routes()
 if not routes:
     sys.exit(0)
 # 명시 호출 전용 라우트(키워드·패턴 없음)는 규칙에 넣지 않는다
-lines = "\n".join(f"- {r['when']} → `{r['skill']}`" for r in routes
+lines = "\n".join(f"- {r['when']} → `{r['skill']}`"
+                  + (f" 단, {r['skip_when']}" if isinstance(r.get('skip_when'), str) and r['skip_when'].strip() else "") for r in routes
                   if r.get("when") and (r.get("keywords") or r.get("patterns") or r.get("weak") or r.get("weak_patterns")))
 if not lines:
     sys.exit(0)
