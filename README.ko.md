@@ -43,6 +43,8 @@ Claude Code 안에서 아래 명령을 실행하세요:
 /reload-plugins
 ```
 
+**자동 업데이트 켜기:** 서드파티 마켓플레이스는 기본으로 자동 업데이트가 꺼져 있습니다 — `/plugin` → **Marketplaces** → `gptaku-plugins` → **Turn on auto-update**로 한 번만 켜 두세요. (수동: `/plugin marketplace update gptaku-plugins`)
+
 **처음 방문하셨나요? `insane-search`부터 설치해 보세요.** 대부분의 플러그인은 추가 설정 없이 바로 작동하지만, 일부 플러그인은 외부 서비스 인증이 필요합니다 ([인증 및 설정 섹션 참고](#-인증-및-설정-보안--자격-증명)).
 
 ---

@@ -44,6 +44,8 @@
 /reload-plugins
 ```
 
+**开启自动更新：** 第三方插件市场默认不自动更新——在 `/plugin` → **Marketplaces** → `gptaku-plugins` → **Turn on auto-update** 里开一次即可。（手动：`/plugin marketplace update gptaku-plugins`）
+
 **第一次来？先装 `insane-search`。** 大多数插件只需要一个正在运行的 Claude Code 会话——少数几个要接外部服务（[详见信任与配置](#-信任与配置)）。
 
 ---

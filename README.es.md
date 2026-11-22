@@ -44,6 +44,8 @@ Ejecuta esto dentro de Claude Code:
 /reload-plugins
 ```
 
+**Actualizaciones automáticas:** los marketplaces de terceros no se actualizan solos por defecto — actívalo una vez en `/plugin` → **Marketplaces** → `gptaku-plugins` → **Turn on auto-update**. (Manual: `/plugin marketplace update gptaku-plugins`.)
+
 **¿Nuevo por aquí? Instala `insane-search` primero.** La mayoría de los plugins solo necesitan una sesión de Claude Code en marcha — unos pocos conectan un servicio externo ([ver Confianza y configuración](#-confianza--configuración)).
 
 ---

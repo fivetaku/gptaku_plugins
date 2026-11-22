@@ -44,6 +44,8 @@ Claude Code の中で次のコマンドを実行します。
 /reload-plugins
 ```
 
+**自動アップデートを有効に:** サードパーティのマーケットプレイスは既定で自動更新がオフです — `/plugin` → **Marketplaces** → `gptaku-plugins` → **Turn on auto-update** で一度だけオンにしてください。（手動: `/plugin marketplace update gptaku-plugins`）
+
 **はじめてですか? まずは `insane-search` から入れてください。** ほとんどのプラグインは起動中の Claude Code セッションさえあれば動きます — 一部だけ外部サービスへの接続が必要です（[信頼性とセットアップ](#-信頼性とセットアップ)を参照）。
 
 ---

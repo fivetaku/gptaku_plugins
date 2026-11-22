@@ -84,10 +84,13 @@ def _valid(r, user=False):
     return True
 
 
-def load_routes():
-    """플러그인 라우트가 먼저다. 사용자 파일에 같은 스킬이 있으면 플러그인 쪽을 쓴다."""
+def load_routes(include_user=True):
+    """플러그인 라우트가 먼저다. 사용자 파일에 같은 스킬이 있으면 플러그인 쪽을 쓴다.
+    include_user=False는 SessionStart 안내용 — 사용자 라우트는 요청마다 router.py가 지목한다."""
     routes, seen = [], set()
-    sources = [(os.path.join(d, "routing.json"), False) for d in plugin_dirs()] + [(USER_ROUTES, True)]
+    sources = [(os.path.join(d, "routing.json"), False) for d in plugin_dirs()]
+    if include_user:
+        sources.append((USER_ROUTES, True))
     for path, user in sources:
         try:
             data = _read_json(path)
