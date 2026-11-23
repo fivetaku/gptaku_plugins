@@ -6,11 +6,11 @@
 
 **Deja de explicar lo que quieres — que Claude Code lo haga.**
 
-20 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
+21 plugins que buscan en sitios bloqueados, extraen sistemas de diseño de cualquier URL,
 revisan tu código y convierten ideas en bruto en PRDs — todo dentro de Claude Code.
 
 <p>
-  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-20-6E56CF" alt="20 plugins"></a>
+  <a href="#-todos-los-plugins-por-categoría"><img src="https://img.shields.io/badge/plugins-21-6E56CF" alt="21 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -128,6 +128,10 @@ Un pipeline de 7 fases: delimita la pregunta, despliega agentes de investigació
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
+  <td>Una idea o PRD que quieres llevar hasta el final — verificar, revisar, corregir, repetir</td>
+  <td><code>insane-loop</code></td>
+</tr>
+<tr>
   <td>Un trabajo lleno de decisiones de elegir que quieres pasar a Jev</td>
   <td><code>golla-jev</code></td>
 </tr>
@@ -241,6 +245,10 @@ Todos los plugins son de código abierto. El README de cada submódulo detalla s
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>
   <td>Tablero de progreso para goaljaby — tarjetas en espera · en curso · hecho en un panel lateral; pulsa una tarjeta para dar instrucciones a la sesión (tablero web en Paseo).</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/insane-loop">insane-loop</a></strong></td>
+  <td>Idea → PRD → goal → verificación → mejora, en bucle dentro del goal hasta cumplir la Definición de Hecho documentada; cambia de enfoque en vez de detenerse (<code>/insane-loop</code>).</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/pumasi">pumasi</a></strong></td>

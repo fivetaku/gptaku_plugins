@@ -6,10 +6,10 @@
 
 **원하는 걸 구구절절 설명하지 마세요 — Claude Code에게 직접 시키세요.**
 
-차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 20개의 플러그인.
+차단된 웹페이지 검색, 어떤 URL에서든 디자인 시스템 추출, 강력한 코드 리뷰, 대략적인 아이디어를 PRD로 자동 변환까지 — 이 모든 것을 Claude Code 안에서 해결하는 21개의 플러그인.
 
 <p>
-  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-20-6E56CF" alt="20 plugins"></a>
+  <a href="#-플러그인-카테고리-일람"><img src="https://img.shields.io/badge/plugins-21-6E56CF" alt="21 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -127,6 +127,10 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
+  <td>아이디어 한 줄이나 PRD를 검증·개선까지 완성될 때까지 끝까지 돌리고 싶을 때</td>
+  <td><code>insane-loop</code></td>
+</tr>
+<tr>
   <td>하루 종일 사람이 고르는 일을 Jev에 넘기고 싶을 때</td>
   <td><code>golla-jev</code></td>
 </tr>
@@ -240,6 +244,10 @@ WAF, 403, CAPTCHA, 로그인 장벽에 막히면 공개 API 리더, 신디케이
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>
   <td>goaljaby 골 진행 보드 — 대기·진행·완료 작업 카드를 옆 패널에, 카드를 눌러 세션에 바로 지시 (Paseo는 웹 보드).</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/insane-loop">insane-loop</a></strong></td>
+  <td>아이디어→PRD→골→검증→개선을 문서의 완성 기준(DoD)을 채울 때까지 골 안에서 계속 도는 루프. 막히면 접근을 바꿔 다시 들어감 (<code>/insane-loop</code>).</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/pumasi">pumasi</a></strong></td>

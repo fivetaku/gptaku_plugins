@@ -58,3 +58,6 @@
 [submodule "plugins/golla-jev"]
 	path = plugins/golla-jev
 	url = https://github.com/fivetaku/golla-jev.git
+[submodule "plugins/insane-loop"]
+	path = plugins/insane-loop
+	url = https://github.com/fivetaku/insane-loop.git

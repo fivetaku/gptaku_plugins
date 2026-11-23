@@ -6,11 +6,11 @@
 
 **别再费口舌解释你想要什么——让 Claude Code 直接搞定。**
 
-20 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
+21 个插件：搜索被封锁的网站、从任意 URL 扒下设计系统、
 审查你的代码、把粗糙的想法变成 PRD——全部在 Claude Code 里完成。
 
 <p>
-  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-20-6E56CF" alt="20 个插件"></a>
+  <a href="#-全部插件按分类"><img src="https://img.shields.io/badge/plugins-21-6E56CF" alt="21 个插件"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -128,6 +128,10 @@
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
+  <td>想把一个想法或 PRD 一路推进到完成 — 验证、评审、修复、循环</td>
+  <td><code>insane-loop</code></td>
+</tr>
+<tr>
   <td>想把整天由人来挑选的工作交给 Jev</td>
   <td><code>golla-jev</code></td>
 </tr>
@@ -241,6 +245,10 @@
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>
   <td>goaljaby 目标进度看板 — 侧边面板显示 等待·进行中·完成 任务卡片,点击卡片直接向会话下指令(Paseo 使用网页看板)。</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/insane-loop">insane-loop</a></strong></td>
+  <td>想法 → PRD → 目标 → 验证 → 改进,在目标内循环直到满足文档定义的完成标准(DoD);卡住时换方法而不是停下 (<code>/insane-loop</code>)。</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/pumasi">pumasi</a></strong></td>

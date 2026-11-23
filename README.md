@@ -6,11 +6,11 @@ English | [한국어](README.ko.md) | [中文](README.zh.md) | [日本語](READM
 
 **Stop explaining what you want — let Claude Code do it.**
 
-20 plugins that search blocked sites, rip design systems from any URL,
+21 plugins that search blocked sites, rip design systems from any URL,
 review your code, and turn rough ideas into PRDs — all inside Claude Code.
 
 <p>
-  <a href="#-all-plugins-by-category"><img src="https://img.shields.io/badge/plugins-20-6E56CF" alt="20 plugins"></a>
+  <a href="#-all-plugins-by-category"><img src="https://img.shields.io/badge/plugins-21-6E56CF" alt="21 plugins"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -126,6 +126,10 @@ A 7-phase pipeline: it scopes the question, spawns specialized research agents, 
 <tr>
   <td>A PRD that needs a verified <code>/goal</code> execution contract</td>
   <td><code>goaljaby</code></td>
+</tr>
+<tr>
+  <td>An idea or PRD you want driven all the way to done — verify, review, fix, repeat</td>
+  <td><code>insane-loop</code></td>
 </tr>
 <tr>
   <td>Work full of pick-one decisions you want to hand to Jev</td>
@@ -245,6 +249,10 @@ All plugins are open source. Every submodule README lists its exact command boun
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>
   <td>Live goal board for goaljaby — waiting · doing · done task cards in a side pane; press a card to direct the session (web board for Paseo).</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/insane-loop">insane-loop</a></strong></td>
+  <td>Idea → PRD → goal → verify → improve, looping inside the goal until the documented Definition of Done is met; changes approach instead of stopping when stuck (<code>/insane-loop</code>).</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/pumasi">pumasi</a></strong></td>

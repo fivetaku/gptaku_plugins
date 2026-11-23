@@ -7,10 +7,10 @@
 **やりたいことを説明するのはもう終わり — Claude Code に丸ごとやらせましょう。**
 
 ブロックされたサイトを突破し、あらゆる URL からデザインシステムを抜き取り、
-コードをレビューし、ざっくりしたアイデアを PRD に変える — それを全部 Claude Code の中でやる 20 個のプラグインです。
+コードをレビューし、ざっくりしたアイデアを PRD に変える — それを全部 Claude Code の中でやる 21 個のプラグインです。
 
 <p>
-  <a href="#-全プラグイン一覧カテゴリ別"><img src="https://img.shields.io/badge/plugins-20-6E56CF" alt="20個のプラグイン"></a>
+  <a href="#-全プラグイン一覧カテゴリ別"><img src="https://img.shields.io/badge/plugins-21-6E56CF" alt="21個のプラグイン"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/platform-Claude_Code-D97757?logo=claude" alt="Claude Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3FB950" alt="MIT"></a>
   <a href="https://github.com/fivetaku/insane-search/stargazers"><img src="https://img.shields.io/github/stars/fivetaku/insane-search?style=flat&color=F0B72F" alt="stars"></a>
@@ -128,6 +128,10 @@ WAF、403、CAPTCHA、ログイン壁にぶつかった? パブリック API リ
   <td><code>goaljaby</code></td>
 </tr>
 <tr>
+  <td>アイデアや PRD を検証・改善まで完成するまで回し切りたいとき</td>
+  <td><code>insane-loop</code></td>
+</tr>
+<tr>
   <td>一日中人が選んでいる仕事を Jev に任せたい</td>
   <td><code>golla-jev</code></td>
 </tr>
@@ -241,6 +245,10 @@ WAF、403、CAPTCHA、ログイン壁にぶつかった? パブリック API リ
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/playmaker">playmaker</a></strong></td>
   <td>goaljaby のゴール進行ボード — 待機・進行中・完了の作業カードを横のパネルに表示し、カードからセッションに直接指示(Paseo はウェブボード)。</td>
+</tr>
+<tr>
+  <td width="25%"><strong><a href="https://github.com/fivetaku/insane-loop">insane-loop</a></strong></td>
+  <td>アイデア → PRD → ゴール → 検証 → 改善を、文書の完成基準(DoD)を満たすまでゴールの中で回し続けるループ。行き詰まったら止まらずにアプローチを変える (<code>/insane-loop</code>)。</td>
 </tr>
 <tr>
   <td width="25%"><strong><a href="https://github.com/fivetaku/pumasi">pumasi</a></strong></td>

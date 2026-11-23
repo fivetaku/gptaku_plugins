@@ -310,6 +310,19 @@
         "automation",
         "korean"
       ]
+    },
+    {
+      "name": "insane-loop",
+      "description": "Idea to done — chains interview→PRD (show-me-the-prd)→goal (goaljaby)→/goal, then keeps verify→review→improve cycles looping inside the goal until the documented Definition of Done is met (/insane-loop).",
+      "source": "./plugins/insane-loop",
+      "category": "productivity",
+      "tags": [
+        "loop",
+        "goal-driven",
+        "pipeline",
+        "orchestration",
+        "korean"
+      ]
     }
   ]
 }
