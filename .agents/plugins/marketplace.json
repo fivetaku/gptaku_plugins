@@ -17,6 +17,279 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Development"
+    },
+    {
+      "name": "docs-guide",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/docs-guide.git",
+        "ref": "v1.6.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    },
+    {
+      "name": "git-teacher",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/git-teacher.git",
+        "ref": "v1.7.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Education"
+    },
+    {
+      "name": "insane-research",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/insane-research.git",
+        "ref": "v2.13.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "insane-search",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/insane-search.git",
+        "ref": "v0.18.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "pumasi",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/pumasi.git",
+        "ref": "v1.25.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    },
+    {
+      "name": "skillers-suda",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/skillers-suda.git",
+        "ref": "v1.6.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    },
+    {
+      "name": "nopal",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/nopal.git",
+        "ref": "v0.8.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "insane-review",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/insane-review.git",
+        "ref": "v0.8.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    },
+    {
+      "name": "golla-jev",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/golla-jev.git",
+        "ref": "v0.2.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "insane-loop",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/insane-loop.git",
+        "ref": "v0.5.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "sangse",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/sangse.git",
+        "ref": "v0.10.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Marketing"
+    },
+    {
+      "name": "dd",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/dd.git",
+        "ref": "v0.5.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "show-me-the-prd",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/show-me-the-prd.git",
+        "ref": "v0.12.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "insane-design",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/insane-design.git",
+        "ref": "v0.6.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    },
+    {
+      "name": "goaljaby",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/goaljaby.git",
+        "ref": "v0.10.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "vibe-sunsang",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/vibe-sunsang.git",
+        "ref": "v2.5.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Education"
+    },
+    {
+      "name": "ddiring",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/ddiring.git",
+        "ref": "v0.3.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "kkirikkiri",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/kkirikkiri.git",
+        "ref": "v0.28.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "gaseo",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/gaseo.git",
+        "ref": "v0.3.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "playmaker",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/playmaker.git",
+        "ref": "v0.3.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "tikeytaka",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fivetaku/tikeytaka.git",
+        "ref": "v0.8.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
     }
   ]
 }

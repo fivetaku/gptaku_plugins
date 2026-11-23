@@ -1,5 +1,26 @@
 {
   "plugins": [
-    "gptaku-core"
+    "gptaku-core",
+    "docs-guide",
+    "git-teacher",
+    "insane-research",
+    "insane-search",
+    "pumasi",
+    "skillers-suda",
+    "nopal",
+    "insane-review",
+    "golla-jev",
+    "insane-loop",
+    "sangse",
+    "dd",
+    "show-me-the-prd",
+    "insane-design",
+    "goaljaby",
+    "vibe-sunsang",
+    "ddiring",
+    "kkirikkiri",
+    "gaseo",
+    "playmaker",
+    "tikeytaka"
   ]
 }
