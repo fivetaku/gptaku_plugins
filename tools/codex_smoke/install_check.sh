@@ -34,7 +34,7 @@ echo "대상 ${#NAMES[@]}개: ${NAMES[*]}"
 for p in "${NAMES[@]}"; do CODEX_HOME="$H" codex plugin add "$p@gptaku-plugins" >> "$D/install.log" 2>&1 || echo "install rc!=0 $p" >> "$D/install.log"; done
 CODEX_HOME="$H" codex plugin list --json > "$D/list.json" 2>&1
 python3 - "$D" "$H" "${NAMES[@]}" <<'PY'
-import json, os, subprocess, sys, tempfile
+import json, os, re, subprocess, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 d, home, names = sys.argv[1], sys.argv[2], sys.argv[3:]
 inst = {x["name"]: x for x in json.load(open(os.path.join(d, "list.json")))["installed"]}
@@ -64,10 +64,18 @@ def one(n):
     got = files(cache)
     if ".claude-plugin/plugin.json" not in got:
         return n, False, f"빈 껍데기(plugin.json 없음, 파일 {len(got)}개)"
+    # Codex는 설치할 때 4KB 이하·$ARGUMENTS 없는 commands/<c>.md를 스킬로 바꿔
+    # .codex-plugin/migrated-command-skills/source-command-<c>/SKILL.md를 만든다(레포 내용이 아님).
+    # 태그에 그 명령 파일이 있을 때만 그 생성물을 비교에서 뺀다.
+    made = {f for f in got - want
+            if re.fullmatch(r"\.codex-plugin/migrated-command-skills/source-command-([^/]+)/SKILL\.md", f)
+            and f"commands/{f.split('/')[2][len('source-command-'):]}.md" in want}
+    got -= made
     if want != got:
         miss, extra = sorted(want - got)[:5], sorted(got - want)[:5]
         return n, False, f"파일 목록 다름 — 빠짐 {miss} 더 있음 {extra}"
-    return n, True, f"{src['ref']} 파일 {len(got)}개 일치"
+    note = f" (+Codex가 명령에서 만든 스킬 {len(made)}개)" if made else ""
+    return n, True, f"{src['ref']} 파일 {len(got)}개 일치{note}"
 
 with ThreadPoolExecutor(8) as ex:
     res = list(ex.map(one, names))
