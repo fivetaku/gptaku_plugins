@@ -18,9 +18,9 @@ review your code, and turn rough ideas into PRDs — all inside Claude Code.
 
 <!-- Purpose-first hero banner with light/dark theme support -->
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak.png">
-  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak.png">
-  <img src="assets/hero-purpose-wallbreak.png" width="980" alt="GPTaku Plugins cinematic hero showing a plugin drill breaking through Claude Code limits">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <img src="assets/hero-purpose-wallbreak-codex.png" width="980" alt="GPTaku Plugins cinematic hero showing a plugin drill breaking through Claude Code and Codex limits">
 </picture>
 
 <sub><a href="#-install">Install</a> · <a href="#-start-here--the-insane-series">Start here</a> · <a href="#-all-plugins-by-category">All plugins</a> · <a href="#-trust--setup">Trust</a></sub>

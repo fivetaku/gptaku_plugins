@@ -17,9 +17,9 @@
 
 <!-- 라이트/다크 테마 지원 히어로 이미지 -->
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak.png">
-  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak.png">
-  <img src="assets/hero-purpose-wallbreak.png" width="980" alt="플러그인 드릴이 차단·약한 리뷰·PRD 부재 같은 Claude Code의 벽을 뚫는 GPTaku Plugins 히어로 배너">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <img src="assets/hero-purpose-wallbreak-codex.png" width="980" alt="플러그인 드릴이 차단·약한 리뷰·PRD 부재 같은 Claude Code·Codex의 벽을 뚫는 GPTaku Plugins 히어로 배너">
 </picture>
 
 <sub><a href="#-설치">설치</a> · <a href="#-대표-플러그인--insane--시리즈">대표 플러그인</a> · <a href="#-플러그인-카테고리-일람">전체 플러그인</a> · <a href="#-인증-및-설정-보안--자격-증명">인증 및 설정</a></sub>

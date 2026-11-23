@@ -18,9 +18,9 @@
 
 <!-- Purpose-first hero banner with light/dark theme support -->
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak.png">
-  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak.png">
-  <img src="assets/hero-purpose-wallbreak.png" width="980" alt="GPTaku Plugins 电影感主视觉：一把插件钻头凿穿 Claude Code 的种种限制">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <img src="assets/hero-purpose-wallbreak-codex.png" width="980" alt="GPTaku Plugins 电影感主视觉：一把插件钻头凿穿 Claude Code 与 Codex 的种种限制">
 </picture>
 
 <sub><a href="#-安装">安装</a> · <a href="#-从这里开始insane-系列">从这里开始</a> · <a href="#-全部插件按分类">全部插件</a> · <a href="#-信任与配置">信任</a></sub>

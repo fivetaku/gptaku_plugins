@@ -18,9 +18,9 @@
 
 <!-- Purpose-first hero banner with light/dark theme support -->
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak.png">
-  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak.png">
-  <img src="assets/hero-purpose-wallbreak.png" width="980" alt="プラグインのドリルが Claude Code の限界を突き破る GPTaku Plugins のシネマティックなヒーローバナー">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <img src="assets/hero-purpose-wallbreak-codex.png" width="980" alt="プラグインのドリルが Claude Code と Codex の限界を突き破る GPTaku Plugins のシネマティックなヒーローバナー">
 </picture>
 
 <sub><a href="#-インストール">インストール</a> · <a href="#-まずはここから--insane-シリーズ">まずはここから</a> · <a href="#-全プラグイン一覧カテゴリ別">全プラグイン</a> · <a href="#-信頼性とセットアップ">信頼性</a></sub>

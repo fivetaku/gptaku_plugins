@@ -18,9 +18,9 @@ revisan tu código y convierten ideas en bruto en PRDs — todo dentro de Claude
 
 <!-- Purpose-first hero banner with light/dark theme support -->
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak.png">
-  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak.png">
-  <img src="assets/hero-purpose-wallbreak.png" width="980" alt="Banner cinematográfico de GPTaku Plugins que muestra un taladro-plugin atravesando los límites de Claude Code">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/hero-purpose-wallbreak-codex.png">
+  <img src="assets/hero-purpose-wallbreak-codex.png" width="980" alt="Banner cinematográfico de GPTaku Plugins que muestra un taladro-plugin atravesando los límites de Claude Code y Codex">
 </picture>
 
 <sub><a href="#-instalación">Instalación</a> · <a href="#-empieza-aquí--la-serie-insane">Empieza aquí</a> · <a href="#-todos-los-plugins-por-categoría">Todos los plugins</a> · <a href="#-confianza--configuración">Confianza</a></sub>
