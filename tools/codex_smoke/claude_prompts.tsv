@@ -1,0 +1,7 @@
+# Claude 대화형 실측 전용 요청 덮어쓰기(claude_run.sh가 prompts.tsv보다 먼저 본다). 형식은 prompts.tsv와 같다.
+# insane-loop: Codex는 루프 설정 질문 도구가 먼저 나오지만 Claude는 show-me-the-prd Turn 1(열린 질문)로 가므로 Turn 1 답을 미리 준다
+insane-loop	1	-	인세인 루프(insane-loop)로 할 일 메모 CLI 아이디어를 완성까지 돌리고 싶어. 핵심 문제 답: 터미널에서 작업하다 떠오른 할 일을 적으려고 메모 앱으로 넘어가면 흐름이 끊겨. 웹 리서치는 생략하고 방향 결정 카드까지만 진행해줘.
+# tikeytaka: 오너 전역 CLAUDE.md에 tikeytaka 안내가 있어 스킬을 열지 않고 답하므로 명령으로 직접 부른다
+tikeytaka	0	-	/tikeytaka:tikeytaka 무엇을 하는지와 사용법만 알려줘. 볼트를 열거나 키를 조회하지는 마.
+# vibe-sunsang: 성장 리포트는 오너 실제 세션을 변환·기록하므로 Claude 대화형 실측에서는 스킬 열림과 절차 안내만 본다(변환 실측은 Codex 분기 증거 evidence/m3/vibe_sunsang_convert.txt)
+vibe-sunsang	0	-	바선생(vibe-sunsang) 스킬로 성장 리포트를 만들려면 어떤 순서로 진행되는지만 알려줘. 변환이나 리포트 생성, 파일 쓰기는 실행하지 마.

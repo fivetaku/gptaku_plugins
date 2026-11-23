@@ -21,8 +21,9 @@ PARSE_ERR = re.compile(r"failed to parse|unknown field|missing field|invalid typ
 
 
 def home_digest(home):
+    """가짜 HOME 중 Claude 설정(.claude)과 첫 실행 표식(.gptaku-setup)만 본다 — 다른 캐시는 플러그인의 정상 동작이다."""
     lines = []
-    for d, _, files in os.walk(home):
+    for d, _, files in (x for sub in (".claude", ".gptaku-setup") for x in os.walk(os.path.join(home, sub))):
         for f in files:
             p = os.path.join(d, f)
             try:

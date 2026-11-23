@@ -42,10 +42,11 @@ for n in "${NAMES[@]}"; do
   echo "$line" >> "$RUN/jobs.tsv"
 done
 export RUN HERE
-tr '\n' '\0' < "$RUN/jobs.tsv" | xargs -0 -P "$WORKERS" -I{} bash -c '
+# macOS xargs -I는 치환 인자를 255바이트로 자르므로(-I 미사용) 한 줄을 인자 하나로 넘긴다
+tr '\n' '\0' < "$RUN/jobs.tsv" | xargs -0 -P "$WORKERS" -n 1 bash -c '
   IFS=$(printf "\t") read -r p asks expect prompt <<< "$1"
   extra=""; [ "$p" = gptaku-core ] && extra="insane-search"
-  bash "$HERE/one.sh" "$RUN" "$p" "$asks" "$expect" "$prompt" $extra' _ {} > "$RUN/progress.log" 2>&1
+  bash "$HERE/one.sh" "$RUN" "$p" "$asks" "$expect" "$prompt" $extra' _ > "$RUN/progress.log" 2>&1
 
 python3 - "$RUN" "${NAMES[@]}" <<'PY'
 import json, os, sys

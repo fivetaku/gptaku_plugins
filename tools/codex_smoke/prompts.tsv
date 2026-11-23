@@ -8,7 +8,7 @@ pumasi	0	-	품앗이(pumasi) 스킬이 무엇을 하는지와 지금 이 환경�
 skillers-suda	1	-	스킬러들의 수다(skillers-suda)로 아이디어를 스킬로 만들어줘: 매일 아침 날씨를 한 줄로 요약해 주는 스킬
 nopal	0	-	nopal 설정 상태만 확인해줘(nopal-setup). 메일·일정 같은 실제 데이터는 조회하지 마.
 insane-review	1	-	insane-review 스킬로 이 폴더 코드 리뷰를 받으려 해. 실제로 ChatGPT에 보내기 전 단계(설정 확인·질문)까지만 해줘.
-golla-jev	1	-	골라제브(golla-jev)로 고객 문의 분류에 Jev를 붙이는 워크플로 설계를 시작해줘
+golla-jev	1	-	골라제브(golla-jev)로 우리 회사에 제브 쓸 데 있는지 봐줘. 우리는 온라인 쇼핑몰 CS팀이야. 후보를 고르는 데까지만 진행해줘.
 insane-loop	1	-	인세인 루프(insane-loop)로 할 일 메모 CLI 아이디어를 완성까지 돌리고 싶어. 시작 단계까지만 진행해줘.
 tikeytaka	0	-	tikeytaka 스킬이 무엇을 하는지와 사용법만 알려줘. 볼트를 열거나 키를 조회하지는 마.
 sangse	0	-	sangse 스킬로 상세페이지 컷 시트를 만들려고 해. 의존성 확인 단계까지만 하고 멈춰.
@@ -19,5 +19,5 @@ insane-design	1	-	insane-design 스킬 실행해줘 (인자 없음)
 kkirikkiri	1	-	끼리끼리(kkirikkiri)로 팀 하나 꾸려줘
 goaljaby	1	-	goaljaby 스킬로 이 폴더의 ./PRD 골 셋업을 해줘. 검토 문서를 만들고 시작할지 물어봐. 웹 리서치는 하지 마.
 vibe-sunsang	0	-	바선생(vibe-sunsang) 성장 리포트 만들어줘
-playmaker	0	-	playmaker 스킬로 이 폴더의 골 보드를 브라우저로 띄울 주소를 알려줘. 브라우저 창은 열지 마.
+playmaker	0	-	playmaker 스킬로 이 폴더의 골 보드(docs/goals/demo)를 띄우고 보드 주소를 알려줘. 브라우저 창은 열지 마.
 gaseo	0	-	gaseo 스킬로 이 세션을 Paseo에 등록하려고 해. 실제 등록 명령은 실행하지 말고 어떤 세션 ID를 쓰게 되는지만 확인해줘.

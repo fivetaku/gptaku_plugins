@@ -13,7 +13,7 @@
 """
 import json, os, re, sys
 
-SETUP_CARD = re.compile(r"GitHub|⭐|star|auto-?update|자동 업데이트|스타", re.I)
+SETUP_CARD = re.compile(r"GitHub|⭐|auto-?update|자동 ?업데이트", re.I)  # 첫 실행 설정 카드(별·자동 업데이트)만
 
 
 def load(path):
@@ -55,9 +55,17 @@ def main(argv):
             last_stop = msg.get("stop_reason")
     asks_calls = [u for u in uses.values() if u.get("name") == "AskUserQuestion"]
     pending = [u for u in asks_calls if u.get("id") not in results]
-    target_pending = [u for u in pending if not SETUP_CARD.search(json.dumps(u.get("input"), ensure_ascii=False))]
+    # 첫 실행 설정 문항과 대상 문항이 한 카드에 함께 올 수 있다 — 문항별로 보고 설정 아닌 문항이 하나라도 있으면 대상 카드
+    def is_target(u):
+        qs = (u.get("input") or {}).get("questions") or [u.get("input")]
+        return any(not SETUP_CARD.search(json.dumps(q, ensure_ascii=False)) for q in qs)
+    target_pending = [u for u in pending if is_target(u)]
     finished = bool(pending) or last_stop == "end_turn"
     if wait_check:
+        # 질문해야 하는 행은 대상 카드가 뜰 때까지 기다린다(백그라운드 에이전트를 기다리며 턴을 끝낸 경우가 있다)
+        if asks == "1":
+            print("done" if target_pending else "running")
+            return 0
         print("done" if finished else "running")
         return 0
     row = {"plugin": plugin, "transcript": transcript, "skill_open": skill_open,
@@ -72,7 +80,8 @@ def main(argv):
     row["pass"] = not row["reasons"]
     if target_pending:
         q = target_pending[-1].get("input", {}).get("questions", [])
-        row["card"] = [{"header": x.get("header"), "options": len(x.get("options", []))} for x in q]
+        row["card"] = [{"header": x.get("header"), "options": len(x.get("options", [])),
+                        "setup": bool(SETUP_CARD.search(json.dumps(x, ensure_ascii=False)))} for x in q]
     print(json.dumps(row, ensure_ascii=False))
     return 0
 

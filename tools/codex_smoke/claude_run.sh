@@ -22,7 +22,8 @@ RUN="$STATE/claude-$(date +%Y%m%d-%H%M%S)-$$"; mkdir -p "$RUN"
 export RUN HERE ROOT MODEL WAIT
 
 one() {
-  p="$1"; line=$(awk -F'\t' -v n="$p" '$1==n' "$HERE/prompts.tsv")
+  p="$1"; line=$(awk -F'\t' -v n="$p" '$1==n' "$HERE/claude_prompts.tsv" 2>/dev/null)
+  [ -n "$line" ] || line=$(awk -F'\t' -v n="$p" '$1==n' "$HERE/prompts.tsv")
   asks=$(printf '%s' "$line" | cut -f2); prompt=$(printf '%s' "$line" | cut -f4)
   D="$RUN/$p"; WK="$D/work"; mkdir -p "$WK"; SRC="$ROOT/plugins/$p"
   [ -d "$HERE/fixtures/$p" ] && cp -R "$HERE/fixtures/$p/." "$WK/"
@@ -30,7 +31,7 @@ one() {
   S="cls-$(basename "$RUN")-$p"
   tmux kill-session -t "$S" 2>/dev/null
   tmux new-session -d -s "$S" -x 170 -y 50 -c "$WK" \
-    "env -u CLAUDE_CODE_SESSION_ID -u CLAUDECODE claude ${MODEL:+--model '$MODEL'} --plugin-dir '$SRC' --settings '{\"enabledPlugins\":{\"$p@gptaku-plugins\":false}}'; sleep 600"
+    "env -u CLAUDE_CODE_SESSION_ID -u CLAUDECODE PASEO_HOME='$D/paseo-home' claude ${MODEL:+--model '$MODEL'} --plugin-dir '$SRC' --settings '{\"enabledPlugins\":{\"$p@gptaku-plugins\":false}}'; sleep 600"
   for _ in $(seq 1 40); do
     s=$(tmux capture-pane -t "$S" -p)
     # 폴더 신뢰 확인: 기본 선택이 "No, exit"이므로 "Yes" 쪽으로 옮긴 뒤 확정한다
@@ -41,10 +42,16 @@ one() {
     sleep 2
   done
   tmux send-keys -t "$S" -l "$prompt"; sleep 1; tmux send-keys -t "$S" Enter
+  PROJ="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/projects/$(printf '%s' "$WK" | sed 's/[^A-Za-z0-9]/-/g')"
   T=""; end=$(( $(date +%s) + WAIT ))
   while [ "$(date +%s)" -lt "$end" ]; do
     sleep 6
-    [ -n "$T" ] || T=$(grep -l "\"cwd\":\"$WK\"" $(ls -t "$HOME"/.claude/projects/*/*.jsonl 2>/dev/null | head -60) 2>/dev/null | head -1)
+    # Claude Code의 1회성 "작업 폴더 밖 읽기 허용?" 질문: 설정을 바꾸지 않는 4번(이번만 허용, 다음에 다시 묻기)을 고른다
+    if tmux capture-pane -t "$S" -p | grep -q "Allow this read outside the working directories"; then
+      tmux send-keys -t "$S" Down; tmux send-keys -t "$S" Down; tmux send-keys -t "$S" Down; sleep 0.5; tmux send-keys -t "$S" Enter; continue
+    fi
+    # Claude는 작업 폴더 경로의 영숫자 아닌 글자를 '-'로 바꾼 폴더에 대화 기록을 남긴다
+    [ -n "$T" ] || T=$(ls -t "$PROJ"/*.jsonl 2>/dev/null | head -1)
     [ -n "$T" ] && [ "$(python3 -B "$HERE/claude_scan.py" "$p" "$asks" "$SRC" "$T" --wait-check)" = done ] && { sleep 4; break; }
   done
   tmux capture-pane -t "$S" -p -S -300 > "$D/screen.txt"
