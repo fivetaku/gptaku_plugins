@@ -88,7 +88,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/fivetaku/skillers-suda.git",
-        "ref": "v1.6.0"
+        "ref": "v1.6.1"
       },
       "policy": {
         "installation": "AVAILABLE",
