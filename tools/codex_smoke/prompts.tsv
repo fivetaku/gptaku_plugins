@@ -1,0 +1,23 @@
+# plugin	asks	expect	prompt   (asks=1: 첫 단계에서 선택지 질문이 나와야 함 / expect: gptaku-core 행에서 라우터가 지목해야 할 스킬)
+gptaku-core	0	insane-search:insane-search	레딧 인기글 가져와줘
+docs-guide	0	-	docs-guide 스킬로 FastAPI dependency injection을 공식문서 기준으로 세 줄만 설명해줘
+git-teacher	0	-	git-teacher 스킬로 지금 폴더의 git 상태를 확인해줘
+insane-research	0	-	insane-research 스킬로 2026년 로컬 LLM 추론 엔진 동향을 가볍게(light path) 세 줄로 조사해줘
+insane-search	0	-	insane-search 스킬로 https://news.ycombinator.com 첫 화면 제목 세 개만 가져와줘
+pumasi	0	-	품앗이(pumasi) 스킬이 무엇을 하는지와 지금 이 환경에서 쓸 수 있는 워커만 확인해줘. 실제 작업은 시키지 마.
+skillers-suda	1	-	스킬러들의 수다(skillers-suda)로 아이디어를 스킬로 만들어줘: 매일 아침 날씨를 한 줄로 요약해 주는 스킬
+nopal	0	-	nopal 설정 상태만 확인해줘(nopal-setup). 메일·일정 같은 실제 데이터는 조회하지 마.
+insane-review	1	-	insane-review 스킬로 이 폴더 코드 리뷰를 받으려 해. 실제로 ChatGPT에 보내기 전 단계(설정 확인·질문)까지만 해줘.
+golla-jev	1	-	골라제브(golla-jev)로 고객 문의 분류에 Jev를 붙이는 워크플로 설계를 시작해줘
+insane-loop	1	-	인세인 루프(insane-loop)로 할 일 메모 CLI 아이디어를 완성까지 돌리고 싶어. 시작 단계까지만 진행해줘.
+tikeytaka	0	-	tikeytaka 스킬이 무엇을 하는지와 사용법만 알려줘. 볼트를 열거나 키를 조회하지는 마.
+sangse	0	-	sangse 스킬로 상세페이지 컷 시트를 만들려고 해. 의존성 확인 단계까지만 하고 멈춰.
+dd	0	-	dd 스킬로 방금 복사한 클립보드 내용 보여줘
+ddiring	0	-	ddiring(띠링) 알림 설정 상태 보여줘
+show-me-the-prd	1	-	show-me-the-prd 스킬로 PRD 만들어줘. 아이디어: 독서모임 6명이 읽은 책과 한줄평 모으는 앱. Turn 1 탐침 답: 카톡에 흩어져 누가 뭘 읽었는지 안 보여. 웹 리서치 생략, Turn 2 카드까지만.
+insane-design	1	-	insane-design 스킬 실행해줘 (인자 없음)
+kkirikkiri	1	-	끼리끼리(kkirikkiri)로 팀 하나 꾸려줘
+goaljaby	1	-	goaljaby 스킬로 이 폴더의 ./PRD 골 셋업을 해줘. 검토 문서를 만들고 시작할지 물어봐. 웹 리서치는 하지 마.
+vibe-sunsang	0	-	바선생(vibe-sunsang) 성장 리포트 만들어줘
+playmaker	0	-	playmaker 스킬로 이 폴더의 골 보드를 브라우저로 띄울 주소를 알려줘. 브라우저 창은 열지 마.
+gaseo	0	-	gaseo 스킬로 이 세션을 Paseo에 등록하려고 해. 실제 등록 명령은 실행하지 말고 어떤 세션 ID를 쓰게 되는지만 확인해줘.

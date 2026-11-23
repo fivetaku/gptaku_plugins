@@ -17,6 +17,12 @@ gptaku 플러그인들이 공통으로 쓰는 기반 플러그인입니다. 다�
   `insane-search`로 같은 URL을 다시 열게 합니다. 주소가 없거나 연결이 거부된 경우는 넘기지
   않습니다. insane-search가 꺼져 있으면 아무것도 하지 않습니다.
 
+## Codex에서
+
+같은 플러그인을 Codex에 설치해도 동작합니다. Codex 설치본이면 같은 Codex 마켓(`gptaku-plugins`)에 깔린
+플러그인의 라우트를 모으고, 라우터는 "그 스킬의 SKILL.md를 먼저 열라"고 안내합니다(Codex에는 Skill 도구가 없음).
+Codex는 플러그인 훅을 처음에 사용자 승인("Hooks need review")을 받아야 실행합니다.
+
 ## 내 스킬도 자동으로 쓰게 하기 (사용자 라우트)
 
 gptaku 플러그인이 아닌 스킬 — `~/.claude/skills`의 개인 스킬, 다른 마켓 플러그인의 스킬 — 도 같은

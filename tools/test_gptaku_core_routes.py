@@ -226,6 +226,49 @@ class RoutesTest(unittest.TestCase):
                                  capture_output=True, text=True, env=_env(GPTAKU_ROUTER="off"))
             self.assertEqual((out.returncode, out.stdout.strip(), out.stderr.strip()), (0, "", ""), hook)
 
+    def _codex_layout(self, tmp, claude_style=False):
+        """<home>/plugins/cache/gptaku-plugins/<p>/<ver> 배치를 만든다. claude_style이면 Claude 캐시처럼 꾸민다."""
+        import shutil
+        home = os.path.join(tmp, "home")
+        base = os.path.join(home, "plugins", "cache", "gptaku-plugins")
+        core = os.path.join(base, "gptaku-core", "9.9.9")
+        shutil.copytree(CORE, core, ignore=shutil.ignore_patterns("__pycache__"))
+        for name in ("insane-search", "insane-research"):
+            d = os.path.join(base, name, "1.0.0")
+            os.makedirs(d)
+            shutil.copy(os.path.join(ROOT, "plugins", name, "routing.json"), d)
+        if claude_style:
+            open(os.path.join(home, "plugins", "installed_plugins.json"), "w").write('{"plugins":{}}')
+        else:
+            with open(os.path.join(home, "config.toml"), "w") as f:
+                f.write('[plugins."insane-research@gptaku-plugins"]\nenabled = false\n')
+        return core
+
+    def test_codex_install_routes_from_codex_siblings(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            core = self._codex_layout(tmp)
+            env = _env(GPTAKU_CORE_PLUGIN_DIRS="")
+            out = subprocess.run([sys.executable, "-B", os.path.join(core, "hooks", "router.py")],
+                                 input='{"prompt":"레딧 인기글 가져와줘"}', capture_output=True, text=True, env=env)
+            self.assertEqual(out.returncode, 0, out.stderr)
+            msg = json.loads(out.stdout)["hookSpecificOutput"]["additionalContext"]
+            self.assertIn("insane-search:insane-search", msg)
+            self.assertIn("SKILL.md를 먼저 열어", msg)
+            self.assertNotIn("Skill 도구", msg)
+            out = subprocess.run([sys.executable, "-B", os.path.join(core, "hooks", "session_rule.py")],
+                                 input="{}", capture_output=True, text=True, env=env)
+            rule = json.loads(out.stdout)["hookSpecificOutput"]["additionalContext"]
+            self.assertIn("insane-search:insane-search", rule)
+            self.assertNotIn("insane-research:", rule)  # config.toml에서 꺼진 플러그인은 빠진다
+
+    def test_claude_cache_is_not_mistaken_for_codex(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            core = self._codex_layout(tmp, claude_style=True)
+            out = subprocess.run([sys.executable, "-B", "-c", "import routes;print(routes.codex_install())"],
+                                 cwd=os.path.join(core, "hooks"), capture_output=True, text=True,
+                                 env=_env(GPTAKU_CORE_PLUGIN_DIRS=""))
+            self.assertEqual(out.stdout.strip(), "None", out.stderr)
+
     def test_hooks_emit_valid_json_when_on(self):
         for hook, stdin, key in (("router.py", '{"prompt":"레딧에서 글 찾아줘"}', "UserPromptSubmit"),
                                  ("session_rule.py", "{}", "SessionStart")):

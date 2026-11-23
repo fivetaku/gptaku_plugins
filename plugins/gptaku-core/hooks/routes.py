@@ -13,6 +13,46 @@ USER_ROUTES = os.environ.get("GPTAKU_USER_ROUTES") or os.path.join(CONFIG, "gpta
 PLUGIN_SKILL = re.compile(r"[^\s:/]+:[^\s:/]+")
 PERSONAL_SKILL = re.compile(r"[^\s:/]+")  # ~/.claude/skills의 개인 스킬은 콜론 없는 이름으로 부른다
 
+PLUGIN_ROOT_HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def codex_install():
+    """Codex 설치본이면 (codex_home, 마켓 이름)을, 아니면 None.
+    Codex 캐시는 <codex_home>/plugins/cache/<마켓>/<플러그인>/<버전>이고 codex_home에 config.toml이 있다.
+    Claude 캐시(~/.claude/plugins/cache/...)에는 config.toml이 없고 installed_plugins.json이 있다.
+    환경변수로는 가르지 않는다 — Codex도 CLAUDE_PLUGIN_ROOT를 넣어 준다."""
+    parts = PLUGIN_ROOT_HERE.split(os.sep)
+    for i in range(len(parts) - 4):
+        if parts[i] == "plugins" and parts[i + 1] == "cache":
+            home = os.sep.join(parts[:i]) or os.sep
+            if (os.path.isfile(os.path.join(home, "config.toml"))
+                    and not os.path.isfile(os.path.join(home, "plugins", "installed_plugins.json"))):
+                return home, parts[i + 2]
+    return None
+
+
+def codex_plugin_dirs():
+    """Codex에서 실행 중이면 같은 마켓에 설치된 플러그인 폴더(꺼진 것 제외, 버전은 최신 하나)를, 아니면 None."""
+    info = codex_install()
+    if not info:
+        return None
+    home, market = info
+    try:
+        config = open(os.path.join(home, "config.toml"), encoding="utf-8").read()
+    except Exception:
+        config = ""
+    disabled = set(re.findall(r'^\[plugins\."([^"]+)@' + re.escape(market) + r'"\]\s*\nenabled\s*=\s*false', config, re.M))
+    base = os.path.join(home, "plugins", "cache", market)
+    dirs = []
+    for name in sorted(os.listdir(base)) if os.path.isdir(base) else []:
+        if name in disabled:
+            continue
+        versions = [os.path.join(base, name, v) for v in os.listdir(os.path.join(base, name))]
+        versions = [v for v in versions if os.path.isdir(v)]
+        if versions:
+            dirs.append(max(versions, key=os.path.getmtime))
+    return dirs
+
 
 def _read_json(path):
     with open(path, encoding="utf-8") as f:
@@ -39,6 +79,9 @@ def _enabled_map():
 def plugin_dirs():
     # GPTAKU_CORE_PLUGIN_DIRS는 테스트·개발용 덮어쓰기다(활성 여부 검사를 거치지 않는다)
     dirs = [d for d in os.environ.get("GPTAKU_CORE_PLUGIN_DIRS", "").split(os.pathsep) if d]
+    codex = codex_plugin_dirs()
+    if codex is not None:  # Codex 설치본: Claude 설정 대신 같은 Codex 마켓에 깔린 형제 플러그인을 쓴다
+        return dirs + codex
     enabled = _enabled_map()
     if enabled is None:
         return dirs

@@ -1,0 +1,22 @@
+{
+  "name": "gptaku-plugins",
+  "interface": {
+    "displayName": "GPTaku plugins"
+  },
+  "plugins": [
+    {
+      "name": "gptaku-core",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/fivetaku/gptaku_plugins.git",
+        "path": "plugins/gptaku-core",
+        "ref": "gptaku-core--v0.3.0"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    }
+  ]
+}

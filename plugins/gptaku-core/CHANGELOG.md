@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.0] - 2026-11-23
+
+### Added
+- Codex 지원. Codex에 설치되면(`<codex_home>/plugins/cache/<마켓>/...`, `config.toml` 있음) Claude 설정 대신 같은 Codex 마켓에 깔린 gptaku 플러그인의 `routing.json`을 모으고, `config.toml`에서 꺼진 플러그인은 뺀다. Codex에는 Skill 도구가 없으므로 라우터 안내를 "이 스킬의 SKILL.md를 먼저 열어 그 절차를 따르세요"로 바꾼다. Claude Code 동작은 그대로다.
+- Codex 설치 배치 회귀 테스트 2건(형제 플러그인 라우팅·꺼진 플러그인 제외, Claude 캐시 오판 방지).
+
+### Note
+- Codex는 플러그인 훅을 사용자가 승인해야 실행한다("Hooks need review"). 승인 전에는 안내가 들어가지 않는다. Codex는 PostToolUseFailure 훅을 지원하지 않아 WebFetch 실패 폴백은 PostToolUse 쪽만 돈다.
+
 ## [0.2.5] - 2026-11-22
 
 ### Changed
