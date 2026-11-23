@@ -45,6 +45,15 @@ Claude Code 안에서 아래 명령을 실행하세요:
 
 **자동 업데이트 켜기:** 서드파티 마켓플레이스는 기본으로 자동 업데이트가 꺼져 있습니다 — `/plugin` → **Marketplaces** → `gptaku-plugins` → **Turn on auto-update**로 한 번만 켜 두세요. (수동: `/plugin marketplace update gptaku-plugins`)
 
+**Codex를 쓰시나요?** 같은 플러그인이 이 레포 그대로 설치됩니다. 터미널에서 아래를 실행한 뒤 Codex 세션을 새로 여세요:
+
+```bash
+codex plugin marketplace add https://github.com/fivetaku/gptaku_plugins.git
+codex plugin add insane-search@gptaku-plugins
+```
+
+나중에 업데이트는 `codex plugin marketplace upgrade gptaku-plugins`. Claude Code 전용 기능 몇 가지는 Codex에서 다르게 동작합니다 — 예를 들어 playmaker는 옆 패널 대신 웹 보드를 엽니다.
+
 **처음 방문하셨나요? `insane-search`부터 설치해 보세요.** 대부분의 플러그인은 추가 설정 없이 바로 작동하지만, 일부 플러그인은 외부 서비스 인증이 필요합니다 ([인증 및 설정 섹션 참고](#-인증-및-설정-보안--자격-증명)).
 
 ---

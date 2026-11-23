@@ -46,6 +46,15 @@ Run these inside Claude Code:
 
 **Get updates automatically:** third-party marketplaces don't auto-update by default — turn it on once in `/plugin` → **Marketplaces** → `gptaku-plugins` → **Turn on auto-update**. (Manual: `/plugin marketplace update gptaku-plugins`.)
 
+**Using Codex?** The same plugins install from this same repo. Run these in a terminal, then start a new Codex session:
+
+```bash
+codex plugin marketplace add https://github.com/fivetaku/gptaku_plugins.git
+codex plugin add insane-search@gptaku-plugins
+```
+
+Update later with `codex plugin marketplace upgrade gptaku-plugins`. A few Claude Code-only pieces work differently in Codex — for example playmaker opens a web board instead of a side panel.
+
 **New here? Install `insane-search` first.** Most plugins need only a running Claude Code session — a few connect an external service ([see Trust & setup](#-trust--setup)).
 
 ---
